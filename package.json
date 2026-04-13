@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "next lint",
-    "check": "pnpm lint && pnpm test"
+    "check": "pnpm lint && pnpm test",
+    "content:build": "contentlayer build || exit 0"
   },
   "dependencies": {
     "next": "16.2.3",
