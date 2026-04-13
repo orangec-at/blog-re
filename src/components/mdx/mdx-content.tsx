@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { getMDXComponent } from "next-contentlayer/hooks";
 import DemoPlaceholder from "@/components/demos/demo-placeholder";
+import { WorkspaceOnboardingDemo } from "@/components/demos/workspace-onboarding-demo";
 import { DeviceFrame } from "@/components/demos/device-frame";
 import { DemoFrame, DemoMeta, type DemoLayout, type DemoLink } from "@/components/layout/demo-frame";
 import { FullWidth } from "@/components/layout/full-width";
@@ -25,6 +26,7 @@ type DemoProps = {
 
 const createMdxComponents = (defaultDemoLayout: DemoLayout) => ({
   DemoPlaceholder,
+  WorkspaceOnboardingDemo,
   DeviceFrame,
   Demo: ({ layout = defaultDemoLayout, ...props }: DemoProps) => (
     <DemoFrame layout={layout} {...props} />

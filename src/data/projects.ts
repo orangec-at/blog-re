@@ -36,7 +36,7 @@ export const domainShowcases: DomainShowcase[] = [
     summary:
       "A showcase for automation walkthroughs, realtime routing experiments, and the founder-facing docs that keep product and launch copy synchronized.",
     highlights: ["Composable MDX demos", "Realtime routing visualizer", "Founder-ready handoff docs"],
-    featuredDemos: ["hello-world"],
+    featuredDemos: ["hello-world", "b2b-dynamic-onboarding"],
     links: [
       { label: "Browse posts", href: "/posts?domain=fixmyvibe" },
       { label: "GitHub repo", href: "https://github.com/orangec-at/fixmyvibe" },

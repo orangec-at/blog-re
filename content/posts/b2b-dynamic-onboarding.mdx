@@ -1,0 +1,32 @@
+---
+title: "B2B Dynamic Onboarding Workspace"
+date: "2026-04-14"
+summary: "A full-width onboarding form demo that shows conditional B2B product UX inside post content."
+domain: "fixmyvibe"
+layout: "full"
+demoComponent: "WorkspaceOnboardingDemo"
+---
+
+## A product-style form, not just a blog widget
+
+This post is meant to feel closer to a real SaaS onboarding surface than a marketing mockup. The form below adapts to the user's answers, changes the fields in play, and keeps a live implementation summary visible while the flow evolves.
+
+<DemoMeta
+  stack={["Next.js 16", "React Hook Form", "Zod", "Vitest"]}
+  links={[
+    { label: "Posts index", href: "/posts" },
+    { label: "FixMyVibe domain", href: "/domains/fixmyvibe" },
+  ]}
+/>
+
+<FullWidth className="py-10">
+  <WorkspaceOnboardingDemo />
+</FullWidth>
+
+## Why this scenario matters
+
+For B2B platforms, onboarding forms are rarely static. Team size, integrations, and compliance requirements all change what the product needs to ask. This demo keeps the editorial context narrow and readable, but lets the core product experience break into a full-width application surface inside the article.
+
+## Stack notes
+
+React Hook Form keeps the interaction responsive while Zod defines the rules for conditional requirements. The result is a portfolio post that can demonstrate real product UX patterns in a web environment, not only polished landing page components.
