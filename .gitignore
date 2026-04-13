@@ -2,6 +2,7 @@
 .worktrees/
 .omc/
 .claude/
+.contentlayer
 .serena/
 
 # dependencies

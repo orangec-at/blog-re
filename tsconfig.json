@@ -40,7 +40,10 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     "vitest.config.ts",
-    "src/data/__tests__/**/*.test.ts"
+    "vitest.setup.ts",
+    "src/data/__tests__/**/*.test.ts",
+    "src/components/home/__tests__/**/*.test.tsx",
+    "src/app/__tests__/**/*.test.tsx"
   ],
   "exclude": [
     "node_modules"
