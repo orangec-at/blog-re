@@ -41,9 +41,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </div>
         </FullWidth>
 
-        <Container variant="wide" className="space-y-8 py-12">
+        <Container variant="narrow" className="space-y-8 py-12">
           <article className="prose prose-neutral max-w-none prose-a:text-zapier-orange">
-            <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />
+            <div data-testid="post-full-body">
+              <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />
+            </div>
           </article>
         </Container>
       </>

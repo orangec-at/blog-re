@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v3";
@@ -188,18 +188,15 @@ export function WorkspaceOnboardingDemo() {
   const selectedFrameworks = values.complianceFrameworks ?? [];
   const selectedDepartments = values.departments ?? [];
 
-  const summary = useMemo(
-    () => ({
-      useCase: values.useCase ? titleCase(values.useCase) : "",
-      integrations:
-        selectedIntegrations.length > 0 ? selectedIntegrations.map(titleCase).join(", ") : "",
-      departments:
-        selectedDepartments.length > 0 ? selectedDepartments.map(titleCase).join(", ") : "",
-      frameworks:
-        selectedFrameworks.length > 0 ? selectedFrameworks.map(titleCase).join(", ") : "",
-    }),
-    [selectedDepartments, selectedFrameworks, selectedIntegrations, values.useCase],
-  );
+  const summary = {
+    useCase: values.useCase ? titleCase(values.useCase) : "",
+    integrations:
+      selectedIntegrations.length > 0 ? selectedIntegrations.map(titleCase).join(", ") : "",
+    departments:
+      selectedDepartments.length > 0 ? selectedDepartments.map(titleCase).join(", ") : "",
+    frameworks:
+      selectedFrameworks.length > 0 ? selectedFrameworks.map(titleCase).join(", ") : "",
+  };
 
   if (submitted) {
     return (

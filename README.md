@@ -6,7 +6,9 @@ React-based portfolio/blog that embeds live component demos per post. Built with
 - Next.js 16 (App Router)
 - React 19 + TypeScript 5
 - Tailwind CSS 4 design tokens
-- ESLint 9 / Prettier defaults
+- Contentlayer MDX + client-side demo components
+- React Hook Form + Zod for interactive product showcases
+- ESLint 9 + Vitest
 - pnpm 10 workflows
 
 ## Getting Started
@@ -18,8 +20,8 @@ pnpm dev          # http://localhost:3000
 ## Quality Gates
 ```bash
 pnpm lint         # Next.js ESLint rules
-pnpm test         # (Placeholder until tests added)
-pnpm check        # Lint + tests once scripts land
+pnpm test         # Vitest component / route coverage
+pnpm check        # Lint + tests
 ```
 
 ## Deployment
@@ -38,6 +40,7 @@ Vercel deploys run `pnpm install && pnpm build`.
 - [x] Task 6 – Landing page sections
 - [x] Task 7 – Posts & layouts (full vs narrow)
 - [x] Task 8 – Domain showcase routes
+- [x] Showcase extension – Full-width B2B dynamic onboarding demo post
 - [ ] Task 9 – Resources page & PDF hook
 - [ ] Task 10 – SEO, sitemap, analytics
 - [ ] Task 11 – Deploy to Vercel

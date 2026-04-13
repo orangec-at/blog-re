@@ -10,6 +10,10 @@
    - Finished Task 7 post-layout work: added narrow/full demo wrappers, domain filtering, device-framed MDX demos, and post-page layout selection from frontmatter.
    - Added `/domains` index plus `/domains/[domain]` showcase routes with static params, featured demo gallery, and associated repo cards.
    - Added tests covering posts filtering, post layout wiring, and domain showcase rendering.
+3. **Showcase extension (2026-04-14)**
+   - Added a full-width B2B dynamic onboarding post that embeds a React Hook Form + Zod workflow directly inside MDX content.
+   - Preserved narrow reading width around breakout demo sections so full-screen-ish product UI can live inside editorial posts.
+   - Added MDX renderer coverage plus updated posts/domain tests for the new showcase scenario.
 
 ## Pending
 1. **Task 9 – Resources Page & PDF Hook**

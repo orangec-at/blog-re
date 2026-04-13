@@ -13,6 +13,7 @@
 ## Progress Snapshot (2026-04-13)
 - ✅ Tasks 1-7 completed in worktree `blog-re-plan-exec` and merged into master
 - ✅ Task 8 completed in worktree `task-7-8-posts-domains`
+- ✅ Showcase extension added in the same worktree: full-width B2B dynamic onboarding post with React Hook Form + Zod demo
 - ⏳ Tasks 9-12 pending (resources/PDF, SEO, deploy ops, supporting repos)
 
 ### Task 1: Repository Initialization & Tooling

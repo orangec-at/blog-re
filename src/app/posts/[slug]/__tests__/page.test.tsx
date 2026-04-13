@@ -39,6 +39,7 @@ describe("PostPage", () => {
 
     expect(screen.getByText("Hello World")).toBeInTheDocument();
     expect(screen.getByTestId("post-full-layout")).toBeInTheDocument();
+    expect(screen.getByTestId("post-full-body")).toBeInTheDocument();
     expect(screen.getByTestId("mdx-renderer")).toHaveAttribute("data-layout", "full");
     expect(mockedNotFound).not.toHaveBeenCalled();
   });
