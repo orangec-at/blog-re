@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "next lint",
+    "check": "pnpm lint && pnpm test"
   },
   "dependencies": {
     "next": "16.2.3",
