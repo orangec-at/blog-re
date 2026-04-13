@@ -31,13 +31,13 @@ Vercel deploys run `pnpm install && pnpm build`.
 
 ## Roadmap / TODO
 - [x] Task 1 – Repository initialization & tooling
-- [ ] Task 2 – Repo hygiene & CI basics
-- [ ] Task 3 – Base layout & Tailwind tokens
-- [ ] Task 4 – Content dir + MDX loader
-- [ ] Task 5 – Homepage typed data modules
-- [ ] Task 6 – Landing page sections
-- [ ] Task 7 – Posts & layouts (full vs narrow)
-- [ ] Task 8 – Domain showcase routes
+- [x] Task 2 – Repo hygiene & CI basics
+- [x] Task 3 – Base layout & Tailwind tokens
+- [x] Task 4 – Content dir + MDX loader
+- [x] Task 5 – Homepage typed data modules
+- [x] Task 6 – Landing page sections
+- [x] Task 7 – Posts & layouts (full vs narrow)
+- [x] Task 8 – Domain showcase routes
 - [ ] Task 9 – Resources page & PDF hook
 - [ ] Task 10 – SEO, sitemap, analytics
 - [ ] Task 11 – Deploy to Vercel

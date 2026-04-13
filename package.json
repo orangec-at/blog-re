@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "vitest",
     "check": "pnpm lint && pnpm test",
-    "content:build": "contentlayer build || exit 0"
+    "content:build": "NODE_ENV=production contentlayer build",
+    "prebuild": "pnpm content:build"
   },
   "dependencies": {
     "date-fns": "^4.1.0",

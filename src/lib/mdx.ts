@@ -8,3 +8,11 @@ export function getAllPosts(): Post[] {
 export function getPostBySlug(slug: string): Post | undefined {
   return allPosts.find((post) => post.slug === slug);
 }
+
+export function getPostsByDomain(domain: string): Post[] {
+  return getAllPosts().filter((post) => post.domain === domain);
+}
+
+export function getPostDomains(): string[] {
+  return [...new Set(allPosts.map((post) => post.domain))].sort();
+}

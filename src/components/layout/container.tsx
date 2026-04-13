@@ -1,6 +1,8 @@
+export type ContainerVariant = "narrow" | "wide";
+
 type ContainerProps = {
   children: React.ReactNode;
-  variant?: "narrow" | "wide";
+  variant?: ContainerVariant;
   className?: string;
 };
 

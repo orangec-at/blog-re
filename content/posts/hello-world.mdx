@@ -7,10 +7,18 @@ layout: "full"
 demoComponent: "DemoPlaceholder"
 ---
 
-import DemoPlaceholder from "@/components/demos/demo-placeholder";
-
 ## Making automation feel human
 
 This is a sample MDX post. The warm Zapier palette ensures refactors look tactile.
 
-<DemoPlaceholder title="Sample Demo" description="Shows a live component" />
+<DemoMeta
+  stack={["Next.js 16", "Contentlayer", "Vitest"]}
+  links={[
+    { label: "blog-re repo", href: "https://github.com/orangec-at/blog-re" },
+    { label: "FixMyVibe domain", href: "/domains/fixmyvibe" },
+  ]}
+/>
+
+<Demo title="Sample Demo" description="Shows a live component framed like a product walkthrough.">
+  <DemoPlaceholder title="Sample Demo" description="Shows a live component" />
+</Demo>

@@ -18,9 +18,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-cream text-zapier-charcoal">
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-1 bg-cream py-12">
-            <div className="mx-auto max-w-content px-4 sm:px-6 lg:px-8">{children}</div>
-          </main>
+          <main className="flex-1 bg-cream py-12">{children}</main>
           <Footer />
         </div>
       </body>

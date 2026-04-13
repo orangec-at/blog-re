@@ -4,15 +4,16 @@
 
 **Goal:** Stand up the new `blog-re` repository as a React-based portfolio/blog that embeds live components per post, supports multiple layouts, and ships on Vercel with SEO-ready defaults.
 
-**Architecture:** Next.js 15 App Router, MDX posts pulled from `content/`, demo components colocated under `components/demos`, typed data modules for homepage/case studies, Vercel deploy pipeline. Multi-repo strategy: `blog-re` handles presentation, `fixmyvibe` etc. remain separate showcases.
+**Architecture:** Next.js 16 App Router, MDX posts pulled from `content/`, demo components colocated under `components/demos`, typed data modules for homepage/case studies/domains, Vercel deploy pipeline. Multi-repo strategy: `blog-re` handles presentation, `fixmyvibe` etc. remain separate showcases.
 
-**Tech Stack:** Next.js 15 (App Router), React 19, TypeScript 5, Tailwind CSS, MDX (Contentlayer or custom loader), ESLint, Prettier, Playwright, Vercel.
+**Tech Stack:** Next.js 16 (App Router), React 19, TypeScript 5, Tailwind CSS, MDX via Contentlayer, ESLint, Vitest, Vercel.
 
 ---
 
 ## Progress Snapshot (2026-04-13)
 - ✅ Tasks 1-7 completed in worktree `blog-re-plan-exec` and merged into master
-- ⏳ Tasks 8-12 pending (domain showcases, resources/PDF, SEO, deploy ops, supporting repos)
+- ✅ Task 8 completed in worktree `task-7-8-posts-domains`
+- ⏳ Tasks 9-12 pending (resources/PDF, SEO, deploy ops, supporting repos)
 
 ### Task 1: Repository Initialization & Tooling
 
