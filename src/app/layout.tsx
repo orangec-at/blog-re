@@ -4,7 +4,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
 export const metadata: Metadata = {
-  title: "blog-re",
+  title: "wakeymoment",
   description: "React-based portfolio/blog with live demos",
 };
 

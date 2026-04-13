@@ -14,7 +14,7 @@ export function Header() {
     <header className="bg-cream border-b border-zapier-sand">
       <Container className="flex h-20 items-center justify-between">
         <Link href="/" className="text-2xl font-semibold text-zapier-black">
-          blog<span className="text-zapier-orange">-re</span>
+          wakey<span className="text-zapier-orange">moment</span>
         </Link>
         <nav className="hidden gap-6 text-sm font-medium text-zapier-charcoal md:flex">
           {navItems.map((item) => (

@@ -1,4 +1,4 @@
-# blog-re
+# wakeymoment
 
 React-based portfolio/blog that embeds live component demos per post. Built with Next.js App Router so posts, domain showcases, and resources can share layouts and data modules while deploying to Vercel with SEO defaults.
 
