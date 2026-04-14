@@ -157,6 +157,6 @@ export const contactCta: ContactCTA = {
   body: "I work directly with founders shipping in English and Korean so demos, IaC, and docs stay synchronized.",
   primaryLabel: "Book a refactor",
   primaryHref: "/contact",
-  secondaryLabel: "See case studies",
-  secondaryHref: "/posts",
+  secondaryLabel: "Browse resources",
+  secondaryHref: "/resources",
 };
