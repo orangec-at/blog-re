@@ -1,4 +1,4 @@
-# blog-re Plan Status (2026-04-13)
+# blog-re Plan Status (updated 2026-04-14)
 
 ## Completed
 1. **Task 1-7 (worktree `blog-re-plan-exec`)**
@@ -14,18 +14,21 @@
    - Added a full-width B2B dynamic onboarding post that embeds a React Hook Form + Zod workflow directly inside MDX content.
    - Preserved narrow reading width around breakout demo sections so full-screen-ish product UI can live inside editorial posts.
    - Added MDX renderer coverage plus updated posts/domain tests for the new showcase scenario.
+4. **Task 9 (worktree `credibility-first-launch`)**
+   - Added the `/resources` page so visitors can review capabilities, founder-friendly help, and a portfolio download path.
+   - Checked in the `public/portfolio.pdf` asset plus `docs/portfolio.pdf.md` source notes so the PDF hook is live in the repo.
+   - Kept SEO/sitemap/analytics work out of this pass; deployment is the next launch step.
 
 ## Pending
-1. **Task 9 – Resources Page & PDF Hook**
-   - `/resources`, Tech Stack table, portfolio.pdf scaffold.
+1. **Task 11 – Deploy to Vercel**
+   - Push to GitHub, connect to Vercel, verify preview.
 2. **Task 10 – SEO, Sitemap, Analytics**
    - `next-sitemap`, metadata API, OG image, Vercel analytics.
-3. **Task 11 – Deploy to Vercel**
-   - Push to GitHub, connect to Vercel, verify preview.
-4. **Task 12 – Supporting Repos & Profile**
+3. **Task 12 – Supporting Repos & Profile**
    - Set up `fixmyvibe`, `drawhatha-retro`, profile updates.
 
 ## Next Steps
-- Continue from Task 9 in a fresh worktree or master branch.
+- Deploy the current launch candidate to Vercel and verify the preview build.
+- After deployment, take the follow-up SEO/sitemap/analytics pass without overstating what is already wired.
 - After each task, update this status file and implementation plan.
-- When Tasks 9-12 complete, archive this plan and start execution for remaining repos.
+- When the remaining launch tasks complete, archive this plan and start execution for the supporting repos.

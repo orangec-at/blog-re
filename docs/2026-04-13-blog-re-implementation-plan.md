@@ -10,11 +10,14 @@
 
 ---
 
-## Progress Snapshot (2026-04-13)
+## Progress Snapshot (updated 2026-04-14)
 - ✅ Tasks 1-7 completed in worktree `blog-re-plan-exec` and merged into master
 - ✅ Task 8 completed in worktree `task-7-8-posts-domains`
 - ✅ Showcase extension added in the same worktree: full-width B2B dynamic onboarding post with React Hook Form + Zod demo
-- ⏳ Tasks 9-12 pending (resources/PDF, SEO, deploy ops, supporting repos)
+- ✅ Task 9 completed in worktree `credibility-first-launch`: `/resources` exists and the `portfolio.pdf` download hook is in place
+- ⏳ Task 11 is next: deploy the current launch candidate to Vercel
+- ⏳ Task 10 remains pending after deploy: SEO, sitemap, and analytics follow-up
+- ⏳ Task 12 remains pending: supporting repos and profile updates
 
 ### Task 1: Repository Initialization & Tooling
 

@@ -31,6 +31,8 @@ pnpm start        # serve .next output locally
 ```
 Vercel deploys run `pnpm install && pnpm build`.
 
+Current launch status: the `/resources` page and `portfolio.pdf` download are in place. Deployment to Vercel is the next step, while SEO/sitemap/analytics work remains pending.
+
 ## Roadmap / TODO
 - [x] Task 1 – Repository initialization & tooling
 - [x] Task 2 – Repo hygiene & CI basics
@@ -41,7 +43,7 @@ Vercel deploys run `pnpm install && pnpm build`.
 - [x] Task 7 – Posts & layouts (full vs narrow)
 - [x] Task 8 – Domain showcase routes
 - [x] Showcase extension – Full-width B2B dynamic onboarding demo post
-- [ ] Task 9 – Resources page & PDF hook
-- [ ] Task 10 – SEO, sitemap, analytics
-- [ ] Task 11 – Deploy to Vercel
+- [x] Task 9 – Resources page & PDF hook
+- [ ] Task 11 – Deploy to Vercel (next)
+- [ ] Task 10 – SEO, sitemap, analytics (after deploy)
 - [ ] Task 12 – Supporting repos + profile update
