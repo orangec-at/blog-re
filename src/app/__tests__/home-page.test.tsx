@@ -4,17 +4,16 @@ import { describe, expect, it } from "vitest";
 import Home from "@/app/page";
 
 describe("Home Page", () => {
-  it("renders all homepage sections", () => {
+  it("routes founders into the AI MVP rescue conversion flow", () => {
     render(<Home />);
 
-    expect(screen.getByTestId("home-page"));
-    expect(screen.getByTestId("hero-section"));
-    expect(screen.getByTestId("before-after-board"));
-    expect(screen.getByTestId("decision-principles"));
-    expect(screen.getByTestId("case-study-grid"));
-    expect(screen.getByTestId("refactoring-log"));
-    expect(screen.getByTestId("iac-highlight"));
-    expect(screen.getByTestId("drawhatha-highlight"));
-    expect(screen.getByTestId("contact-cta"));
+    expect(screen.getByRole("heading", { level: 1, name: /ai(?:-built)? mvp rescue/i })).toBeVisible();
+    expect(screen.getByRole("link", { name: /services|fmv diagnosis/i })).toBeVisible();
+
+    expect(
+      screen.getByText(/prototype.*real product|technical debt|unstable architecture|launch readiness/i),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: /proof|results?/i })).toBeVisible();
+    expect(screen.getByText(/fmv diagnosis|architecture fix|virtual cto/i)).toBeVisible();
   });
 });
