@@ -11,13 +11,14 @@ describe("ContactPage", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /contact|diagnosis|ai-built mvp/i,
+        name: /^start your ai mvp rescue diagnosis$/i,
       }),
     ).toBeVisible();
 
-    expect(screen.getByText(/when to contact us/i)).toBeVisible();
-    expect(screen.getByLabelText(/email|work email/i)).toBeVisible();
-    expect(screen.getByRole("button", { name: /send|submit|start/i })).toBeVisible();
-    expect(screen.getByText(/start with diagnosis|if you're not sure, start with diagnosis/i)).toBeVisible();
+    expect(screen.getByText(/^when to contact us$/i)).toBeVisible();
+    expect(document.querySelector("form")).toBeInTheDocument();
+    expect(screen.getByLabelText(/^work email$/i)).toBeVisible();
+    expect(screen.getByRole("button", { name: /^start with diagnosis$/i })).toBeVisible();
+    expect(screen.getByText(/^if you're not sure, start with diagnosis\.$/i)).toBeVisible();
   });
 });

@@ -11,21 +11,23 @@ describe("ServicesPage", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /services|mvp rescue|diagnosis/i,
+        name: /^ai mvp rescue services$/i,
       }),
     ).toBeVisible();
 
-    expect(screen.getByText(/start with diagnosis|choose the right service|not sure which service/i)).toBeVisible();
-    expect(screen.getByRole("heading", { name: /fmv diagnosis/i })).toBeVisible();
-    expect(screen.getByRole("heading", { name: /architecture fix/i })).toBeVisible();
-    expect(screen.getByRole("heading", { name: /virtual cto/i })).toBeVisible();
+    expect(
+      screen.getByText(/start with fmv diagnosis if you're not sure which rescue path you need/i),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: /^fmv diagnosis$/i })).toBeVisible();
+    expect(screen.getByRole("heading", { name: /^architecture fix$/i })).toBeVisible();
+    expect(screen.getByRole("heading", { name: /^virtual cto$/i })).toBeVisible();
 
     const contactOrDiagnosisCta =
       screen.queryByRole("link", {
-        name: /contact|diagnosis|book/i,
+        name: /^book a diagnosis call$/i,
       }) ??
       screen.queryByRole("button", {
-        name: /contact|diagnosis|book/i,
+        name: /^book a diagnosis call$/i,
       });
 
     expect(contactOrDiagnosisCta).toBeVisible();

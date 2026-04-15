@@ -10,21 +10,26 @@ describe("Home Page", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /we turn ai-built mvps into launch-ready products/i,
+        name: /^your ai-coded mvp is failing\? we fix the vibe\.?$/i,
       }),
     ).toBeVisible();
 
-    const nextStepCta =
+    expect(
+      screen.getByText(
+        /^we turn ai-built mvps into launch-ready products\.?$/i,
+      ),
+    ).toBeVisible();
+
+    const diagnosisCta =
       screen.queryByRole("link", {
-        name: /services|fmv diagnosis|start with diagnosis/i,
+        name: /^start with fmv diagnosis$/i,
       }) ??
       screen.queryByRole("button", {
-        name: /services|fmv diagnosis|start with diagnosis/i,
+        name: /^start with fmv diagnosis$/i,
       });
 
-    expect(nextStepCta).toBeVisible();
-    expect(screen.getByText(/technical debt|failing|blocked by/i)).toBeVisible();
-    expect(screen.getByText(/proof|result/i)).toBeVisible();
-    expect(screen.getByText(/fmv diagnosis|architecture fix|virtual cto/i)).toBeVisible();
+    expect(diagnosisCta).toBeVisible();
+    expect(screen.getByRole("heading", { name: /^fixmyvibe$/i })).toBeVisible();
+    expect(screen.getByText(/^fmv diagnosis$/i)).toBeVisible();
   });
 });
