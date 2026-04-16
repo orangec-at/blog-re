@@ -20,15 +20,17 @@ describe("Home Page", () => {
       ),
     ).toBeVisible();
 
-    const diagnosisCta =
-      screen.queryByRole("link", {
+    const diagnosisCtas = [
+      ...screen.queryAllByRole("link", {
         name: /^start with fmv diagnosis$/i,
-      }) ??
-      screen.queryByRole("button", {
+      }),
+      ...screen.queryAllByRole("button", {
         name: /^start with fmv diagnosis$/i,
-      });
+      }),
+    ];
 
-    expect(diagnosisCta).toBeVisible();
+    expect(diagnosisCtas.length).toBeGreaterThan(0);
+    expect(diagnosisCtas[0]).toBeVisible();
     expect(screen.getByRole("heading", { name: /^fixmyvibe$/i })).toBeVisible();
     expect(screen.getByText(/^fmv diagnosis$/i)).toBeVisible();
   });
