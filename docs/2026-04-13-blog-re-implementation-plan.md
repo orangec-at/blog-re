@@ -8,15 +8,20 @@
 
 **Tech Stack:** Next.js 16 (App Router), React 19, TypeScript 5, Tailwind CSS, MDX via Contentlayer, ESLint, Vitest, Vercel.
 
+> **Redesign note (2026-04-16):** The original rollout plan below remains useful as historical context, but the current product slice has since been repositioned around an AI MVP rescue story with new Home / Services / Contact / About conversion pages and a shared atomic-design foundation. Existing posts, domains, resources, and the portfolio PDF were kept as supporting proof assets rather than being rebuilt into a CMS/admin system.
+
 ---
 
-## Progress Snapshot (updated 2026-04-14)
+## Progress Snapshot (updated 2026-04-16)
 - ✅ Tasks 1-7 completed in worktree `blog-re-plan-exec` and merged into master
 - ✅ Task 8 completed in worktree `task-7-8-posts-domains`
 - ✅ Showcase extension added in the same worktree: full-width B2B dynamic onboarding post with React Hook Form + Zod demo
 - ✅ Task 9 completed in worktree `credibility-first-launch`: `/resources` exists and the `portfolio.pdf` download hook is in place
-- ⏳ Task 11 is next: deploy the current launch candidate to Vercel
-- ⏳ Task 10 remains pending after deploy: SEO, sitemap, and analytics follow-up
+- ✅ AI MVP rescue redesign slice completed in worktree `ai-mvp-rescue-redesign-plan`: the site messaging now targets rescue work, Home/Services/Contact/About form the main conversion path, and the shared `src/components/ui/` foundation is in place
+- ⏳ Deploy the latest redesign candidate to Vercel
+- ⏳ Original Task 10 remains pending: SEO, sitemap, and analytics follow-up are still not wired in this repo
+- ⏳ Portfolio follow-up remains progressive / partial: `/resources` and `portfolio.pdf` exist, but the broader portfolio curation/retitling pass is still outstanding
+- ⏳ CMS/admin workflow remains out of scope / not started
 - ⏳ Task 12 remains pending: supporting repos and profile updates
 
 ### Task 1: Repository Initialization & Tooling

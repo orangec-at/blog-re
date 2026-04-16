@@ -1,4 +1,4 @@
-# blog-re Plan Status (updated 2026-04-14)
+# blog-re Plan Status (updated 2026-04-16)
 
 ## Completed
 1. **Task 1-7 (worktree `blog-re-plan-exec`)**
@@ -18,17 +18,26 @@
    - Added the `/resources` page so visitors can review capabilities, founder-friendly help, and a portfolio download path.
    - Checked in the `public/portfolio.pdf` asset plus `docs/portfolio.pdf.md` source notes so the PDF hook is live in the repo.
    - Kept SEO/sitemap/analytics work out of this pass; deployment is the next launch step.
+5. **AI MVP rescue redesign slice (worktree `ai-mvp-rescue-redesign-plan`)**
+   - Repositioned the site around an AI MVP rescue story instead of a generic portfolio/blog framing.
+   - Added a stronger conversion path with redesigned Home plus dedicated `/services`, `/contact`, and `/about` pages.
+   - Introduced a shared atomic-design foundation under `src/components/ui/`, then rebuilt the new conversion pages on top of those primitives and page-specific sections.
+   - Kept posts, domain showcases, `/resources`, and `portfolio.pdf` in place as supporting or progressive proof instead of treating this slice as a full portfolio rebuild.
+   - Did **not** add SEO/sitemap/analytics, CMS/admin tooling, or a deeper portfolio overhaul in this redesign pass.
 
 ## Pending
-1. **Task 11 – Deploy to Vercel**
-   - Push to GitHub, connect to Vercel, verify preview.
-2. **Task 10 – SEO, Sitemap, Analytics**
-   - `next-sitemap`, metadata API, OG image, Vercel analytics.
-3. **Task 12 – Supporting Repos & Profile**
-   - Set up `fixmyvibe`, `drawhatha-retro`, profile updates.
+1. **Deploy the latest redesign candidate to Vercel**
+   - Push the updated branch, connect or refresh the Vercel project, and verify the preview/production build.
+2. **Original Task 10 – SEO, Sitemap, Analytics**
+   - Metadata refinement, sitemap/robots, OG coverage, and analytics are still pending.
+3. **Portfolio follow-up**
+   - Continue curation/retitling beyond the current first-pass `/resources` + `portfolio.pdf` proof assets.
+4. **Supporting Repos & Profile**
+   - Set up `fixmyvibe`, `drawhatha-retro`, and profile updates.
 
 ## Next Steps
-- Deploy the current launch candidate to Vercel and verify the preview build.
-- After deployment, take the follow-up SEO/sitemap/analytics pass without overstating what is already wired.
-- After each task, update this status file and implementation plan.
-- When the remaining launch tasks complete, archive this plan and start execution for the supporting repos.
+- Deploy the current redesign candidate to Vercel and verify the production-ready branch from this updated conversion flow.
+- Take the later SEO/sitemap/analytics pass only after deployment needs are clear, without claiming metadata work that is not yet wired.
+- Continue the portfolio progressively; the current resources page and PDF are intentional first-pass proof, not a finished portfolio system.
+- Keep CMS/admin work explicitly out of scope until the sales and launch path require it.
+- After each follow-up task, update this status file and the implementation plan.

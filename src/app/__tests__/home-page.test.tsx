@@ -4,16 +4,34 @@ import { describe, expect, it } from "vitest";
 import Home from "@/app/page";
 
 describe("Home Page", () => {
-  it("routes founders into the AI MVP rescue conversion flow", () => {
+  it("repositions the home route around AI MVP rescue and next-step conversion", () => {
     render(<Home />);
 
-    expect(screen.getByRole("heading", { level: 1, name: /ai(?:-built)? mvp rescue/i })).toBeVisible();
-    expect(screen.getByRole("link", { name: /services|fmv diagnosis/i })).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: /^your ai-coded mvp is failing\? we fix the vibe\.?$/i,
+      }),
+    ).toBeVisible();
 
     expect(
-      screen.getByText(/prototype.*real product|technical debt|unstable architecture|launch readiness/i),
+      screen.getByText(
+        /^we turn ai-built mvps into launch-ready products\.?$/i,
+      ),
     ).toBeVisible();
-    expect(screen.getByRole("heading", { name: /proof|results?/i })).toBeVisible();
-    expect(screen.getByText(/fmv diagnosis|architecture fix|virtual cto/i)).toBeVisible();
+
+    const diagnosisCtas = [
+      ...screen.queryAllByRole("link", {
+        name: /^start with fmv diagnosis$/i,
+      }),
+      ...screen.queryAllByRole("button", {
+        name: /^start with fmv diagnosis$/i,
+      }),
+    ];
+
+    expect(diagnosisCtas.length).toBeGreaterThan(0);
+    expect(diagnosisCtas[0]).toBeVisible();
+    expect(screen.getByRole("heading", { name: /^fixmyvibe$/i })).toBeVisible();
+    expect(screen.getByText(/^fmv diagnosis$/i)).toBeVisible();
   });
 });

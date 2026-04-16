@@ -24,9 +24,9 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
     <Container variant="wide" className="space-y-8 py-12">
       <header className="space-y-4 text-center">
         <p className="text-sm uppercase tracking-wide text-zapier-gray">Posts</p>
-        <h1 className="text-4xl font-semibold text-zapier-black">Refactoring field notes</h1>
-        <p className="text-zapier-charcoal">
-          Case studies, demo write-ups, and automation stories that keep founders awake.
+        <h1 className="text-4xl font-semibold text-zapier-black">Technical insight for founder-led launches</h1>
+        <p className="mx-auto max-w-3xl text-zapier-charcoal">
+          The thinking behind AI MVP rescues, architecture rewrites, and proof-building delivery.
         </p>
         <div data-testid="posts-filter" className="flex flex-wrap justify-center gap-2">
           <Link

@@ -1,4 +1,9 @@
 import { DeviceFrame } from "@/components/demos/device-frame";
+import { PillTag } from "@/components/ui/feedback/pill-tag";
+import { BorderedSurface } from "@/components/ui/surfaces/bordered-surface";
+import { BodyText } from "@/components/ui/typography/body-text";
+import { Eyebrow } from "@/components/ui/typography/eyebrow";
+import { SectionHeading } from "@/components/ui/typography/section-heading";
 import { FullWidth } from "./full-width";
 
 export type DemoLayout = "full" | "narrow";
@@ -34,21 +39,19 @@ export function DemoMeta({ stack = [], links = [], className = "" }: DemoMetaPro
   }
 
   return (
-    <div
+    <BorderedSurface
       data-testid="demo-meta"
-      className={`flex flex-col gap-4 rounded-2xl border border-zapier-sand bg-offwhite/90 p-4 ${className}`.trim()}
+      className={`flex flex-col gap-4 rounded-2xl bg-offwhite/90 p-4 ${className}`.trim()}
+      tone="offwhite"
     >
       {stack.length > 0 ? (
         <div className="space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zapier-gray">Stack</p>
+          <Eyebrow className="text-xs">Stack</Eyebrow>
           <div className="flex flex-wrap gap-2">
             {stack.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-zapier-sand px-3 py-1 text-xs font-medium text-zapier-charcoal"
-              >
+              <PillTag key={item} className="px-3 py-1 text-xs">
                 {item}
-              </span>
+              </PillTag>
             ))}
           </div>
         </div>
@@ -56,7 +59,7 @@ export function DemoMeta({ stack = [], links = [], className = "" }: DemoMetaPro
 
       {links.length > 0 ? (
         <div className="space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zapier-gray">Links</p>
+          <Eyebrow className="text-xs">Links</Eyebrow>
           <div className="flex flex-wrap gap-3">
             {links.map((link) => (
               <a
@@ -70,7 +73,7 @@ export function DemoMeta({ stack = [], links = [], className = "" }: DemoMetaPro
           </div>
         </div>
       ) : null}
-    </div>
+    </BorderedSurface>
   );
 }
 
@@ -86,9 +89,9 @@ export function DemoFrame({
     <FullWidth variant={layoutVariants[layout]} className="py-8" contentClassName="space-y-4">
       <div data-testid="demo-frame" className="space-y-4">
         <div className="space-y-2">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zapier-gray">Live demo</p>
-          <h2 className="text-2xl font-semibold text-zapier-black sm:text-3xl">{title}</h2>
-          {description ? <p className="text-base text-zapier-charcoal">{description}</p> : null}
+          <Eyebrow>Live demo</Eyebrow>
+          <SectionHeading className="text-2xl sm:text-3xl sm:leading-tight">{title}</SectionHeading>
+          {description ? <BodyText className="text-base sm:text-base">{description}</BodyText> : null}
         </div>
 
         <DeviceFrame>{children}</DeviceFrame>
