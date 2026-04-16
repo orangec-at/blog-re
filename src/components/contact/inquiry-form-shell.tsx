@@ -27,7 +27,7 @@ export function InquiryFormShell({ cta }: InquiryFormShellProps) {
             </BodyText>
           </div>
 
-          <form className="space-y-5" noValidate onSubmit={(event) => event.preventDefault()}>
+          <form className="space-y-5" noValidate>
             <FormField htmlFor="work-email" label="Work email">
               <input autoComplete="email" className={inputClasses} id="work-email" name="workEmail" type="email" />
             </FormField>
@@ -36,7 +36,7 @@ export function InquiryFormShell({ cta }: InquiryFormShellProps) {
               <textarea className={`${inputClasses} min-h-32 resize-y`} id="launch-blocker" name="launchBlocker" />
             </FormField>
 
-            <PrimaryButton type="submit">{cta.label}</PrimaryButton>
+            <PrimaryButton type="button">{cta.label}</PrimaryButton>
           </form>
         </BorderedSurface>
       </Container>

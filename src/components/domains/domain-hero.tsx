@@ -1,5 +1,9 @@
 import type { DomainShowcase } from "@/data/projects";
 import { Container } from "@/components/layout/container";
+import { PillTag } from "@/components/ui/feedback/pill-tag";
+import { BodyText } from "@/components/ui/typography/body-text";
+import { DisplayHeading } from "@/components/ui/typography/display-heading";
+import { Eyebrow } from "@/components/ui/typography/eyebrow";
 
 type DomainHeroProps = {
   domain: DomainShowcase;
@@ -10,22 +14,17 @@ export function DomainHero({ domain }: DomainHeroProps) {
     <section data-testid="domain-hero" className="bg-cream py-16">
       <Container variant="wide" className="space-y-6">
         <div className="space-y-3">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zapier-gray">
-            {domain.eyebrow}
-          </p>
-          <h1 className="text-4xl font-semibold text-zapier-black sm:text-5xl">{domain.name}</h1>
-          <p className="max-w-3xl text-lg text-zapier-charcoal">{domain.headline}</p>
-          <p className="max-w-3xl text-base text-zapier-charcoal">{domain.summary}</p>
+          <Eyebrow>{domain.eyebrow}</Eyebrow>
+          <DisplayHeading>{domain.name}</DisplayHeading>
+          <BodyText className="max-w-3xl text-lg sm:text-xl">{domain.headline}</BodyText>
+          <BodyText className="max-w-3xl text-base sm:text-base">{domain.summary}</BodyText>
         </div>
 
         <div className="flex flex-wrap gap-2">
           {domain.highlights.map((highlight) => (
-            <span
-              key={highlight}
-              className="rounded-full border border-zapier-sand px-3 py-1 text-sm font-medium text-zapier-charcoal"
-            >
+            <PillTag key={highlight} className="px-3 py-1">
               {highlight}
-            </span>
+            </PillTag>
           ))}
         </div>
 
