@@ -31,9 +31,13 @@ vi.mock("@/lib/mdx", () => ({
 }));
 
 describe("PostsPage", () => {
-  it("renders domain filters and all posts by default", async () => {
+  it("renders founder-facing positioning alongside domain filters and all posts", async () => {
     render(await PostsPage({ searchParams: Promise.resolve({}) }));
 
+    expect(screen.getByRole("heading", { level: 1, name: /^technical insight for founder-led launches$/i })).toBeInTheDocument();
+    expect(
+      screen.getByText(/the thinking behind ai mvp rescues, architecture rewrites, and proof-building delivery/i),
+    ).toBeInTheDocument();
     expect(screen.getByTestId("posts-filter")).toBeInTheDocument();
     expect(screen.getByText("Fix demo")).toBeInTheDocument();
     expect(screen.getByText("Infra log")).toBeInTheDocument();
