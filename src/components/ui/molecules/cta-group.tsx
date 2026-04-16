@@ -22,10 +22,23 @@ function joinClasses(...classes: Array<string | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
+function getSafeRel(action: CTAAction) {
+  if (action.target !== "_blank") {
+    return action.rel;
+  }
+
+  const relTokens = new Set(action.rel?.split(/\s+/).filter(Boolean));
+
+  relTokens.add("noopener");
+  relTokens.add("noreferrer");
+
+  return Array.from(relTokens).join(" ");
+}
+
 function sharedLinkProps(action: CTAAction) {
   return {
     href: action.href,
-    rel: action.rel,
+    rel: getSafeRel(action),
     target: action.target,
   };
 }
@@ -38,7 +51,7 @@ export function CTAGroup({
 }: CTAGroupProps) {
   return (
     <div className={joinClasses("flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center", className)}>
-      <PrimaryButton href={primaryAction.href} rel={primaryAction.rel} target={primaryAction.target}>
+      <PrimaryButton {...sharedLinkProps(primaryAction)}>
         {primaryAction.label}
       </PrimaryButton>
       {secondaryAction ? (

@@ -35,13 +35,18 @@ describe("UI molecules", () => {
   it("renders CTA groups with primary and secondary actions together", () => {
     render(
       <CTAGroup
-        primaryAction={{ href: "/contact", label: "Book a rescue call" }}
-        secondaryAction={{ href: "/services", label: "Review rescue services" }}
+        primaryAction={{ href: "/contact", label: "Book a rescue call", target: "_blank" }}
+        secondaryAction={{ href: "/services", label: "Review rescue services", rel: "author", target: "_blank" }}
       />,
     );
 
     expect(screen.getByRole("link", { name: "Book a rescue call" })).toHaveAttribute("href", "/contact");
+    expect(screen.getByRole("link", { name: "Book a rescue call" })).toHaveAttribute("rel", "noopener noreferrer");
     expect(screen.getByRole("link", { name: "Review rescue services" })).toHaveAttribute("href", "/services");
+    expect(screen.getByRole("link", { name: "Review rescue services" })).toHaveAttribute(
+      "rel",
+      "author noopener noreferrer",
+    );
   });
 
   it("renders metric cards with a value and label", () => {
@@ -77,6 +82,9 @@ describe("UI molecules", () => {
     );
 
     expect(screen.getByLabelText("Work email")).toHaveAttribute("id", "email");
+    expect(screen.getByLabelText("Work email")).toHaveAttribute("aria-describedby", "email-error");
+    expect(screen.getByLabelText("Work email")).toHaveAttribute("aria-invalid", "true");
+    expect(screen.getByText("Use a work email so we can review the stack context.")).toHaveAttribute("id", "email-error");
     expect(screen.getByText("Use a work email so we can review the stack context.")).toHaveAttribute("role", "alert");
   });
 });
