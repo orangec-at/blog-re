@@ -1,15 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { PrimaryButton } from "@/components/ui/actions/primary-button";
-import { SecondaryButton } from "@/components/ui/actions/secondary-button";
-import { TextLink } from "@/components/ui/actions/text-link";
+import { PrimaryButton, SecondaryButton, TextLink } from "@/components/ui/button";
+import { Chip, ChipGroup, InteractiveChip } from "@/components/ui/chip";
 import { PillTag } from "@/components/ui/feedback/pill-tag";
 import { BorderedSurface } from "@/components/ui/surfaces/bordered-surface";
-import { BodyText } from "@/components/ui/typography/body-text";
-import { DisplayHeading } from "@/components/ui/typography/display-heading";
-import { Eyebrow } from "@/components/ui/typography/eyebrow";
-import { SectionHeading } from "@/components/ui/typography/section-heading";
+import { BodyText, DisplayHeading, Eyebrow, SectionHeading } from "@/components/ui/typography";
 
 describe("UI foundation primitives", () => {
   it("renders typography primitives with semantic intent and warm-brand styling", () => {
@@ -40,8 +36,8 @@ describe("UI foundation primitives", () => {
   it("renders CTA primitives as accessible links and buttons with clear emphasis", () => {
     render(
       <div>
-        <PrimaryButton href="/contact">Book a rescue call</PrimaryButton>
-        <SecondaryButton>Review the rescue plan</SecondaryButton>
+        <PrimaryButton href="/contact" size="md">Book a rescue call</PrimaryButton>
+        <SecondaryButton size="lg">Review the rescue plan</SecondaryButton>
         <TextLink href="/services">Explore services</TextLink>
       </div>,
     );
@@ -53,10 +49,40 @@ describe("UI foundation primitives", () => {
     const secondaryButton = screen.getByRole("button", { name: "Review the rescue plan" });
     expect(secondaryButton).toHaveAttribute("type", "button");
     expect(secondaryButton).toHaveClass("bg-zapier-black", "border-zapier-black", "text-cream");
+    expect(secondaryButton).toHaveClass("px-6", "py-5");
 
     const textLink = screen.getByRole("link", { name: "Explore services" });
     expect(textLink).toHaveAttribute("href", "/services");
     expect(textLink).toHaveClass("text-zapier-black");
+  });
+
+  it("renders informational and interactive chip atoms", () => {
+    render(
+      <div>
+        <Chip tone="accent">AI MVP Rescue</Chip>
+        <ChipGroup aria-label="Filter chips">
+          <InteractiveChip href="/services" selected>
+            Services
+          </InteractiveChip>
+          <InteractiveChip href="/posts">Proof</InteractiveChip>
+        </ChipGroup>
+      </div>,
+    );
+
+    const staticChip = screen.getByText("AI MVP Rescue");
+    expect(staticChip.tagName).toBe("SPAN");
+    expect(staticChip).toHaveClass("rounded-pill");
+
+    const chipGroup = screen.getByLabelText("Filter chips");
+    expect(chipGroup).toBeInTheDocument();
+
+    const selectedChip = screen.getByRole("link", { name: "Services" });
+    expect(selectedChip).toHaveAttribute("href", "/services");
+    expect(selectedChip).toHaveAttribute("aria-current", "page");
+
+    const defaultChip = screen.getByRole("link", { name: "Proof" });
+    expect(defaultChip).toHaveAttribute("href", "/posts");
+    expect(defaultChip).not.toHaveAttribute("aria-current");
   });
 
   it("renders bordered surfaces and pill tags with predictable content containment", () => {

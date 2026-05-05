@@ -15,9 +15,9 @@ export function PainPointGrid({ items }: PainPointGridProps) {
       <Container variant="wide" className="space-y-8">
         <div className="max-w-3xl space-y-4">
           <Eyebrow>Pain points</Eyebrow>
-          <SectionHeading>Why AI-built MVPs stall before launch</SectionHeading>
+          <SectionHeading>AI MVP가 출시 전에 멈추는 이유</SectionHeading>
           <BodyText>
-            The problem is usually not effort. It&apos;s brittle scaffolding, unclear ownership, and no reliable way to decide what needs rescue first.
+            문제는 보통 노력이 부족해서가 아닙니다. 깨지기 쉬운 scaffolding, 불명확한 책임 경계, 무엇을 먼저 구조해야 하는지 판단할 기준이 없어서 멈춥니다.
           </BodyText>
         </div>
 
@@ -30,7 +30,7 @@ export function PainPointGrid({ items }: PainPointGridProps) {
               tone="cream"
             >
               <div className="space-y-2">
-                <Eyebrow as="span">What we fix next</Eyebrow>
+                <Eyebrow as="span">다음에 고치는 것</Eyebrow>
                 <BodyText className="text-sm sm:text-base">{item.solution}</BodyText>
               </div>
             </FeatureCard>

@@ -11,7 +11,7 @@ describe("ContactCta", () => {
     const section = screen.getByTestId("contact-cta");
     expect(section).toBeInTheDocument();
     expect(section).toHaveTextContent(contactCta.title);
-    expect(screen.getByText(contactCta.primaryLabel)).toHaveAttribute("href", contactCta.primaryHref);
+    expect(screen.getByRole("link", { name: contactCta.primaryLabel })).toHaveAttribute("href", contactCta.primaryHref);
     expect(screen.getByRole("link", { name: "Browse resources" })).toHaveAttribute("href", "/resources");
   });
 });

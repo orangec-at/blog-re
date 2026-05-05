@@ -11,16 +11,18 @@ describe("ServicesPage", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /^ai mvp rescue services$/i,
+        name: /^FixMyVibe 서비스 패키지$/i,
       }),
     ).toBeVisible();
 
     expect(
-      screen.getByText(/start with fmv diagnosis if you're not sure which rescue path you need/i),
+      screen.getByText(/기술 부채 진단으로 시작하세요/i),
     ).toBeVisible();
-    expect(screen.getByRole("heading", { name: /^fmv diagnosis$/i })).toBeVisible();
-    expect(screen.getByRole("heading", { name: /^architecture fix$/i })).toBeVisible();
-    expect(screen.getByRole("heading", { name: /^virtual cto$/i })).toBeVisible();
+    expect(screen.getAllByRole("heading", { name: /^AI MVP 기술 부채 진단$/i }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("heading", { name: /^AI 앱 리모델링 스프린트$/i }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("heading", { name: /^Founder 기술 파트너 \/ Virtual CTO$/i }).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/^why it fits$/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/^what you leave with$/i).length).toBeGreaterThan(0);
 
     const contactOrDiagnosisCta =
       screen.queryByRole("link", {

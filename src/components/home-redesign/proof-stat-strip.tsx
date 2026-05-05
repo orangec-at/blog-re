@@ -19,9 +19,9 @@ export function ProofStatStrip({ metrics }: ProofStatStripProps) {
       <Container variant="wide" className="space-y-8">
         <div className="max-w-3xl space-y-4">
           <Eyebrow>Proof / results</Eyebrow>
-          <SectionHeading>Real proof beats a vague rescue promise</SectionHeading>
+          <SectionHeading>말보다 증거를 먼저 보여드립니다</SectionHeading>
           <BodyText>
-            The site already has real project proof, working demo pages, and typed service content. The home route now surfaces that evidence instead of hiding it behind blog-first navigation.
+            추상적인 “구조해드립니다”보다 실제 샘플 진단 리포트, 서비스 패키지, 프로젝트 페이지로 판단할 수 있게 연결합니다.
           </BodyText>
         </div>
 

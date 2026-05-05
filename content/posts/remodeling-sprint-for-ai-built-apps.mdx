@@ -1,0 +1,94 @@
+---
+title: "프로토타입을 제품으로 바꾸는 Remodeling Sprint란 무엇인가"
+date: "2026-05-05"
+summary: "A service explainer for turning an AI-built prototype into a more reliable product by stabilizing one critical flow before adding more features."
+domain: "fixmyvibe"
+layout: "narrow"
+---
+
+An AI-built prototype is optimized for speed. A product is optimized for trust, repeated use, and change. The gap between those two states is where many founder-led MVPs get stuck.
+
+A FixMyVibe Remodeling Sprint is not unlimited feature work. It is a bounded productization sprint focused on making one critical flow less fragile.
+
+## Prototype vs product
+
+A prototype asks:
+
+> Can we show the idea?
+
+A product asks:
+
+> Can real users complete the flow safely, repeatedly, and with recoverable failures?
+
+That difference changes the work. The goal is no longer just making screens appear. The goal is stabilizing the responsibility boundaries behind those screens.
+
+## Why more features can make the app worse
+
+Founders often respond to launch anxiety by adding more features. But if the app's auth, data model, error handling, and deployment path are weak, more features multiply the risk.
+
+Before adding more, the sprint asks:
+
+- Which user flow matters most?
+- What breaks most often?
+- Where can private data leak or become inconsistent?
+- Which part of the codebase is hardest to change safely?
+
+## Pick one core flow first
+
+A good remodeling sprint does not try to fix everything. It chooses the flow that matters most to the business.
+
+Examples:
+
+- sign up to first successful action;
+- onboarding to workspace setup;
+- checkout to confirmation;
+- content creation to publish;
+- invite link to accepted booking.
+
+If that flow becomes calmer, the product becomes easier to reason about.
+
+## Stabilize before redesigning
+
+The sprint prioritizes reliability over cosmetic polish:
+
+1. auth and ownership checks;
+2. server-side validation;
+3. loading, error, empty, and success states;
+4. clear module boundaries;
+5. QA notes and smoke tests;
+6. handoff documentation.
+
+Visual improvement can happen, but it should support the product flow rather than hide technical uncertainty.
+
+## What the sprint produces
+
+A bounded remodeling sprint should leave evidence behind:
+
+- changed files list;
+- before/after notes;
+- QA checklist;
+- verification command results;
+- remaining risk table;
+- next recommended action.
+
+That evidence matters because founders often need to coordinate AI tools, freelancers, investors, or future hires. The sprint should make the product easier to explain and continue.
+
+## When a sprint is enough
+
+A sprint may be enough when:
+
+- one critical flow is the main blocker;
+- P0/P1 risks are bounded;
+- the team only needs a stabilization pass before a private pilot;
+- the founder can continue with a clearer handoff.
+
+## When ongoing support is better
+
+A retainer or Virtual CTO relationship may be better when:
+
+- technical decisions keep recurring;
+- multiple contractors or AI tools are involved;
+- the founder needs regular review before shipping changes;
+- launch, hiring, and product direction are tightly connected.
+
+The sprint is a bridge: it turns a brittle prototype into a more trustworthy product surface, then reveals whether the next step is another sprint or ongoing technical partnership.

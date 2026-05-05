@@ -33,11 +33,11 @@ export function ServicesPreviewGrid({ intro, offers }: ServicesPreviewGridProps)
             >
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Eyebrow as="span">Best for</Eyebrow>
+                  <Eyebrow as="span">추천 대상</Eyebrow>
                   <BodyText className="text-sm sm:text-base">{offer.bestFor}</BodyText>
                 </div>
                 <div className="space-y-2">
-                  <Eyebrow as="span">Outcome</Eyebrow>
+                  <Eyebrow as="span">결과물</Eyebrow>
                   <BodyText className="text-sm sm:text-base">{offer.outcome}</BodyText>
                 </div>
                 <TextLink href={offer.ctaHref}>{offer.ctaLabel}</TextLink>

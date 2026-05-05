@@ -20,7 +20,8 @@ describe("Header", () => {
       expect(within(primaryNav).queryByRole("link", { name: label })).not.toBeInTheDocument();
     }
 
-    const primaryCta = within(header).getByRole("link", { name: /start with diagnosis/i });
+    const primaryCta = within(header).getByRole("link", { name: /기술 부채 진단 문의하기/i });
     expect(primaryCta).toHaveAttribute("href", "/contact");
+    expect(screen.getByLabelText("Mobile primary navigation")).toBeInTheDocument();
   });
 });

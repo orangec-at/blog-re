@@ -16,9 +16,9 @@ export function FeaturedInsightRow({ items }: FeaturedInsightRowProps) {
       <Container variant="wide" className="space-y-8">
         <div className="max-w-3xl space-y-4">
           <Eyebrow>Featured proof content</Eyebrow>
-          <SectionHeading>See the proof that already exists in the repo</SectionHeading>
+          <SectionHeading>이미 있는 proof를 바로 확인하세요</SectionHeading>
           <BodyText>
-            Existing domain pages and MDX proof content stay in place. Home now routes founders into them as supporting evidence instead of making them guess where the real work lives.
+            도메인 페이지, GitHub, 샘플 리포트가 흩어져 있지 않도록 홈에서 바로 연결합니다. 방문자는 실제 작업 흔적을 먼저 보고 상담 여부를 판단할 수 있습니다.
           </BodyText>
         </div>
 
@@ -26,7 +26,7 @@ export function FeaturedInsightRow({ items }: FeaturedInsightRowProps) {
           {items.map((item) => (
             <BorderedSurface key={item.id} as="article" className="flex h-full flex-col gap-4" tone="offwhite">
               <div className="space-y-3">
-                <SectionHeading as="h3" className="text-2xl sm:text-3xl sm:leading-tight">
+                <SectionHeading as="h3" className="text-2xl leading-tight sm:text-3xl sm:leading-tight">
                   {item.name}
                 </SectionHeading>
                 <BodyText className="text-sm sm:text-base">{item.summary}</BodyText>

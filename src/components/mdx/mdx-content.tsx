@@ -7,6 +7,21 @@ import { getMDXComponent } from "next-contentlayer/hooks";
 import DemoPlaceholder from "@/components/demos/demo-placeholder";
 import { WorkspaceOnboardingDemo } from "@/components/demos/workspace-onboarding-demo";
 import { DeviceFrame } from "@/components/demos/device-frame";
+import {
+  ActionTimeline,
+  ArticleCTA,
+  ArticleIntro,
+  CheckList,
+  ChecklistBlock,
+  DecisionQuestion,
+  DiagnosticArtifactCard,
+  ExpertInsight,
+  GoNoGoTable,
+  LaunchQuestion,
+  MiniCaseStudy,
+  NoGoSignal,
+  RiskSection,
+} from "@/components/content/article-blocks";
 import { DemoFrame, DemoMeta, type DemoLayout, type DemoLink } from "@/components/layout/demo-frame";
 import { FullWidth } from "@/components/layout/full-width";
 
@@ -32,6 +47,19 @@ const createMdxComponents = (defaultDemoLayout: DemoLayout) => ({
     <DemoFrame layout={layout} {...props} />
   ),
   DemoMeta,
+  LaunchQuestion,
+  DecisionQuestion,
+  NoGoSignal,
+  CheckList,
+  ChecklistBlock,
+  GoNoGoTable,
+  ArticleCTA,
+  ArticleIntro,
+  RiskSection,
+  ExpertInsight,
+  MiniCaseStudy,
+  ActionTimeline,
+  DiagnosticArtifactCard,
   FullWidth: ({ children, className = "" }: WrapperProps) => (
     <FullWidth className={`py-8 ${className}`.trim()}>{children}</FullWidth>
   ),

@@ -18,16 +18,16 @@ import { serviceOffers, servicesIntro } from "@/data/services-content";
 
 const proofMetrics = [
   {
-    value: String(serviceOffers.length),
-    label: "rescue paths founders can choose from",
+    value: "Sample",
+    label: "샘플 진단 리포트로 실제 deliverable 형태를 먼저 확인",
   },
   {
     value: String(projects.length),
-    label: "proof-backed product stories already live on the site",
+    label: "프로젝트 페이지와 repo 링크로 확인 가능한 proof story",
   },
   {
-    value: "FMV",
-    label: "diagnosis-first path for teams that need clarity before committing",
+    value: String(serviceOffers.length),
+    label: "진단, 리모델링, 기술 파트너 지원으로 이어지는 선택지",
   },
 ];
 
@@ -45,17 +45,17 @@ export default function Home() {
           <BorderedSurface as="section" className="flex flex-col gap-6" tone="offwhite">
             <div className="space-y-4">
               <Eyebrow>Next step</Eyebrow>
-              <SectionHeading>Choose the fastest path back to launch</SectionHeading>
+              <SectionHeading>가장 작은 진단부터 시작하세요</SectionHeading>
               <BodyText>{contactHero.body}</BodyText>
               <BodyText className="text-sm sm:text-base">{resourcesIntro.downloadNote}</BodyText>
             </div>
 
             <CTAGroup
-              primaryAction={{ href: "/services", label: "Review rescue services" }}
-              secondaryAction={{ href: "/contact", label: "Talk through the diagnosis" }}
+              primaryAction={{ href: "/contact", label: "기술 부채 진단 문의하기" }}
+              secondaryAction={{ href: "/posts/ai-mvp-technical-debt-audit-sample-report", label: "샘플 진단 리포트 읽어보기 →" }}
             />
 
-            <TextLink href="/resources">Download proof and resources</TextLink>
+            <TextLink href="/services">서비스 패키지 비교하기</TextLink>
           </BorderedSurface>
         </Container>
       </section>

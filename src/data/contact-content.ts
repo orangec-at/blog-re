@@ -23,9 +23,9 @@ export type ContactGuidance = {
 
 export const contactHero: ContactHero = {
   eyebrow: "Contact",
-  title: "Start your AI MVP rescue diagnosis",
+  title: "AI MVP Technical Debt Audit으로 작게 시작하세요",
   body:
-    "Tell us what feels brittle, blocked, or risky, and we'll help you choose the fastest rescue path for the product.",
+    "지금 MVP가 ‘돌아가긴 하는데 불안한 상태’라면, 먼저 작은 기술 부채 진단으로 출시 전 리스크와 다음 2–4주 우선순위를 정리하세요.",
 };
 
 export const contactGuidance: ContactGuidance = {
@@ -34,22 +34,22 @@ export const contactGuidance: ContactGuidance = {
     {
       title: "Your AI-built MVP works in demos only",
       body:
-        "Reach out when the product looks convincing in a walkthrough but starts breaking once real users or edge cases appear.",
+        "Reach out when the product looks convincing in a walkthrough but starts breaking once real users, data, permissions, or edge cases appear.",
     },
     {
       title: "The codebase feels impossible to trust",
       body:
-        "Diagnosis is the right starting point when nobody on the team can confidently explain what the AI generated or what can be changed safely.",
+        "Technical Debt Audit is the right starting point when nobody on the team can confidently explain what the AI generated or what can be changed safely.",
     },
     {
-      title: "You need a founder-friendly rescue plan",
+      title: "You need a founder-friendly Go / No-Go plan",
       body:
-        "Come in early when you need technical translation, service selection, and a practical next step before the launch slips further.",
+        "Come in early when you need technical translation, launch-readiness triage, and a practical next step before adding more features or hiring another contractor.",
     },
   ],
-  reassurance: "If you're not sure, start with diagnosis.",
+  reassurance: "If you're not sure, start with Technical Debt Audit.",
   primaryCta: {
-    label: "Start with diagnosis",
+    label: "Start with Technical Debt Audit",
     href: "/contact",
   },
 };

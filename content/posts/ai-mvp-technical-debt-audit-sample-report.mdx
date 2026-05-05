@@ -1,0 +1,181 @@
+---
+title: "AI MVP 기술 부채 진단 샘플 리포트에는 무엇이 들어가야 하나"
+date: "2026-05-05"
+summary: "FixMyVibe가 막연한 코드 불안을 system map, risk table, Go / No-Go recommendation, 2주 stabilization plan으로 바꾸는 샘플 리포트 구조."
+domain: "fixmyvibe"
+layout: "narrow"
+---
+
+Founder에게 필요한 것은 “코드가 지저분합니다”라는 막연한 리뷰가 아닙니다. 필요한 것은 의사결정 산출물입니다.
+
+- 무엇이 먼저 깨질 수 있는가
+- 왜 비즈니스 리스크인가
+- 무엇을 먼저 고쳐야 하는가
+- 지금 공개 출시해도 되는가, 아니면 private pilot / stabilization이 먼저인가
+
+<ArticleIntro
+  eyebrow="Sample audit report"
+  thesis="좋은 진단 리포트는 불안을 문장으로 설명하지 않고, 출시 결정을 내릴 수 있는 산출물로 바꿉니다."
+  points={[
+    "이 글은 실제 고객 리포트가 아니라 synthetic sample입니다.",
+    "목표는 FixMyVibe 진단 후 어떤 산출물을 받게 되는지 미리 보여주는 것입니다.",
+    "정식 보안 인증이나 법률/컴플라이언스 자문이 아니라, 출시 전 기술 리스크 triage입니다.",
+  ]}
+/>
+
+<ExpertInsight source="Report principle">
+  샘플 리포트의 목적은 모든 문제를 나열하는 것이 아니라, founder가 오늘 멈춰야 할 것과 계속 진행해도 되는 것을 구분하게 만드는 것입니다.
+</ExpertInsight>
+
+<RiskSection
+  id="executive-summary"
+  index={1}
+  title="Executive summary: 첫 페이지에서 결론을 말하는가"
+  body="리포트는 founder가 바로 이해할 수 있는 한 줄 판단으로 시작해야 합니다. 안전한지, 위험한지, 무엇을 먼저 고쳐야 하는지 첫 화면에서 보여줘야 합니다."
+  checks={[
+    "public launch 가능 여부가 한 줄로 정리되어 있는가",
+    "Top 3 risks가 P0/P1 중심으로 정리되어 있는가",
+    "다음 결정이 Go / Conditional Go / No-Go 중 하나로 표현되는가",
+    "과장된 공포 대신 실행 가능한 판단 언어를 쓰는가",
+  ]}
+  question="이 요약만 읽어도 founder가 다음 2주 동안 무엇을 해야 하는지 알 수 있는가?"
+  noGo="위험 항목은 많은데 launch decision이 없으면 좋은 리포트가 아니라 긴 코드 리뷰에 가깝습니다."
+/>
+
+<MiniCaseStudy
+  title="Synthetic example: AI Scheduling MVP"
+  problem="데모에서는 예약 링크 생성까지 잘 보였지만, calendar token scope, public booking link, failed provider state가 분리되어 있지 않았습니다."
+  outcome="리포트는 public launch No-Go, private pilot 가능, 2주 stabilization 우선순위를 제안했습니다."
+  stats={["3 P0/P1 risks", "1 critical user flow", "2-week stabilization"]}
+/>
+
+<RiskSection
+  id="system-map"
+  index={2}
+  title="System map: 제품 흐름과 신뢰 경계를 그리는가"
+  body="코드 전체를 완벽하게 다이어그램화하는 것이 목표가 아닙니다. Browser, app route, auth/session, database, third-party provider 사이에서 신뢰가 깨질 수 있는 경계를 찾는 것이 핵심입니다."
+  checks={[
+    "product-critical flow가 한 문장으로 정의되어 있는가",
+    "browser → API/server action → DB 흐름이 보이는가",
+    "auth/session과 private data 사이의 boundary가 표시되는가",
+    "third-party token, webhook, runtime log 같은 외부 경계가 빠지지 않았는가",
+  ]}
+  question="어느 경계에서 잘못된 사용자가 private data에 닿을 수 있는지 설명할 수 있는가?"
+  noGo="시스템 맵 없이 리스크만 나열하면 수정 우선순위가 감으로 결정됩니다."
+/>
+
+```text
+Browser UI
+  → App routes / server actions
+  → Auth & session boundary
+  → Database / ownership queries
+  → Calendar provider / email provider
+  → Runtime logs / error monitoring
+```
+
+<RiskSection
+  id="risk-table"
+  index={3}
+  title="Risk table: 막연한 불안을 우선순위로 바꾸는가"
+  body="좋은 리포트는 ‘문제가 많다’에서 멈추지 않습니다. area, severity, likelihood, impact, suggested fix로 쪼개서 P0/P1을 먼저 보이게 합니다."
+  checks={[
+    "P0/P1/P2/P3 severity scale이 정의되어 있는가",
+    "각 리스크에 evidence 또는 확인 경로가 있는가",
+    "founder가 미룰 수 있는 것과 미루면 안 되는 것이 분리되는가",
+    "fix가 추상적 조언이 아니라 다음 PR/작업으로 바뀔 수 있는가",
+  ]}
+  question="이 표를 보고 오늘 바로 backlog를 다시 정렬할 수 있는가?"
+  noGo="모든 항목이 ‘중요’로 표시되면 실제로는 아무것도 중요하지 않은 리포트가 됩니다."
+/>
+
+<GoNoGoTable
+  rows={[
+    { signal: "Ownership check가 server-side에서 증명되지 않음", decision: "P0 / No-Go" },
+    { signal: "Secret 노출 경로가 확인되지 않음", decision: "P0 / No-Go" },
+    { signal: "Provider failure가 silent fail", decision: "P1 / Fix before paid users" },
+    { signal: "Rollback/smoke test가 문서화되지 않음", decision: "P1 / Stabilize" },
+    { signal: "AI-generated duplicate components", decision: "P2 / Remodel later" },
+  ]}
+/>
+
+<RiskSection
+  id="security-data"
+  index={4}
+  title="Security & data review: formal audit이 아닌 practical launch triage인가"
+  body="FixMyVibe 진단은 정식 penetration test나 보안 인증이 아닙니다. 대신 AI MVP가 공개 트래픽을 받기 전에 확인해야 할 실전 리스크를 빠르게 좁힙니다."
+  checks={[
+    "secrets가 repo, client bundle, logs에 노출되지 않는가",
+    "private DB query가 user/team/workspace로 제한되는가",
+    "public link가 public-safe field만 반환하는가",
+    "third-party OAuth token 저장/갱신/폐기 흐름이 설명되는가",
+    "error log가 개인정보를 노출하지 않는가",
+  ]}
+  question="실제 사용자 데이터가 들어왔을 때 가장 먼저 생길 수 있는 trust failure는 무엇인가?"
+  noGo="정식 보안 인증이 아니라고 해서 secret/data boundary 확인을 생략하면 안 됩니다."
+/>
+
+<ExpertInsight source="Founder-facing translation">
+  “보안 문제 가능성 있음”보다 “User A가 User B의 예약 정보를 볼 수 있는 경로가 아직 증명되지 않음”이 founder에게 훨씬 유용합니다.
+</ExpertInsight>
+
+<RiskSection
+  id="stabilization-plan"
+  index={5}
+  title="2주 / 4주 plan: 리포트가 실행 계획으로 끝나는가"
+  body="가장 좋은 진단은 문제 목록으로 끝나지 않습니다. 2주는 launch-blocking risk containment, 4주는 구조 개선과 handoff로 나눠야 합니다."
+  checks={[
+    "2주 계획은 P0/P1 containment만 다루는가",
+    "4주 계획은 module boundary, tests, handoff를 다루는가",
+    "새 기능 추가와 안정화 작업이 분리되어 있는가",
+    "각 주차에 검증 명령, smoke test, preview 확인이 포함되는가",
+  ]}
+  question="이 계획으로 founder가 ‘이번 주에 뭘 멈추고 뭘 고칠지’ 결정할 수 있는가?"
+  noGo="리포트가 ‘리팩토링 필요’로 끝나면 실행 가능성이 낮습니다."
+/>
+
+<ActionTimeline
+  title="샘플 stabilization timeline"
+  steps={[
+    { label: "Week 1", title: "Contain P0/P1 risk", body: "auth/data ownership, secret boundary, core flow failure state를 먼저 막습니다." },
+    { label: "Week 2", title: "Preview and smoke test", body: "production build, preview URL, 핵심 route smoke test, rollback note를 확인합니다." },
+    { label: "Week 3", title: "Remodel critical modules", body: "중복 generated code와 UI 내부 business logic을 product-critical module로 분리합니다." },
+    { label: "Week 4", title: "Handoff and pilot readiness", body: "architecture note, verification commands, pilot QA checklist를 정리합니다." },
+  ]}
+/>
+
+<RiskSection
+  id="go-no-go"
+  index={6}
+  title="Go / No-Go recommendation: 출시 언어를 제공하는가"
+  body="Founder는 완벽한 코드를 기다릴 수 없습니다. 대신 어떤 조건에서 limited go가 가능하고, 어떤 조건에서는 public launch를 멈춰야 하는지 명확한 언어가 필요합니다."
+  checks={[
+    "No-Go for public launch as-is",
+    "Conditional Go for private pilot",
+    "Limited production with documented risks",
+    "Move into Remodeling Sprint",
+    "Pause and rebuild smaller core",
+  ]}
+  question="이 리포트가 founder에게 ‘왜 지금 출시하면 안 되는지’ 또는 ‘어떤 조건이면 가능한지’를 설명해 주는가?"
+  noGo="추천이 모호하면 founder는 다시 감으로 결정하게 됩니다."
+/>
+
+## 실제 리포트를 받을 때 필요한 입력물
+
+<CheckList
+  items={[
+    "repo 또는 코드 접근 범위",
+    "가장 중요한 user flow 1개",
+    "현재 배포/preview URL",
+    "사용 중인 auth/database/provider 목록",
+    "최근에 불안했던 버그나 edge case",
+    "출시 목표: public launch / private pilot / investor demo",
+  ]}
+/>
+
+<ArticleCTA
+  eyebrow="FixMyVibe sample report"
+  title="샘플 구조를 실제 MVP 리포트로 바꾸고 싶다면"
+  body="FixMyVibe는 AI MVP의 system map, risk table, auth/data/security review, UX reliability review, Go / No-Go recommendation, 2주 / 4주 stabilization plan을 founder가 읽을 수 있는 산출물로 정리합니다."
+  primary={{ href: "/contact", label: "기술 부채 진단 문의하기" }}
+  secondary={{ href: "/posts/ai-mvp-launch-checklist", label: "출시 전 체크리스트 보기" }}
+/>
