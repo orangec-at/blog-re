@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 
-import { PrimaryButton } from "@/components/ui/actions/primary-button";
-import { SecondaryButton } from "@/components/ui/actions/secondary-button";
 import { PillTag } from "@/components/ui/feedback/pill-tag";
 
 type ChildrenProps = {
@@ -74,27 +72,25 @@ type ArticleCTAProps = {
 
 export function ArticleIntro({ eyebrow = "Launch readiness", points, thesis }: ArticleIntroProps) {
   return (
-    <section className="not-prose my-10 overflow-hidden rounded-[32px] bg-zapier-black text-cream shadow-[0_0_0_1px_rgba(32,21,21,0.08),0_24px_70px_rgba(32,21,21,0.16)]">
-      <div className="grid gap-px bg-cream/10 lg:grid-cols-[0.88fr_1.12fr]">
-        <div className="bg-zapier-black p-6 sm:p-8">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-zapier-orange">
-            {eyebrow}
-          </p>
-          <p className="mt-5 text-2xl font-semibold leading-tight tracking-[-0.04em] sm:text-3xl">
-            {thesis}
-          </p>
-        </div>
-        <div className="bg-[#2b1d1a] p-4 sm:p-5">
-          <ul className="grid gap-2">
-            {points.map((point, index) => (
-              <li key={point} className="flex gap-3 rounded-2xl border border-[#fffefb]/12 bg-[#fffefb]/8 p-4 text-sm leading-6 text-[#fff7ef]">
-                <span className="font-mono text-xs font-semibold text-zapier-orange">{String(index + 1).padStart(2, "0")}</span>
-                <span className="text-[#fff7ef]">{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <section className="not-prose my-12 overflow-hidden rounded-[28px] bg-white shadow-[0_0_0_1px_rgba(32,21,21,0.08),0_12px_38px_rgba(32,21,21,0.06)]">
+      <div className="border-b border-zapier-black/8 bg-[radial-gradient(circle_at_top_left,rgba(255,79,0,0.11),transparent_32%),linear-gradient(180deg,#fffefb,#fff8ef)] px-5 py-6 sm:px-7 sm:py-8">
+        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-zapier-orange">
+          {eyebrow}
+        </p>
+        <p className="mt-4 max-w-3xl text-balance text-2xl font-semibold leading-[1.13] tracking-[-0.035em] text-zapier-black sm:text-3xl">
+          {thesis}
+        </p>
       </div>
+      <ol className="divide-y divide-zapier-black/8">
+        {points.map((point, index) => (
+          <li key={point} className="grid gap-3 px-5 py-4 sm:grid-cols-[44px_1fr] sm:px-7">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-zapier-black font-mono text-[11px] font-semibold text-cream">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span className="text-[15px] leading-7 text-zapier-charcoal sm:text-base">{point}</span>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
@@ -199,35 +195,35 @@ export function RiskSection({ body, checks, id, index, noGo, question, title }: 
   const paddedIndex = String(index).padStart(2, "0");
 
   return (
-    <section id={id} className="not-prose my-8 scroll-mt-24 overflow-hidden rounded-[30px] border border-[#e3ded3] bg-[#fffefa] shadow-[0_0_0_1px_rgba(32,21,21,0.025),0_16px_50px_rgba(32,21,21,0.055)]">
-      <div className="grid gap-px bg-[#e7e1d6] lg:grid-cols-[0.28fr_1fr]">
-        <div className="bg-[#f8f3ea] p-5 sm:p-6">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-zapier-gray">
-            Check {paddedIndex}
-          </p>
-          <div className="mt-7 flex h-12 w-12 items-center justify-center rounded-2xl bg-zapier-black font-mono text-base font-semibold text-[#fffefb] shadow-[0_0_0_1px_rgba(255,255,255,0.08)_inset]">
+    <section id={id} className="not-prose my-9 scroll-mt-24 overflow-hidden rounded-[26px] bg-white shadow-[0_0_0_1px_rgba(32,21,21,0.075),0_10px_30px_rgba(32,21,21,0.04)]">
+      <div className="grid gap-4 p-5 sm:p-7">
+        <div className="flex flex-col gap-3 border-b border-zapier-black/8 pb-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-zapier-orange">
+              Check {paddedIndex}
+            </p>
+            <h2 className="m-0 mt-2 max-w-3xl text-balance text-2xl font-semibold leading-[1.12] tracking-[-0.035em] text-zapier-black sm:text-3xl">
+              {title}
+            </h2>
+          </div>
+          <div className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full border border-zapier-black/10 bg-[#fffaf3] font-mono text-sm font-semibold text-zapier-black sm:flex">
             {paddedIndex}
           </div>
         </div>
-        <div className="bg-[#fffefa] p-5 sm:p-7">
-          <h2 className="m-0 text-2xl font-semibold leading-tight tracking-[-0.04em] text-zapier-black sm:text-3xl">
-            {title}
-          </h2>
-          <p className="mt-4 max-w-2xl text-[15px] leading-7 text-zapier-charcoal sm:text-base">{body}</p>
-          <div className="mt-5 rounded-2xl bg-white p-3 shadow-[0_0_0_1px_rgba(32,21,21,0.055)]">
-            <p className="mb-2 px-1 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-zapier-gray">Checklist</p>
-            <CheckList items={checks} />
-          </div>
-          <div className="mt-5 grid gap-3 md:grid-cols-2">
-            <div className="rounded-2xl bg-[#fff6ef] p-4 shadow-[0_0_0_1px_rgba(255,79,0,0.12)]">
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-zapier-orange">Question</p>
-              <p className="mt-2 text-base font-semibold leading-7 tracking-[-0.02em] text-zapier-black">{question}</p>
-            </div>
-            <div className="rounded-2xl bg-zapier-black p-4 text-[#fffefb] shadow-[0_0_0_1px_rgba(32,21,21,0.9)]">
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-zapier-orange">No-Go</p>
-              <p className="mt-2 text-sm leading-6 text-[#fff4ec]">{noGo}</p>
-            </div>
-          </div>
+        <p className="max-w-3xl text-[15px] leading-7 text-zapier-charcoal sm:text-base">{body}</p>
+
+        <div className="border-y border-zapier-black/8 py-4">
+          <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-zapier-gray">Checklist</p>
+          <CheckList items={checks} />
+        </div>
+
+        <div className="rounded-[20px] border border-zapier-orange/20 bg-[#fffaf3] p-4 sm:p-5">
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-zapier-orange">Launch blocker</p>
+          <p className="mt-2 text-base font-semibold leading-7 tracking-[-0.015em] text-zapier-black">{question}</p>
+          <p className="mt-3 border-t border-zapier-orange/15 pt-3 text-sm leading-6 text-zapier-charcoal">
+            <span className="font-semibold text-zapier-black">No-Go: </span>
+            {noGo}
+          </p>
         </div>
       </div>
     </section>
@@ -267,15 +263,34 @@ export function ArticleCTA({ body, eyebrow = "Next step", primary, secondary, ti
   return (
     <aside className="my-10 overflow-hidden rounded-[32px] bg-zapier-black not-prose text-[#fffefb] shadow-[0_0_0_1px_rgba(32,21,21,0.08),0_24px_70px_rgba(32,21,21,0.18)]">
       <div className="border-b border-cream/10 bg-[radial-gradient(circle_at_top_right,rgba(255,79,0,0.26),transparent_32%),linear-gradient(135deg,#201515,#2b1d1a)] p-6 sm:p-8">
-        <PillTag className="border-zapier-orange/40 bg-[#fff4ec] text-zapier-black">{eyebrow}</PillTag>
+        <PillTag
+          className="border-zapier-orange/40 bg-[#fff4ec] text-zapier-black"
+          style={{ borderColor: "rgba(255,79,0,0.4)", color: "#201515" }}
+        >
+          {eyebrow}
+        </PillTag>
         <h2 className="mt-5 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.045em] text-[#fffefb] sm:text-4xl">
           {title}
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-7 text-[#fff4ec]">{body}</p>
       </div>
-      <div className="flex flex-col gap-3 p-5 sm:flex-row sm:flex-wrap sm:p-6">
-        <PrimaryButton href={primary.href}>{primary.label}</PrimaryButton>
-        {secondary ? <SecondaryButton href={secondary.href}>{secondary.label}</SecondaryButton> : null}
+      <div className="flex flex-col gap-3 bg-[#fffdf9] p-5 sm:flex-row sm:flex-wrap sm:p-6">
+        <a
+          className="inline-flex min-h-11 items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold shadow-[0_8px_18px_rgba(255,79,0,0.16)] transition-opacity hover:opacity-90"
+          href={primary.href}
+          style={{ backgroundColor: "#c63d00", color: "#fffefb" }}
+        >
+          {primary.label}
+        </a>
+        {secondary ? (
+          <a
+            className="inline-flex min-h-11 items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:bg-[#fff4ec]"
+            href={secondary.href}
+            style={{ borderColor: "rgba(32,21,21,0.22)", color: "#201515" }}
+          >
+            {secondary.label}
+          </a>
+        ) : null}
       </div>
     </aside>
   );
@@ -330,7 +345,7 @@ export function DiagnosticArtifactCard({
           <a
             className="inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:opacity-90"
             href={cta.href}
-            style={{ backgroundColor: "#ff4f00", borderColor: "#ff4f00", color: "#fffefb" }}
+            style={{ backgroundColor: "#c63d00", borderColor: "#c63d00", color: "#fffefb" }}
           >
             {cta.label}
           </a>

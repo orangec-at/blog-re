@@ -9,10 +9,19 @@ export const Post = defineDocumentType(() => ({
   fields: {
     title: { type: "string", required: true },
     date: { type: "date", required: true },
+    updated: { type: "date" },
     summary: { type: "string", required: true },
     domain: { type: "string", required: true },
     layout: { type: "enum", options: ["full", "narrow"], required: true },
+    draft: { type: "boolean", default: false },
+    author: { type: "string", default: "Jaeil Lee" },
     demoComponent: { type: "string" },
+    ogImage: { type: "string" },
+    seoTitle: { type: "string" },
+    seoDescription: { type: "string" },
+    keywords: { type: "list", of: { type: "string" }, default: [] },
+    tags: { type: "list", of: { type: "string" }, default: [] },
+    canonicalPath: { type: "string" },
   },
   computedFields: {
     slug: {

@@ -37,7 +37,7 @@ function joinClasses(...classes: Array<string | undefined | false>) {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border-zapier-orange bg-zapier-orange text-cream hover:border-[#c63d00] hover:bg-[#c63d00]",
+    "border-[#c63d00] bg-[#c63d00] text-white hover:border-zapier-black hover:bg-zapier-black",
   secondary:
     "border-zapier-black bg-zapier-black text-cream hover:border-zapier-sand hover:bg-zapier-sand hover:text-zapier-black",
   ghost: "border-zapier-sand bg-cream text-zapier-black hover:border-zapier-black hover:bg-offwhite",
@@ -45,8 +45,8 @@ const variantClasses: Record<ButtonVariant, string> = {
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "px-3 py-2 text-sm",
-  md: "px-4 py-2 text-base",
+  sm: "px-3 py-3 text-sm",
+  md: "px-4 py-3 text-base",
   lg: "px-6 py-5 text-base",
 };
 
@@ -55,7 +55,8 @@ export function Button(props: ButtonProps) {
   const size = props.size ?? (variant === "secondary" ? "lg" : "md");
 
   const composedClassName = joinClasses(
-    "inline-flex items-center justify-center gap-2 rounded-[10px] border font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zapier-black focus-visible:ring-offset-2 focus-visible:ring-offset-cream touch-manipulation",
+    "inline-flex items-center justify-center gap-2 rounded-[10px] border font-semibold transition-[background-color,border-color,color,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zapier-black focus-visible:ring-offset-2 focus-visible:ring-offset-cream active:translate-y-px touch-manipulation",
+    variant !== "text" && "min-h-11",
     variant !== "text" && sizeClasses[size],
     variantClasses[variant],
     props.className,

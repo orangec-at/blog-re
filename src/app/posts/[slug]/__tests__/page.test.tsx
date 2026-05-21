@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import PostPage from "@/app/posts/[slug]/page";
+import PostPage, { generateMetadata } from "@/app/posts/[slug]/page";
 
 const mockedNotFound = vi.hoisted(() => vi.fn());
 
@@ -41,6 +41,12 @@ vi.mock("@/lib/mdx", () => ({
         slug,
         title: "AI로 만든 MVP를 출시하기 전에 반드시 점검해야 할 7가지",
         summary: "AI MVP launch checklist",
+        seoTitle: "AI MVP 출시 전 체크리스트: 고객 받기 전 7가지 점검",
+        seoDescription: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
+        canonicalPath: "/posts/ai-mvp-launch-checklist",
+        keywords: ["AI MVP", "launch readiness"],
+        tags: ["technical debt", "AI MVP"],
+        ogImage: "/og/ai-mvp-launch-checklist.png",
         domain: "fixmyvibe",
         layout: "narrow",
         body: { code: "compiled-code" },
@@ -63,11 +69,37 @@ vi.mock("@/lib/mdx", () => ({
 }));
 
 describe("PostPage", () => {
+  it("generates approval-ready SEO metadata from the post frontmatter", async () => {
+    const metadata = await generateMetadata({ params: Promise.resolve({ slug: "ai-mvp-launch-checklist" }) });
+
+    expect(metadata).toMatchObject({
+      title: "AI MVP 출시 전 체크리스트: 고객 받기 전 7가지 점검",
+      description: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
+      alternates: { canonical: "/posts/ai-mvp-launch-checklist" },
+      openGraph: {
+        title: "AI MVP 출시 전 체크리스트: 고객 받기 전 7가지 점검",
+        description: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
+        type: "article",
+        url: "https://wakeymoment.vercel.app/posts/ai-mvp-launch-checklist",
+        siteName: "wakeymoment",
+        images: ["https://wakeymoment.vercel.app/og/ai-mvp-launch-checklist.png"],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "AI MVP 출시 전 체크리스트: 고객 받기 전 7가지 점검",
+        description: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
+        images: ["https://wakeymoment.vercel.app/og/ai-mvp-launch-checklist.png"],
+      },
+    });
+    expect(metadata.keywords).toEqual(["AI MVP", "launch readiness", "technical debt"]);
+  });
+
   it("passes the frontmatter layout through to the mdx renderer", async () => {
     render(await PostPage({ params: Promise.resolve({ slug: "hello-world" }) }));
 
     expect(screen.getByText("Hello World")).toBeInTheDocument();
     expect(screen.getByTestId("post-full-layout")).toBeInTheDocument();
+    expect(screen.getByTestId("post-article-body")).toHaveClass("fmv-article-prose");
     expect(screen.getByTestId("post-full-body")).toBeInTheDocument();
     expect(screen.getByTestId("mdx-renderer")).toHaveAttribute("data-layout", "full");
     expect(mockedNotFound).not.toHaveBeenCalled();
@@ -80,9 +112,15 @@ describe("PostPage", () => {
     expect(screen.getByTestId("post-mobile-conversion-rail")).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "AI MVP checklist sections" })).toBeVisible();
     expect(screen.getByRole("navigation", { name: "Mobile AI MVP checklist sections" })).toBeVisible();
+    expect(screen.getByRole("region", { name: "Post use-case summary" })).toBeVisible();
+    expect(screen.getByTestId("post-article-body")).toHaveClass("fmv-article-prose");
+    expect(screen.getByText("FixMyVibe use case · Launch-readiness checklist")).toBeVisible();
+    expect(screen.getByText("Best for")).toBeVisible();
+    expect(screen.getByText("7 launch gates")).toBeVisible();
+    expect(screen.getByText("Risk table")).toBeVisible();
     expect(screen.getAllByRole("link", { name: "Auth & Session" })[0]).toHaveAttribute("href", "#auth-session");
     expect(screen.getAllByText("진단 산출물").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByText("Risk table · System map · 2주 stabilization plan").length).toBeGreaterThanOrEqual(2);
+    expect(screen.getAllByText("Risk table · System map · 2주 안정화").length).toBeGreaterThanOrEqual(2);
     expect(screen.getAllByRole("link", { name: "진단 문의" })[0]).toHaveAttribute("href", "/contact");
   });
 
@@ -93,6 +131,9 @@ describe("PostPage", () => {
     expect(screen.getByTestId("post-mobile-conversion-rail")).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Sample audit report sections" })).toBeVisible();
     expect(screen.getByRole("navigation", { name: "Mobile Sample audit report sections" })).toBeVisible();
+    expect(screen.getByText("FixMyVibe use case · Sample audit report")).toBeVisible();
+    expect(screen.getByText("Sample report")).toBeVisible();
+    expect(screen.getByText("Audit output")).toBeVisible();
     expect(screen.getAllByRole("link", { name: "Executive Summary" })[0]).toHaveAttribute("href", "#executive-summary");
     expect(screen.getAllByText("샘플 리포트 구성" ).length).toBeGreaterThanOrEqual(2);
     expect(screen.getAllByText("Executive summary · Risk table · Go / No-Go" ).length).toBeGreaterThanOrEqual(2);

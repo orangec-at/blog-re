@@ -6,9 +6,9 @@ export type ContactChannel = {
 
 export const contactChannels: ContactChannel[] = [
   {
-    label: "Email",
-    href: "mailto:hello@example.com",
-    description: "Best for detailed refactor briefs or sharing repos securely.",
+    label: "Inquiry form",
+    href: "/contact",
+    description: "Start with the site contact page until a verified email channel is approved.",
   },
   {
     label: "Calendly",

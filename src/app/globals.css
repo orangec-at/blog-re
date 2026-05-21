@@ -17,6 +17,10 @@
   --color-text-default: #2c2924;
   --color-text-muted: #696254;
   --color-border-strong: #7d7466;
+  --article-measure: 68ch;
+  --article-text: #2b261f;
+  --article-muted: #5f5649;
+  --article-rule: rgba(32, 21, 21, 0.12);
   --font-display: "Degular Display", "Inter", "Helvetica", "Arial", sans-serif;
   --font-sans: "Inter", "Helvetica", "Arial", sans-serif;
   --font-serif: "GT Alpina", "Georgia", serif;
@@ -31,13 +35,21 @@ body {
   padding: 0;
   margin: 0;
   min-height: 100%;
+  overflow-x: hidden;
   background-color: var(--color-cream);
   color: var(--color-text-default);
   font-family: var(--font-sans);
 }
 
+p,
+h1,
+h2,
+h3,
+li {
+  overflow-wrap: anywhere;
+}
+
 a {
-  color: inherit;
   text-decoration: none;
 }
 
@@ -53,4 +65,118 @@ button {
 :focus-visible {
   outline: 2px solid var(--color-zapier-orange);
   outline-offset: 2px;
+}
+
+/*
+ * Article prose system
+ * Tailwind Typography is not installed in this app, so the `prose` class alone
+ * does not create a reading system. This layer gives MDX body copy the same
+ * intentionality as the custom cards/rails: stronger ink, clearer rhythm,
+ * section dividers, and scan-friendly plain lists without turning every
+ * paragraph into another card.
+ */
+.fmv-article-prose {
+  color: var(--article-text);
+  font-size: 1.0625rem;
+  line-height: 1.82;
+  letter-spacing: -0.006em;
+}
+
+.fmv-article-prose > :where(p, ul, ol, blockquote):not(.not-prose),
+.fmv-article-prose > :where(h2, h3, h4):not(.not-prose) {
+  max-width: var(--article-measure);
+}
+
+.fmv-article-prose > p:not(.not-prose) {
+  margin-block: 1.35rem;
+  color: var(--article-text);
+}
+
+.fmv-article-prose > p:not(.not-prose):first-of-type {
+  margin-top: 0;
+}
+
+.fmv-article-prose > p:not(.not-prose) + p:not(.not-prose) {
+  margin-top: 1rem;
+}
+
+.fmv-article-prose > :where(h2, h3):not(.not-prose) {
+  color: var(--color-zapier-black);
+  font-family: var(--font-display);
+  font-weight: 680;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.fmv-article-prose > h2:not(.not-prose) {
+  margin-top: 3.6rem;
+  margin-bottom: 1rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--article-rule);
+  font-size: clamp(1.75rem, 1.36rem + 1.45vw, 2.45rem);
+  line-height: 1.08;
+}
+
+.fmv-article-prose > h3:not(.not-prose) {
+  margin-top: 2.5rem;
+  margin-bottom: 0.8rem;
+  font-size: clamp(1.35rem, 1.18rem + 0.72vw, 1.8rem);
+  line-height: 1.14;
+}
+
+.fmv-article-prose > :where(ul, ol):not(.not-prose) {
+  margin-block: 1.3rem 1.7rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(32, 21, 21, 0.08);
+  border-radius: 22px;
+  background: #fffaf3;
+  color: var(--article-text);
+  box-shadow: 0 1px 0 rgba(32, 21, 21, 0.03);
+}
+
+.fmv-article-prose > :where(ul, ol):not(.not-prose) li {
+  margin-left: 1.25rem;
+  padding-left: 0.25rem;
+}
+
+.fmv-article-prose > :where(ul, ol):not(.not-prose) li + li {
+  margin-top: 0.45rem;
+}
+
+.fmv-article-prose :where(strong, b) {
+  color: var(--color-zapier-black);
+  font-weight: 700;
+}
+
+.fmv-article-prose :where(code):not(pre code) {
+  border: 1px solid rgba(32, 21, 21, 0.1);
+  border-radius: 0.45rem;
+  background: #fff4ec;
+  padding: 0.12em 0.36em;
+  color: var(--color-zapier-black);
+  font-size: 0.9em;
+}
+
+.fmv-article-prose :where(a) {
+  color: #a93400;
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-color: rgba(198, 61, 0, 0.34);
+  text-underline-offset: 0.18em;
+}
+
+.fmv-article-prose :where(a:hover) {
+  color: #7e2800;
+  text-decoration-color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .fmv-article-prose {
+    font-size: 1rem;
+    line-height: 1.78;
+  }
+
+  .fmv-article-prose > h2:not(.not-prose) {
+    margin-top: 3rem;
+  }
 }

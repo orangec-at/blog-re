@@ -44,7 +44,7 @@ describe("UI foundation primitives", () => {
 
     const primaryLink = screen.getByRole("link", { name: "Book a rescue call" });
     expect(primaryLink).toHaveAttribute("href", "/contact");
-    expect(primaryLink).toHaveClass("bg-zapier-orange", "border-zapier-orange", "text-cream");
+    expect(primaryLink).toHaveClass("bg-[#c63d00]", "border-[#c63d00]", "text-white");
 
     const secondaryButton = screen.getByRole("button", { name: "Review the rescue plan" });
     expect(secondaryButton).toHaveAttribute("type", "button");

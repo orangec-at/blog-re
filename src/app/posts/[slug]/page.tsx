@@ -1,12 +1,24 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { PostConversionRail, PostMobileConversionRail, type ConversionRailConfig } from "@/components/content/post-conversion-rail";
+import { PostUseCaseHero, type PostUseCaseHeroProps } from "@/components/content/post-use-case-hero";
 import { Container } from "@/components/layout/container";
 import { FullWidth } from "@/components/layout/full-width";
 import { NarrowPage } from "@/components/layout/narrow-page";
 import { ClientPostContent } from "@/components/mdx/client-post-content";
-import { PrimaryButton } from "@/components/ui/actions/primary-button";
-import { SecondaryButton } from "@/components/ui/actions/secondary-button";
+import { absoluteUrl, siteConfig } from "@/config/site";
+
+type PostSeoFields = {
+  canonicalPath?: string;
+  keywords?: string[];
+  seoDescription?: string;
+  seoTitle?: string;
+  tags?: string[];
+  ogImage?: string;
+  author?: string;
+  updated?: string;
+};
 
 const checklistRail: ConversionRailConfig = {
   ctaLabel: "진단 문의",
@@ -14,17 +26,17 @@ const checklistRail: ConversionRailConfig = {
   navLabel: "AI MVP checklist sections",
   railTitle: "진단 산출물",
   sections: [
+    { href: "#real-user-scenarios", label: "User Scenarios" },
     { href: "#auth-session", label: "Auth & Session" },
     { href: "#data-ownership", label: "Data Ownership" },
     { href: "#secrets", label: "Secrets" },
-    { href: "#failure-states", label: "Failure States" },
-    { href: "#validation", label: "Validation" },
-    { href: "#deploy-path", label: "Deploy Path" },
-    { href: "#handoff", label: "Handoff" },
+    { href: "#payment-lifecycle", label: "Payment" },
+    { href: "#deploy-recovery", label: "Deploy / Recovery" },
+    { href: "#maintainability-handoff", label: "Handoff" },
   ],
   secondaryHref: "/posts/ai-mvp-technical-debt-audit-sample-report",
   secondaryLabel: "샘플 리포트",
-  title: "Risk table · System map · 2주 stabilization plan",
+  title: "Risk table · System map · 2주 안정화",
 };
 
 const sampleReportRail: ConversionRailConfig = {
@@ -45,8 +57,78 @@ const sampleReportRail: ConversionRailConfig = {
   title: "Executive summary · Risk table · Go / No-Go",
 };
 
+const checklistHero: Omit<PostUseCaseHeroProps, "summary" | "title"> = {
+  bestFor: [
+    "AI 코딩 도구로 만든 MVP를 첫 고객 앞에 내놓기 전인 founder",
+    "Auth, data ownership, payment, deploy recovery를 빠르게 launch gate로 정리해야 하는 팀",
+  ],
+  eyebrow: "FixMyVibe use case · Launch-readiness checklist",
+  meta: [
+    { label: "Level", value: "Founder-friendly" },
+    { label: "Scope", value: "7 launch gates" },
+    { label: "Output", value: "Risk table" },
+  ],
+  primary: { href: "/contact", label: "기술 부채 진단 문의하기" },
+  secondary: { href: "/posts/ai-mvp-technical-debt-audit-sample-report", label: "샘플 리포트 보기" },
+};
+
+const sampleReportHero: Omit<PostUseCaseHeroProps, "summary" | "title"> = {
+  bestFor: [
+    "Technical Debt Audit을 받으면 어떤 산출물이 나오는지 먼저 보고 싶은 founder",
+    "Risk table, system map, Go / No-Go recommendation의 깊이를 확인해야 하는 팀",
+  ],
+  eyebrow: "FixMyVibe use case · Sample audit report",
+  meta: [
+    { label: "Format", value: "Sample report" },
+    { label: "Scope", value: "Audit output" },
+    { label: "Next", value: "Go / No-Go" },
+  ],
+  primary: { href: "/contact", label: "진단 문의하기" },
+  secondary: { href: "/posts/ai-mvp-launch-checklist", label: "체크리스트 보기" },
+};
+
 export async function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+
+  if (!post) {
+    return {};
+  }
+
+  const seo = post as typeof post & PostSeoFields;
+  const title = seo.seoTitle ?? post.title;
+  const description = seo.seoDescription ?? post.summary;
+  const canonical = seo.canonicalPath ?? post.url;
+  const canonicalUrl = absoluteUrl(canonical);
+  const image = absoluteUrl(seo.ogImage ?? siteConfig.defaultOgImage);
+  const keywords = [...new Set([...(seo.keywords ?? []), ...(seo.tags ?? [])])];
+
+  return {
+    title,
+    description,
+    keywords,
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: canonicalUrl,
+      siteName: siteConfig.name,
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -82,7 +164,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </FullWidth>
 
         <Container variant="narrow" className="space-y-8 py-12">
-          <article className="prose prose-neutral max-w-none prose-a:text-zapier-orange">
+          <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-zapier-orange">
             <div data-testid="post-full-body">
               <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />
             </div>
@@ -99,22 +181,14 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       : null;
 
   if (railConfig) {
+    const heroConfig = post.slug === "ai-mvp-launch-checklist" ? checklistHero : sampleReportHero;
+
     return (
-      <Container className="py-12">
-        <div data-testid="post-narrow-layout" className="mx-auto max-w-4xl space-y-5 text-center">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-zapier-orange">FixMyVibe by wakeymoment</p>
-          <h1 className="text-4xl font-semibold leading-[1.05] tracking-[-0.055em] text-zapier-black sm:text-6xl">{post.title}</h1>
-          <p className="mx-auto max-w-2xl text-base leading-7 text-zapier-charcoal sm:text-lg">{post.summary}</p>
-          <div className="flex flex-col justify-center gap-3 pt-2 sm:flex-row">
-            <PrimaryButton href="/contact">기술 부채 진단 문의하기</PrimaryButton>
-            <SecondaryButton href={post.slug === "ai-mvp-launch-checklist" ? "/posts/ai-mvp-technical-debt-audit-sample-report" : "/posts/ai-mvp-launch-checklist"}>
-              {post.slug === "ai-mvp-launch-checklist" ? "샘플 리포트 보기" : "체크리스트 보기"}
-            </SecondaryButton>
-          </div>
-        </div>
+      <Container className="py-10 sm:py-12">
+        <PostUseCaseHero title={post.title} summary={post.summary} {...heroConfig} />
         <PostMobileConversionRail config={railConfig} />
-        <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
-          <article className="prose prose-neutral max-w-none prose-a:text-zapier-orange">
+        <div className="mt-12 grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
+          <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral min-w-0 max-w-none break-words prose-a:text-zapier-orange [overflow-wrap:anywhere]">
             <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />
           </article>
           <PostConversionRail config={railConfig} />
@@ -130,7 +204,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <h1 className="text-4xl font-semibold leading-[1.05] tracking-[-0.055em] text-zapier-black sm:text-6xl">{post.title}</h1>
         <p className="mx-auto max-w-2xl text-base leading-7 text-zapier-charcoal sm:text-lg">{post.summary}</p>
       </div>
-      <article className="prose prose-neutral max-w-none prose-a:text-zapier-orange">
+      <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-zapier-orange">
         <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />
       </article>
     </NarrowPage>

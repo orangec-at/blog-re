@@ -19,7 +19,7 @@ export function Header() {
         <Container className="flex min-h-20 flex-wrap items-center justify-between gap-4 py-4">
           <Link
             href="/"
-            className="flex items-center gap-3 text-zapier-black transition hover:text-zapier-charcoal"
+            className="flex min-h-11 items-center gap-3 text-zapier-black transition hover:text-zapier-charcoal"
           >
             <span className="text-2xl font-semibold">
               wakey<span className="text-zapier-orange">moment</span>
@@ -31,7 +31,7 @@ export function Header() {
 
           <nav className="hidden items-center gap-6 text-sm font-medium text-zapier-charcoal md:flex">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className="transition hover:text-zapier-black">
+              <Link key={item.href} href={item.href} className="inline-flex min-h-11 min-w-11 items-center justify-center transition hover:text-zapier-black">
                 {item.label}
               </Link>
             ))}

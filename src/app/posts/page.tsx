@@ -33,7 +33,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
             href="/posts"
             className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
               !selectedDomain
-                ? "border-zapier-orange bg-zapier-orange text-cream"
+                ? "border-[#c63d00] bg-[#c63d00] text-cream"
                 : "border-zapier-sand text-zapier-charcoal hover:border-zapier-orange"
             }`}
           >
@@ -45,7 +45,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
               href={`/posts?domain=${domain}`}
               className={`rounded-full border px-4 py-2 text-sm font-medium capitalize transition ${
                 selectedDomain === domain
-                  ? "border-zapier-orange bg-zapier-orange text-cream"
+                  ? "border-[#c63d00] bg-[#c63d00] text-cream"
                   : "border-zapier-sand text-zapier-charcoal hover:border-zapier-orange"
               }`}
             >

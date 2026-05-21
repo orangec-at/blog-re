@@ -8,9 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
-    "check": "pnpm lint && pnpm test",
+    "check": "pnpm content:check && pnpm lint && pnpm test",
     "content:build": "NODE_ENV=production contentlayer build",
-    "prebuild": "pnpm content:build"
+    "prebuild": "pnpm content:check && pnpm content:build",
+    "content:check": "node scripts/check-content-engine.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
