@@ -1,0 +1,54 @@
+import { absoluteUrl, siteConfig } from "@/config/site";
+
+export type BlogPostingJsonLdInput = {
+  author?: string;
+  dateModified?: string;
+  datePublished: string;
+  description: string;
+  image?: string;
+  title: string;
+  url: string;
+};
+
+export function buildWebsiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+  };
+}
+
+export function buildOrganizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+  };
+}
+
+export function buildBlogPostingJsonLd(input: BlogPostingJsonLdInput) {
+  const authorName = input.author ?? "Jaeil Lee";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: input.title,
+    description: input.description,
+    url: absoluteUrl(input.url),
+    datePublished: input.datePublished,
+    dateModified: input.dateModified ?? input.datePublished,
+    image: absoluteUrl(input.image ?? siteConfig.defaultOgImage),
+    author: {
+      "@type": "Person",
+      name: authorName,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+  };
+}

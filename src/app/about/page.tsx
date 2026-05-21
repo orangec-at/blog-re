@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { AboutHero } from "@/components/about/about-hero";
 import { TeamSnapshot } from "@/components/about/team-snapshot";
 import { WhyWeWorkThisWay } from "@/components/about/why-we-work-this-way";
@@ -7,6 +8,13 @@ import { BorderedSurface } from "@/components/ui/surfaces/bordered-surface";
 import { BodyText } from "@/components/ui/typography/body-text";
 import { Eyebrow } from "@/components/ui/typography/eyebrow";
 import { SectionHeading } from "@/components/ui/typography/section-heading";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "Learn how wakeymoment supports founder-led launches with practical technical judgment and safer productization.",
+  alternates: { canonical: "/about" },
+};
+
 
 export default function AboutPage() {
   return (

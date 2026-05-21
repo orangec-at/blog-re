@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { getAllDomains } from "@/data/projects";
+
+export const metadata: Metadata = {
+  title: "Domains",
+  description: "Browse wakeymoment work by business domain, including FixMyVibe, DrawHatha, and infrastructure notes.",
+  alternates: { canonical: "/domains" },
+};
+
 
 export default function DomainsIndexPage() {
   const domains = getAllDomains();

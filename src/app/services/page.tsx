@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { FinalServicesCta } from "@/components/services/final-services-cta";
 import { ServiceDecisionGrid } from "@/components/services/service-decision-grid";
 import { ServiceDetailSection } from "@/components/services/service-detail-section";
@@ -10,6 +11,13 @@ import { Eyebrow } from "@/components/ui/typography/eyebrow";
 import { SectionHeading } from "@/components/ui/typography/section-heading";
 import { projects } from "@/data/projects";
 import { serviceOffers, servicesIntro } from "@/data/services-content";
+
+export const metadata: Metadata = {
+  title: "Services",
+  description: "Compare FixMyVibe diagnosis, remodeling, and technical partner support for founder-led launches.",
+  alternates: { canonical: "/services" },
+};
+
 
 const proofLinks = [
   {

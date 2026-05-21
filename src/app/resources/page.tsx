@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ContactCta } from "@/components/home";
 import { Container } from "@/components/layout/container";
 import { NarrowPage } from "@/components/layout/narrow-page";
@@ -7,6 +8,13 @@ import {
   resourcesFinalCta,
   resourcesIntro,
 } from "@/data/resources-content";
+
+export const metadata: Metadata = {
+  title: "Resources",
+  description: "Founder-friendly resources for AI MVP launch-readiness, technical debt diagnosis, and remodeling decisions.",
+  alternates: { canonical: "/resources" },
+};
+
 
 export default async function ResourcesPage() {
   return (

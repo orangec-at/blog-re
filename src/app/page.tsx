@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { FeaturedInsightRow } from "@/components/home-redesign/featured-insight-row";
 import { HomeHero } from "@/components/home-redesign/home-hero";
 import { PainPointGrid } from "@/components/home-redesign/pain-point-grid";
@@ -15,6 +16,13 @@ import { homeRescueHero } from "@/data/home-redesign-content";
 import { projects } from "@/data/projects";
 import { founderHelpItems, resourcesIntro } from "@/data/resources-content";
 import { serviceOffers, servicesIntro } from "@/data/services-content";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Founder-friendly technical debt diagnosis and launch-readiness support for AI-built MVPs.",
+  alternates: { canonical: "/" },
+};
+
 
 const proofMetrics = [
   {
