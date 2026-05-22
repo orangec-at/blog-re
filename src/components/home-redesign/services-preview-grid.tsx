@@ -1,6 +1,7 @@
+import { ServicePackageCard } from "@/components/marketing/service-package-card";
 import { Container } from "@/components/layout/container";
-import { TextLink } from "@/components/ui/actions/text-link";
-import { FeatureCard } from "@/components/ui/molecules/feature-card";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { BodyText } from "@/components/ui/typography/body-text";
 import { Eyebrow } from "@/components/ui/typography/eyebrow";
 import { SectionHeading } from "@/components/ui/typography/section-heading";
@@ -15,34 +16,28 @@ export function ServicesPreviewGrid({ intro, offers }: ServicesPreviewGridProps)
   return (
     <section className="bg-offwhite py-16 sm:py-20">
       <Container variant="wide" className="space-y-8">
-        <div className="max-w-3xl space-y-4">
-          <Eyebrow>{intro.eyebrow}</Eyebrow>
-          <SectionHeading>{intro.title}</SectionHeading>
-          <BodyText>{intro.body}</BodyText>
-          <BodyText className="text-sm sm:text-base">{intro.chooserNote}</BodyText>
+        <div className="grid gap-8 lg:grid-cols-[0.95fr_2fr] lg:items-end">
+          <div className="max-w-2xl space-y-4">
+            <Eyebrow>{intro.eyebrow}</Eyebrow>
+            <SectionHeading>{intro.title}</SectionHeading>
+            <BodyText>{intro.body}</BodyText>
+          </div>
+          <Card className="border-[#b9b9f9] bg-cream px-5 py-4">
+            <div className="grid gap-3 text-sm text-zapier-charcoal sm:grid-cols-[0.7fr_1fr] sm:items-center">
+              <Badge variant="label">Chooser note</Badge>
+              <span>{intro.chooserNote}</span>
+            </div>
+          </Card>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
-          {offers.map((offer) => (
-            <FeatureCard
+          {offers.map((offer, index) => (
+            <ServicePackageCard
               key={offer.id}
-              body={offer.summary}
-              tag={offer.id === "fmv-diagnosis" ? "Start here" : undefined}
-              title={offer.name}
-              tone="cream"
-            >
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Eyebrow as="span">추천 대상</Eyebrow>
-                  <BodyText className="text-sm sm:text-base">{offer.bestFor}</BodyText>
-                </div>
-                <div className="space-y-2">
-                  <Eyebrow as="span">결과물</Eyebrow>
-                  <BodyText className="text-sm sm:text-base">{offer.outcome}</BodyText>
-                </div>
-                <TextLink href={offer.ctaHref}>{offer.ctaLabel}</TextLink>
-              </div>
-            </FeatureCard>
+              offer={offer}
+              packageNumber={index + 1}
+              startHere={offer.id === "fmv-diagnosis"}
+            />
           ))}
         </div>
       </Container>

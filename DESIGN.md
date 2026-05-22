@@ -1,328 +1,417 @@
-# Design System Inspired by Zapier
+---
+version: alpha
+name: FixMyVibe Stripe Advisory
+description: Component-first visual system for the wakeymoment FixMyVibe AI MVP technical debt advisory site.
+colors:
+  primary: "#533AFD"
+  navy: "#061B31"
+  body: "#273951"
+  muted: "#64748D"
+  purpleHover: "#4434D4"
+  purpleSoft: "#F4F7FF"
+  surface: "#FFFFFF"
+  soft: "#F6F9FC"
+  darkPanel: "#1C1E54"
+  darkPanelMuted: "#C9D0E7"
+  success: "#0B6B2A"
+  danger: "#C5164E"
+typography:
+  display:
+    fontFamily: Source Sans 3
+    fontSize: 3.75rem
+    fontWeight: 300
+    lineHeight: 1.01
+    letterSpacing: "-0.055em"
+  display-sm:
+    fontFamily: Source Sans 3
+    fontSize: 3rem
+    fontWeight: 300
+    lineHeight: 1.02
+    letterSpacing: "-0.055em"
+  section:
+    fontFamily: Source Sans 3
+    fontSize: 3rem
+    fontWeight: 400
+    lineHeight: 1.04
+    letterSpacing: "-0.045em"
+  card-title:
+    fontFamily: Source Sans 3
+    fontSize: 1.5rem
+    fontWeight: 400
+    lineHeight: 1.12
+    letterSpacing: "-0.028em"
+  body:
+    fontFamily: Source Sans 3
+    fontSize: 1.125rem
+    fontWeight: 300
+    lineHeight: 1.55
+    letterSpacing: "-0.006em"
+  body-sm:
+    fontFamily: Source Sans 3
+    fontSize: 1rem
+    fontWeight: 300
+    lineHeight: 1.5
+    letterSpacing: "-0.006em"
+  label:
+    fontFamily: Source Sans 3
+    fontSize: 0.875rem
+    fontWeight: 600
+    lineHeight: 1.2
+    letterSpacing: "0.05em"
+rounded:
+  sm: 5px
+  md: 8px
+  lg: 14px
+spacing:
+  xs: 4px
+  sm: 8px
+  md: 16px
+  lg: 24px
+  xl: 32px
+  sectionY: 56px
+components:
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.surface}"
+    rounded: "{rounded.sm}"
+    padding: 12px
+  button-primary-hover:
+    backgroundColor: "{colors.purpleHover}"
+    textColor: "{colors.surface}"
+    rounded: "{rounded.sm}"
+    padding: 12px
+  button-secondary:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.primary}"
+    rounded: "{rounded.sm}"
+    padding: 12px
+  button-ghost:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.navy}"
+    rounded: "{rounded.sm}"
+    padding: 12px
+  text-link:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.primary}"
+    rounded: "{rounded.sm}"
+    padding: 4px
+  pill-tag:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.navy}"
+    rounded: "{rounded.sm}"
+    padding: 8px
+  card-default:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.body}"
+    rounded: "{rounded.md}"
+    padding: 24px
+  card-soft:
+    backgroundColor: "{colors.soft}"
+    textColor: "{colors.body}"
+    rounded: "{rounded.md}"
+    padding: 24px
+  console-panel:
+    backgroundColor: "{colors.darkPanel}"
+    textColor: "{colors.surface}"
+    rounded: "{rounded.md}"
+    padding: 24px
+  console-panel-muted:
+    backgroundColor: "{colors.darkPanel}"
+    textColor: "{colors.darkPanelMuted}"
+    rounded: "{rounded.md}"
+    padding: 24px
 
-## 1. Visual Theme & Atmosphere
+  text-muted:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.muted}"
+    rounded: "{rounded.sm}"
+    padding: 4px
+  badge-soft:
+    backgroundColor: "{colors.purpleSoft}"
+    textColor: "{colors.primary}"
+    rounded: "{rounded.sm}"
+    padding: 8px
+  status-success:
+    backgroundColor: "{colors.soft}"
+    textColor: "{colors.success}"
+    rounded: "{rounded.sm}"
+    padding: 8px
+  form-error:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.danger}"
+    rounded: "{rounded.sm}"
+    padding: 8px
+---
 
-Zapier's website radiates warm, approachable professionalism. It rejects the cold monochrome minimalism of developer tools in favor of a cream-tinted canvas (`#fffefb`) that feels like unbleached paper -- the digital equivalent of a well-organized notebook. The near-black (`#201515`) text has a faint reddish-brown warmth, creating an atmosphere more human than mechanical. This is automation designed to feel effortless, not technical.
+## Overview
 
-The typographic system is a deliberate interplay of two distinct personalities. **Degular Display** -- a geometric, wide-set display face -- handles hero-scale headlines at 56-80px with medium weight (500) and extraordinarily tight line-heights (0.90), creating headlines that compress vertically like stacked blocks. **Inter** serves as the workhorse for everything else, from section headings to body text and navigation, with fallbacks to Helvetica and Arial. **GT Alpina**, an elegant thin-weight serif with aggressive negative letter-spacing (-1.6px to -1.92px), makes occasional appearances for softer editorial moments. This three-font system gives Zapier the ability to shift register -- from bold and punchy (Degular) to clean and functional (Inter) to refined and literary (GT Alpina).
+FixMyVibe is a premium, founder-facing technical debt advisory surface. The page should feel like Stripe-style advisory software: calm, exact, productized, and trustworthy. It must not feel like a generic AI landing page, a warm Zapier clone, or a random Tailwind sketch.
 
-The brand's signature orange (`#ff4f00`) is unmistakable -- a vivid, saturated red-orange that sits precisely between traffic-cone urgency and sunset warmth. It's used sparingly but decisively: primary CTA buttons, active state underlines, and accent borders. Against the warm cream background, this orange creates a color relationship that feels energetic without being aggressive.
+The design system is component-first. Agents changing UI must preserve the behavior and hierarchy of the components below before changing colors, spacing, or copy layout. If a screen feels wrong, first ask: which component contract is being violated?
 
-**Key Characteristics:**
-- Warm cream canvas (`#fffefb`) instead of pure white -- organic, paper-like warmth
-- Near-black with reddish undertone (`#201515`) -- text that breathes rather than dominates
-- Degular Display for hero headlines at 0.90 line-height -- compressed, impactful, modern
-- Inter as the universal UI font across all functional typography
-- GT Alpina for editorial accents -- thin-weight serif with extreme negative tracking
-- Zapier Orange (`#ff4f00`) as the single accent -- vivid, warm, sparingly applied
-- Warm neutral palette: borders (`#c5c0b1`), muted text (`#939084`), surface tints (`#eceae3`)
-- 8px base spacing system with generous padding on CTAs (20px 24px)
-- Border-forward design: `1px solid` borders in warm grays define structure over shadows
+## Colors
 
-## 2. Color Palette & Roles
+- **Navy (`#061B31`)**: Primary headings, logo text, strong labels. Never use pure black for core text.
+- **Body (`#273951`)**: Default readable body text. Use this instead of muted text for paragraphs that carry meaning.
+- **Muted (`#64748D`)**: Metadata, short descriptions, labels. Do not use for long paragraphs or critical conversion copy.
+- **Primary Purple (`#533AFD`)**: Sole primary interaction color. Used for primary buttons, active emphasis, and links.
+- **Purple Hover (`#4434D4`)**: Hover/focus active background for primary actions.
+- **Purple Soft (`#F4F7FF`)**: Light accent surface for selected pills, subtle callouts, and empty-state highlights.
+- **Border (`#E5EDF5`)**: Default card and section border.
+- **Surface (`#FFFFFF`)**: Cards, header, panels, form fields.
+- **Soft (`#F6F9FC`)**: Alternate section background and secondary card surface.
+- **Dark Panel (`#1C1E54`)**: Only approved dark surface. Use for diagnostic/product preview panels, not for whole-page chrome.
 
-### Primary
-- **Zapier Black** (`#201515`): Primary text, headings, dark button backgrounds. A warm near-black with reddish undertones -- never cold.
-- **Cream White** (`#fffefb`): Page background, card surfaces, light button fills. Not pure white; the yellowish warmth is intentional.
-- **Off-White** (`#fffdf9`): Secondary background surface, subtle alternate tint. Nearly indistinguishable from cream white but creates depth.
+Do not introduce orange, random blue, black, or arbitrary gray values. If a new color is necessary, add it here first and explain its role.
 
-### Brand Accent
-- **Zapier Orange** (`#ff4f00`): Primary CTA buttons, active underline indicators, accent borders. The signature color -- vivid and warm.
+## Typography
 
-### Neutral Scale
-- **Dark Charcoal** (`#36342e`): Secondary text, footer text, border color for strong dividers. A warm dark gray-brown with 70% opacity variant.
-- **Warm Gray** (`#939084`): Tertiary text, muted labels, timestamp-style content. Mid-range with greenish-warm undertone.
-- **Sand** (`#c5c0b1`): Primary border color, hover state backgrounds, divider lines. The backbone of Zapier's structural elements.
-- **Light Sand** (`#eceae3`): Secondary button backgrounds, light borders, subtle card surfaces.
-- **Mid Warm** (`#b5b2aa`): Alternate border tone, used on specific span elements.
+Use `Source Sans 3` for all product and marketing UI. The visual signature is light but readable typography, not bold SaaS noise.
 
-### Interactive
-- **Orange CTA** (`#ff4f00`): Primary action buttons and active tab underlines.
-- **Dark CTA** (`#201515`): Secondary dark buttons with sand hover state.
-- **Light CTA** (`#eceae3`): Tertiary/ghost buttons with sand hover.
-- **Link Default** (`#201515`): Standard link color, matching body text.
-- **Hover Underline**: Links remove `text-decoration: underline` on hover (inverse pattern).
+- **Display**: large hero text only. Weight 300, tight tracking, max 3–4 lines. Avoid orphan lines such as a single Korean particle or punctuation-only final line.
+- **Section**: section headings. Weight 400; do not make these as fragile as display text.
+- **Card title**: product/card headings. Weight 400, compact line-height. If a heading wraps into awkward fragments, rewrite the copy before changing the component.
+- **Body**: meaningful paragraphs. Use Body color, not Muted, unless the text is genuinely secondary.
+- **Label**: uppercase eyebrows and small metadata. Use sparingly; labels must orient the reader, not decorate the page.
 
-### Overlay & Surface
-- **Semi-transparent Dark** (`rgba(45, 45, 46, 0.5)`): Overlay button variant, backdrop-like elements.
-- **Pill Surface** (`#fffefb`): White pill buttons with sand borders.
+## Layout
 
-### Shadows & Depth
-- **Inset Underline** (`rgb(255, 79, 0) 0px -4px 0px 0px inset`): Active tab indicator -- orange underline using inset box-shadow.
-- **Hover Underline** (`rgb(197, 192, 177) 0px -4px 0px 0px inset`): Inactive tab hover -- sand-colored underline.
+- Use a clean 12-column mental model: content left, product/diagnostic proof right, then card grids below.
+- Hero content and hero proof panel must start on the same vertical axis on desktop. Do not vertically center one side if it creates a blank top band.
+- Section vertical padding defaults to 56px. Increase only for intentional chapter breaks.
+- Card grids should not look like empty containers. If a card has large unused vertical space, either reduce height or add a defined subcomponent.
+- Mobile stacks in this order: headline, subtitle, primary CTA, proof panel, supporting cards.
 
-## 3. Typography Rules
+## Elevation & Depth
 
-### Font Families
-- **Display**: `Degular Display` -- wide geometric display face for hero headlines
-- **Primary**: `Inter`, with fallbacks: `Helvetica, Arial`
-- **Editorial**: `GT Alpina` -- thin-weight serif for editorial moments
-- **System**: `Arial` -- fallback for form elements and system UI
+Depth is Stripe-like: soft blue-tinted shadows and thin borders.
 
-### Hierarchy
+- Default containment: `1px solid #E5EDF5`.
+- Featured card lift: soft blue shadow, never heavy black shadow.
+- Dark diagnostic panels use border + inner contrast, not glow.
+- Avoid thick borders, orange underline effects, and overly rounded pill surfaces.
 
-| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |
-|------|------|------|--------|-------------|----------------|-------|
-| Display Hero XL | Degular Display | 80px (5.00rem) | 500 | 0.90 (tight) | normal | Maximum impact, compressed block |
-| Display Hero | Degular Display | 56px (3.50rem) | 500 | 0.90-1.10 (tight) | 0-1.12px | Primary hero headlines |
-| Display Hero SM | Degular Display | 40px (2.50rem) | 500 | 0.90 (tight) | normal | Smaller hero variant |
-| Display Button | Degular Display | 24px (1.50rem) | 600 | 1.00 (tight) | 1px | Large CTA button text |
-| Section Heading | Inter | 48px (3.00rem) | 500 | 1.04 (tight) | normal | Major section titles |
-| Editorial Heading | GT Alpina | 48px (3.00rem) | 250 | normal | -1.92px | Thin editorial headlines |
-| Editorial Sub | GT Alpina | 40px (2.50rem) | 300 | 1.08 (tight) | -1.6px | Editorial subheadings |
-| Sub-heading LG | Inter | 36px (2.25rem) | 500 | normal | -1px | Large sub-sections |
-| Sub-heading | Inter | 32px (2.00rem) | 400 | 1.25 (tight) | normal | Standard sub-sections |
-| Sub-heading MD | Inter | 28px (1.75rem) | 500 | normal | normal | Medium sub-headings |
-| Card Title | Inter | 24px (1.50rem) | 600 | normal | -0.48px | Card headings |
-| Body Large | Inter | 20px (1.25rem) | 400-500 | 1.00-1.20 (tight) | -0.2px | Feature descriptions |
-| Body Emphasis | Inter | 18px (1.13rem) | 600 | 1.00 (tight) | normal | Emphasized body text |
-| Body | Inter | 16px (1.00rem) | 400-500 | 1.20-1.25 | -0.16px | Standard reading text |
-| Body Semibold | Inter | 16px (1.00rem) | 600 | 1.16 (tight) | normal | Strong labels |
-| Button | Inter | 16px (1.00rem) | 600 | normal | normal | Standard buttons |
-| Button SM | Inter | 14px (0.88rem) | 600 | normal | normal | Small buttons |
-| Caption | Inter | 14px (0.88rem) | 500 | 1.25-1.43 | normal | Labels, metadata |
-| Caption Upper | Inter | 14px (0.88rem) | 600 | normal | 0.5px | Uppercase section labels |
-| Micro | Inter | 12px (0.75rem) | 600 | 0.90-1.33 | 0.5px | Tiny labels, often uppercase |
-| Micro SM | Inter | 13px (0.81rem) | 500 | 1.00-1.54 | normal | Small metadata text |
+## Shapes
 
-### Principles
-- **Three-font system, clear roles**: Degular Display commands attention at hero scale only. Inter handles everything functional. GT Alpina adds editorial warmth sparingly.
-- **Compressed display**: Degular at 0.90 line-height creates vertically compressed headline blocks that feel modern and architectural.
-- **Weight as hierarchy signal**: Inter uses 400 (reading), 500 (navigation/emphasis), 600 (headings/CTAs). Degular uses 500 (display) and 600 (buttons).
-- **Uppercase for labels**: Section labels (like "01 / Colors") and small categorization use `text-transform: uppercase` with 0.5px letter-spacing.
-- **Negative tracking for elegance**: GT Alpina uses -1.6px to -1.92px letter-spacing for its thin-weight editorial headlines.
+- Default radius: 5px for buttons and pills.
+- Cards and panels: 8px by default.
+- `PanelSurface` is a legacy/broad content-surface exception that currently keeps `rounded-3xl` until a dedicated legacy-surface cleanup migrates it; do not use it as precedent for new marketing cards.
+- Large rounded 20px+ pills are not part of this system except mobile floating navigation if already present.
+- If an element looks like an input but is a badge, the component is wrong. Badges must be compact, inline, and label-like.
 
-## 4. Component Stylings
+## Components
 
-### Buttons
+The component system is a contract registry, not only a vibe guide. Every repeated visual pattern must have one implementation owner. Page and section files may choose data, order sections, and define responsive layout; they must not recreate card, metric, badge, CTA, or proof internals with page-local Tailwind.
 
-**Primary Orange**
-- Background: `#ff4f00`
-- Text: `#fffefb`
-- Padding: 8px 16px
-- Radius: 4px
-- Border: `1px solid #ff4f00`
-- Use: Primary CTA ("Start free with email", "Sign up free")
+Inventory source of truth:
 
-**Primary Dark**
-- Background: `#201515`
-- Text: `#fffefb`
-- Padding: 20px 24px
-- Radius: 8px
-- Border: `1px solid #201515`
-- Hover: background shifts to `#c5c0b1`, text to `#201515`
-- Use: Large secondary CTA buttons
+- `docs/design-system/ui-pattern-inventory.md`
 
-**Light / Ghost**
-- Background: `#eceae3`
-- Text: `#36342e`
-- Padding: 20px 24px
-- Radius: 8px
-- Border: `1px solid #c5c0b1`
-- Hover: background shifts to `#c5c0b1`, text to `#201515`
-- Use: Tertiary actions, filter buttons
+Composition rules:
 
-**Pill Button**
-- Background: `#fffefb`
-- Text: `#36342e`
-- Padding: 0px 16px
-- Radius: 20px
-- Border: `1px solid #c5c0b1`
-- Use: Tag-like selections, filter pills
+- If a visual pattern appears more than once, improve an existing owner component or create a named reusable component before reusing it.
+- New reusable visual components must update this file with: owner path, used-by path, required content order, allowed variants, and prohibited shortcuts.
+- Section files under `src/components/home-redesign/**`, `src/components/services/**`, `src/components/content/**`, and `src/app/**` should compose components rather than own card internals.
+- Prefer foundation primitives from `src/components/ui/**` before inventing new Tailwind shells.
+- `src/components/marketing/**` owns productized marketing cards and proof surfaces.
 
-**Overlay Semi-transparent**
-- Background: `rgba(45, 45, 46, 0.5)`
-- Text: `#fffefb`
-- Radius: 20px
-- Hover: background becomes fully opaque `#2d2d2e`
-- Use: Video play buttons, floating actions
+Card shell role boundaries:
 
-**Tab / Navigation (Inset Shadow)**
-- Background: transparent
-- Text: `#201515`
-- Padding: 12px 16px
-- Shadow: `rgb(255, 79, 0) 0px -4px 0px 0px inset` (active orange underline)
-- Hover shadow: `rgb(197, 192, 177) 0px -4px 0px 0px inset` (sand underline)
-- Use: Horizontal tab navigation
+- `Card` (`src/components/ui/card.tsx`) is the shadcn-style foundation shell for new marketing cards and marketing-owned wrappers. Use it with `CardHeader`, `CardContent`, `CardFooter`, `CardTitle`, and `CardDescription` when a card needs explicit slots or will be composed by `src/components/marketing/**`.
+- `FeatureCard` (`src/components/ui/molecules/feature-card.tsx`) is the generic legacy feature card for older title/body/tag cards. Keep it for existing broad feature grids; do not use it as the default shell for new productized marketing cards.
+- `BorderedSurface` (`src/components/ui/surfaces/bordered-surface.tsx`) and `PanelSurface` (`src/components/ui/surfaces/panel-surface.tsx`) are legacy or broad content surfaces. Use them for incremental cleanup, content panels, or existing surface patterns, not for new repeated card families.
+- New repeated card patterns must have a named reusable owner (`Card` composition, `FeatureCard`, `MetricCard`, or a `src/components/marketing/**` component). They must not be page-local shells built from repeated `rounded-* border bg-* p-* shadow-*` classes.
 
-### Cards & Containers
-- Background: `#fffefb`
-- Border: `1px solid #c5c0b1` (warm sand border)
-- Radius: 5px (standard), 8px (featured)
-- No shadow elevation by default -- borders define containment
-- Hover: subtle border color intensification
+Prohibited page-local patterns:
 
-### Inputs & Forms
-- Background: `#fffefb`
-- Text: `#201515`
-- Border: `1px solid #c5c0b1`
-- Radius: 5px
-- Focus: border color shifts to `#ff4f00` (orange)
-- Placeholder: `#939084`
+- Do not create ad-hoc card shells by repeating `rounded-* border bg-* p-* shadow-*` in page/section files when `Card`, `FeatureCard`, `MetricCard`, `BorderedSurface`, `PanelSurface`, or a marketing card owner exists.
+- Do not add floating chips, fake progress bars, dashboard rows, metric cards, or decorative badges unless their owner component and contract are added here first.
+- Do not call a page-local JSX/Tailwind change “component-level” work unless a reusable component was actually created or improved.
+- Do not make visual polish by increasing section complexity. A healthy redesign makes owner components clearer and page files thinner.
 
-### Navigation
-- Clean horizontal nav on cream background
-- Zapier logotype left-aligned, 104x28px
-- Links: Inter 16px weight 500, `#201515` text
-- CTA: Orange button ("Start free with email")
-- Tab navigation uses inset box-shadow underline technique
-- Mobile: hamburger collapse
+### Primary Button
 
-### Image Treatment
-- Product screenshots with `1px solid #c5c0b1` border
-- Rounded corners: 5-8px
-- Dashboard/workflow screenshots prominent in feature sections
-- Light gradient backgrounds behind hero content
+Use for the single strongest next action in a section: contact, diagnosis request, or booking intent.
 
-### Distinctive Components
+- Token entry: `button-primary`
+- Background: `{colors.primary}`
+- Text: white
+- Radius: `{rounded.sm}`
+- Shadow: soft blue/purple lift, not black elevation
+- Copy: action-oriented, not generic. Good: “기술 부채 진단 문의하기”. Bad: “Learn more”.
+- Page rule: one primary button per visual cluster. Header CTA and hero CTA may duplicate only when they serve the same destination.
 
-**Workflow Integration Cards**
-- Display connected app icons in pairs
-- Arrow or connection indicator between apps
-- Sand border containment
-- Inter weight 500 for app names
+### Secondary Button
 
-**Stat Counter**
-- Large display number using Inter 48px weight 500
-- Muted description below in `#36342e`
-- Used for social proof metrics
+Use for second action next to a primary CTA, usually sample report or proof.
 
-**Social Proof Icons**
-- Circular icon buttons: 14px radius
-- Sand border: `1px solid #c5c0b1`
-- Used for social media follow links in footer
+- Token entry: `button-secondary`
+- White surface, purple text, purple-tinted border.
+- Must not compete visually with primary.
+- Do not use dark filled secondary buttons in this Stripe direction.
 
-## 5. Layout Principles
+### Text Link
 
-### Spacing System
-- Base unit: 8px
-- Scale: 1px, 4px, 6px, 8px, 10px, 12px, 16px, 20px, 24px, 32px, 40px, 48px, 56px, 64px, 72px
-- CTA buttons use generous padding: 20px 24px for large, 8px 16px for standard
-- Section padding: 64px-80px vertical
+Use for low-friction navigation under a card or final CTA.
 
-### Grid & Container
-- Max content width: approximately 1200px
-- Hero: centered single-column with large top padding
-- Feature sections: 2-3 column grids for integration cards
-- Full-width sand-bordered dividers between sections
-- Footer: multi-column dark background (`#201515`)
+- Token entry: `text-link`
+- Purple text with subtle underline.
+- Must read as a link, not plain body copy.
+- Avoid centering a lone text link below large whitespace unless it belongs to a deliberate CTA stack.
 
-### Whitespace Philosophy
-- **Warm breathing room**: Generous vertical spacing between sections (64px-80px), but content areas are relatively dense -- Zapier packs information efficiently within its cream canvas.
-- **Architectural compression**: Degular Display headlines at 0.90 line-height compress vertically, contrasting with the open spacing around them.
-- **Section rhythm**: Cream background throughout, with sections separated by sand-colored borders rather than background color changes.
+### Pill Tag / Badge
 
-### Border Radius Scale
-- Tight (3px): Small inline spans
-- Standard (4px): Buttons (orange CTA), tags, small elements
-- Content (5px): Cards, links, general containers
-- Comfortable (8px): Featured cards, large buttons, tabs
-- Social (14px): Social icon buttons, pill-like elements
-- Pill (20px): Play buttons, large pill buttons, floating actions
+Use to classify, not to act. Examples: “구조 복구”, “출시 준비도”, “AI MVP Rescue”. The boundary is intentional so agents do not pick between the two by visual taste alone.
 
-## 6. Depth & Elevation
+- `Badge` owner: `src/components/ui/badge.tsx`.
+- `Badge` token entries: `pill-tag` for the neutral/default compact shape and `badge-soft` for the purple-soft accent shape; code variants currently include `default`, `accent`, `label`, and `muted`. The `label` variant uses Primary Purple for Stripe-direction emphasis, not legacy orange naming/classes.
+- Use `Badge` for compact labels inside shadcn-style `Card` and `src/components/marketing/**` components.
+- New marketing cards must prefer `Badge` unless the component contract explicitly requires a larger full pill.
+- `Badge` must stay compact, inline, `w-fit`/content-sized, and label-like; it must never stretch full width, look like a form input, or use the older full-pill chip shape by accident.
+- `PillTag` owner: `src/components/ui/feedback/pill-tag.tsx`.
+- Use `PillTag` only for older/full pill classification in legacy sections, existing brand sections, or hero chip rows where the rounded-pill chip shape is intentional.
+- Do not introduce `PillTag` inside new shadcn-style marketing cards. If a full pill is explicitly required there, document that exception in the card contract.
+- If clickable, use an interactive chip component with explicit hover/focus state and destination.
 
-| Level | Treatment | Use |
-|-------|-----------|-----|
-| Flat (Level 0) | No shadow | Page background, text blocks |
-| Bordered (Level 1) | `1px solid #c5c0b1` | Standard cards, containers, inputs |
-| Strong Border (Level 1b) | `1px solid #36342e` | Dark dividers, emphasized sections |
-| Active Tab (Level 2) | `rgb(255, 79, 0) 0px -4px 0px 0px inset` | Active tab underline (orange) |
-| Hover Tab (Level 2b) | `rgb(197, 192, 177) 0px -4px 0px 0px inset` | Hover tab underline (sand) |
-| Focus (Accessibility) | `1px solid #ff4f00` outline | Focus ring on interactive elements |
+### Feature Card
 
-**Shadow Philosophy**: Zapier deliberately avoids traditional shadow-based elevation. Structure is defined almost entirely through borders -- warm sand (`#c5c0b1`) borders for standard containment, dark charcoal (`#36342e`) borders for emphasis. The only shadow-like technique is the inset box-shadow used for tab underlines, where a `0px -4px 0px 0px inset` shadow creates a bottom-bar indicator. This border-first approach keeps the design grounded and tangible rather than floating.
+Use for generic legacy title/body/tag feature cards in older pain point, service, proof path, and package-summary grids. New shadcn-style marketing cards should use `Card` directly or a named component under `src/components/marketing/**` instead of starting from `FeatureCard`.
 
-### Decorative Depth
-- Orange inset underline on active tabs creates visual "weight" at the bottom of elements
-- Sand hover underlines provide preview states without layout shifts
-- No background gradients in main content -- the cream canvas is consistent
-- Footer uses full dark background (`#201515`) for contrast reversal
+- Token entry: `card-default` or `card-soft`
+- Owner: `src/components/ui/molecules/feature-card.tsx`.
+- Required internal order: optional badge → title → one body paragraph → optional metadata/action.
+- Body copy must explain the user value, not restate the title.
+- Avoid cards with only a large number and vague label unless the metric is self-evident.
+- Equal-height cards are allowed only when content density is balanced.
+- Do not use `FeatureCard`, `BorderedSurface`, or `PanelSurface` to create a new repeated marketing card family when a `Card`-based owner component should exist.
 
-## 7. Do's and Don'ts
+### Service Package Card
+
+Specialized feature card for the three core offers:
+
+1. AI MVP Technical Debt Audit
+2. Remodeling Sprint
+3. Founder Tech Partner / Virtual CTO
+
+Ownership:
+- Implementation owner: `src/components/marketing/service-package-card.tsx` (`ServicePackageCard`).
+- Used by: `src/components/home-redesign/services-preview-grid.tsx`.
+- Foundation primitives: `Card`, `Badge`, `Separator`, `TextLink`.
+
+Rules:
+- Each card must answer: recommended for, output, next action.
+- Required order: compact package label → optional compact “Start here” badge → title → one summary paragraph → recommended-for row → output row → next-action text link.
+- Do not make title typography so large that Korean/English wraps into broken fragments.
+- Do not add decorative floating chips, progress bars, or grid-paper effects unless this contract is updated first.
+- The first card may carry a compact “Start here” badge, but that badge must not look like an input or full-width banner.
+- Do not recreate package-card markup directly inside a page or section file.
+
+### Proof Artifact Card
+
+Use for project proof, sample reports, repo links, and domain evidence. It should prove that the service has actual artifacts without turning the card into a dashboard mockup.
+
+Ownership:
+- Implementation owner: `src/components/marketing/proof-artifact-card.tsx` (`ProofArtifactCard`).
+- Used by: `src/components/home-redesign/featured-insight-row.tsx`.
+- Foundation primitives: `Card`, `Badge`, `Separator`, `TextLink`.
+
+Rules:
+- Required order: artifact type label → compact proof label → title → one summary paragraph → proof/highlight points → verification point → one or two links.
+- Links use `text-link` and should include directional copy such as “Domain page →”.
+- Do not use nested cards, progress bars, or decorative chart rows for proof unless the artifact is an actual chart.
+- Do not recreate proof/project cards directly inside a page or section file.
+
+### Pain Signal Card
+
+Specialized feature card for the founder pain-point grid. It explains a concrete failure mode and the next type of repair without turning the grid into generic advice cards.
+
+Ownership:
+- Implementation owner: `src/components/marketing/pain-signal-card.tsx` (`PainSignalCard`).
+- Used by: `src/components/home-redesign/pain-point-grid.tsx`.
+- Foundation primitives: `Card`, `Separator`, `Eyebrow`, `BodyText`.
+
+Rules:
+- Required order: subtle numeric marker → title → problem paragraph → “다음에 고치는 것” label → solution paragraph.
+- The numeric marker is decorative and must stay low contrast; it should not become the main content.
+- Do not duplicate the problem/solution card shape directly inside grids.
+- Do not add CTA buttons or proof badges inside pain cards; route those to service/proof sections.
+
+### Proof Metric Card
+
+Use for compact proof/result metrics such as sample report availability, number of proof stories, or service paths.
+
+Ownership:
+- Implementation owner: `src/components/marketing/proof-metric-card.tsx` (`ProofMetricCard`).
+- Used by: `src/components/home-redesign/proof-stat-strip.tsx`.
+- Foundation primitive: `src/components/ui/molecules/metric-card.tsx` (`MetricCard`).
+- `ProofMetricCard` is a thin semantic wrapper over `MetricCard` for home proof/result copy; keep visual changes in the generic primitive unless the marketing contract diverges intentionally.
+
+Rules:
+- Required order: value → specific explanatory label.
+- Avoid vague large numbers; the label must make the metric self-evident.
+- Do not add secondary CTAs or nested metadata inside metric cards.
+- Do not recreate metric-card markup directly inside a page or section file.
+
+### Diagnostic Console Panel
+
+The console panel is the main productized proof component. It must never look like an empty decorative rectangle.
+
+- Token entry: `console-panel`
+- Top white header area must contain enough content to look intentional: title, short summary, status badge, or 2–3 compact report rows.
+- Dark body must show structured diagnostic content: risk signals, audit scope, outcomes, or a report preview.
+- Secondary text in dark panels must remain readable; prefer `{colors.darkPanelMuted}` over low-opacity white.
+- The panel should prove the service has a method. It is not just visual contrast.
+
+### Section Intro
+
+Every major section should have:
+
+- label/eyebrow
+- section heading
+- one short explanatory paragraph
+
+Do not add decorative labels that do not clarify the section’s job.
+
+### Final CTA Block
+
+The final CTA must reduce decision pressure.
+
+- One primary action.
+- One proof/sample action.
+- Optional tertiary link only if visually grouped and not floating in excessive whitespace.
+- Copy should say what happens next, not just repeat package names.
+
+### Contact Form
+
+The contact form is lightweight but must feel trustworthy.
+
+- Fields: email + risk description are acceptable.
+- Required state must be visually clear.
+- Add privacy reassurance before production: “We only use this email to respond to your inquiry.”
+- Submit button uses `button-primary`.
+- Validation errors use danger only for actual errors.
+
+## Do's and Don'ts
 
 ### Do
-- Use Degular Display exclusively for hero-scale headlines (40px+) with 0.90 line-height for compressed impact
-- Use Inter for all functional UI -- navigation, body text, buttons, labels
-- Apply warm cream (`#fffefb`) as the background, never pure white
-- Use `#201515` for text, never pure black -- the reddish warmth matters
-- Keep Zapier Orange (`#ff4f00`) reserved for primary CTAs and active state indicators
-- Use sand (`#c5c0b1`) borders as the primary structural element instead of shadows
-- Apply generous button padding (20px 24px) for large CTAs to match Zapier's spacious button style
-- Use inset box-shadow underlines for tab navigation rather than border-bottom
-- Apply uppercase with 0.5px letter-spacing for section labels and micro-categorization
+
+- Read this file before changing UI components.
+- Check `docs/design-system/ui-pattern-inventory.md` before adding any repeated visual pattern.
+- Use token roles, not arbitrary colors.
+- Improve a weak screen by fixing component contracts first: button hierarchy, card structure, badge shape, console content.
+- Keep body text readable; premium does not mean pale.
+- Use the diagnostic console to demonstrate method and judgment.
+- Update this file when a new reusable component pattern is accepted.
+- Add or update component-contract tests for reusable card/metric/proof patterns.
 
 ### Don't
-- Don't use Degular Display for body text or UI elements -- it's display-only
-- Don't use pure white (`#ffffff`) or pure black (`#000000`) -- Zapier's palette is warm-shifted
-- Don't apply box-shadow elevation to cards -- use borders instead
-- Don't scatter Zapier Orange across the UI -- it's reserved for CTAs and active states
-- Don't use tight padding on large CTA buttons -- Zapier's buttons are deliberately spacious
-- Don't ignore the warm neutral system -- borders should be `#c5c0b1`, not gray
-- Don't use GT Alpina for functional UI -- it's an editorial accent at thin weights only
-- Don't apply positive letter-spacing to GT Alpina -- it uses aggressive negative tracking (-1.6px to -1.92px)
-- Don't use rounded pill shapes (9999px) for primary buttons -- pills are for tags and social icons
 
-## 8. Responsive Behavior
-
-### Breakpoints
-| Name | Width | Key Changes |
-|------|-------|-------------|
-| Mobile Small | <450px | Tight single column, reduced hero text |
-| Mobile | 450-600px | Standard mobile, stacked layout |
-| Mobile Large | 600-640px | Slight horizontal breathing room |
-| Tablet Small | 640-680px | 2-column grids begin |
-| Tablet | 680-768px | Card grids expand |
-| Tablet Large | 768-991px | Full card grids, expanded padding |
-| Desktop Small | 991-1024px | Desktop layout initiates |
-| Desktop | 1024-1280px | Full layout, maximum content width |
-| Large Desktop | >1280px | Centered with generous margins |
-
-### Touch Targets
-- Large CTA buttons: 20px 24px padding (comfortable 60px+ height)
-- Standard buttons: 8px 16px padding
-- Navigation links: 16px weight 500 with adequate spacing
-- Social icons: 14px radius circular buttons
-- Tab items: 12px 16px padding
-
-### Collapsing Strategy
-- Hero: Degular 80px display scales to 40-56px on smaller screens
-- Navigation: horizontal links + CTA collapse to hamburger menu
-- Feature cards: 3-column grid to 2-column to single-column stacked
-- Integration workflow illustrations: maintain aspect ratio, may simplify
-- Footer: multi-column dark section collapses to stacked
-- Section spacing: 64-80px reduces to 40-48px on mobile
-
-### Image Behavior
-- Product screenshots maintain sand border treatment at all sizes
-- Integration app icons maintain fixed sizes within responsive containers
-- Hero illustrations scale proportionally
-- Full-width sections maintain edge-to-edge treatment
-
-## 9. Agent Prompt Guide
-
-### Quick Color Reference
-- Primary CTA: Zapier Orange (`#ff4f00`)
-- Background: Cream White (`#fffefb`)
-- Heading text: Zapier Black (`#201515`)
-- Body text: Dark Charcoal (`#36342e`)
-- Border: Sand (`#c5c0b1`)
-- Secondary surface: Light Sand (`#eceae3`)
-- Muted text: Warm Gray (`#939084`)
-
-### Example Component Prompts
-- "Create a hero section on cream background (`#fffefb`). Headline at 56px Degular Display weight 500, line-height 0.90, color `#201515`. Subtitle at 20px Inter weight 400, line-height 1.20, color `#36342e`. Orange CTA button (`#ff4f00`, 4px radius, 8px 16px padding, white text) and dark button (`#201515`, 8px radius, 20px 24px padding, white text)."
-- "Design a card: cream background (`#fffefb`), `1px solid #c5c0b1` border, 5px radius. Title at 24px Inter weight 600, letter-spacing -0.48px, `#201515`. Body at 16px weight 400, `#36342e`. No box-shadow."
-- "Build a tab navigation: transparent background. Inter 16px weight 500, `#201515` text. Active tab: `box-shadow: rgb(255, 79, 0) 0px -4px 0px 0px inset`. Hover: `box-shadow: rgb(197, 192, 177) 0px -4px 0px 0px inset`. Padding 12px 16px."
-- "Create navigation: cream sticky header (`#fffefb`). Inter 16px weight 500 for links, `#201515` text. Orange pill CTA 'Start free with email' right-aligned (`#ff4f00`, 4px radius, 8px 16px padding)."
-- "Design a footer with dark background (`#201515`). Text `#fffefb`. Links in `#c5c0b1` with hover to `#fffefb`. Multi-column layout. Social icons as 14px-radius circles with sand borders."
-
-### Iteration Guide
-1. Always use warm cream (`#fffefb`) background, never pure white -- the warmth defines Zapier
-2. Borders (`1px solid #c5c0b1`) are the structural backbone -- avoid shadow elevation
-3. Zapier Orange (`#ff4f00`) is the only accent color; everything else is warm neutrals
-4. Three fonts, strict roles: Degular Display (hero), Inter (UI), GT Alpina (editorial)
-5. Large CTA buttons need generous padding (20px 24px) -- Zapier buttons feel spacious
-6. Tab navigation uses inset box-shadow underlines, not border-bottom
-7. Text is always warm: `#201515` for dark, `#36342e` for body, `#939084` for muted
-8. Uppercase labels at 12-14px with 0.5px letter-spacing for section categorization
+- Do not add one-off Tailwind colors that are not represented here.
+- Do not use orange or the old Zapier-inspired warmth.
+- Do not make decorative badges look like inputs.
+- Do not leave large empty panel areas unless they are intentionally reserved and labeled.
+- Do not create cards that only look balanced because they have fixed height.
+- Do not make all typography ultra-light; reserve light display treatment for hero moments.
+- Do not introduce a new component variant in code without adding its rule here.
+- Do not add page-local cards, metrics, proof badges, or CTA groups when an owner component exists.
+- Do not make visual reference work by layering decorative JSX into a page file; translate the reference into a named component contract first.

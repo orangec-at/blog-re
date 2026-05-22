@@ -5,20 +5,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: "#fffefb",
-        offwhite: "#fffdf9",
+        cream: "#fbfcff",
+        offwhite: "#f6f9fc",
         zapier: {
-          orange: "#ff4f00",
-          black: "#201515",
-          charcoal: "#36342e",
-          gray: "#939084",
-          sand: "#c5c0b1",
-          lightsand: "#eceae3",
+          orange: "#533afd",
+          black: "#061b31",
+          charcoal: "#273951",
+          gray: "#64748d",
+          sand: "#e5edf5",
+          lightsand: "#f6f9fc",
         },
       },
       fontFamily: {
-        display: ["Degular Display", "Inter", "Helvetica", "Arial", "sans-serif"],
-        sans: ["Inter", "Helvetica", "Arial", "sans-serif"],
+        display: ["Newsreader", "Noto Serif KR", "Source Sans 3", "Georgia", "serif"],
+        sans: ["Source Sans 3", "Helvetica", "Arial", "sans-serif"],
         serif: ["GT Alpina", "Georgia", "serif"],
       },
       spacing: {

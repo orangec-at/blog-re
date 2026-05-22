@@ -80,7 +80,7 @@ export function Eyebrow(props: EyebrowProps) {
 
 export function DisplayHeading(props: DisplayHeadingProps) {
   const composedClassName = joinClasses(
-    "font-display text-4xl font-medium leading-[0.95] text-zapier-black sm:text-5xl",
+    "font-display text-4xl font-light leading-[1.03] tracking-[-0.055em] text-zapier-black sm:text-5xl",
     props.className,
   );
 
@@ -109,7 +109,7 @@ export function DisplayHeading(props: DisplayHeadingProps) {
 
 export function SectionHeading(props: SectionHeadingProps) {
   const composedClassName = joinClasses(
-    "font-sans text-3xl font-medium leading-tight text-zapier-black sm:text-5xl sm:leading-[1.04]",
+    "font-display text-3xl font-medium leading-tight tracking-[-0.045em] text-zapier-black sm:text-5xl sm:leading-[1.04]",
     props.className,
   );
 
@@ -138,7 +138,7 @@ export function SectionHeading(props: SectionHeadingProps) {
 
 export function BodyText(props: BodyTextProps) {
   const composedClassName = joinClasses(
-    "font-sans text-base font-normal leading-5 tracking-[-0.01em] text-zapier-charcoal sm:text-lg sm:leading-6",
+    "font-sans max-w-[68ch] text-base font-light leading-6 tracking-[-0.006em] text-zapier-charcoal sm:text-lg sm:leading-7",
     props.className,
   );
 

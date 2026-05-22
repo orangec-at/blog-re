@@ -1,8 +1,8 @@
+import { PainSignalCard } from "@/components/marketing/pain-signal-card";
 import { Container } from "@/components/layout/container";
 import { BodyText } from "@/components/ui/typography/body-text";
 import { Eyebrow } from "@/components/ui/typography/eyebrow";
 import { SectionHeading } from "@/components/ui/typography/section-heading";
-import { FeatureCard } from "@/components/ui/molecules/feature-card";
 import type { FounderHelpItem } from "@/data/resources-content";
 
 type PainPointGridProps = {
@@ -22,18 +22,8 @@ export function PainPointGrid({ items }: PainPointGridProps) {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
-          {items.map((item) => (
-            <FeatureCard
-              key={item.title}
-              body={item.problem}
-              title={item.title}
-              tone="cream"
-            >
-              <div className="space-y-2">
-                <Eyebrow as="span">다음에 고치는 것</Eyebrow>
-                <BodyText className="text-sm sm:text-base">{item.solution}</BodyText>
-              </div>
-            </FeatureCard>
+          {items.map((item, index) => (
+            <PainSignalCard key={item.title} index={index} problem={item.problem} solution={item.solution} title={item.title} />
           ))}
         </div>
       </Container>

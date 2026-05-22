@@ -15,10 +15,7 @@ export function DecisionPrinciples({ principles }: DecisionPrinciplesProps) {
         </header>
         <div className="space-y-8">
           {principles.map((principle) => (
-            <article
-              key={principle.id}
-              className="border-l-4 border-zapier-orange pl-6"
-            >
+            <article key={principle.id} className="border-t border-[#d6d9fc] pt-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-zapier-gray">
                 {principle.label}
               </p>

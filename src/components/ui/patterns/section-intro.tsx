@@ -27,7 +27,7 @@ export function SectionIntro({ aside, body, className, eyebrow, title, titleAs =
       </div>
 
       {aside ? (
-        <div className="self-end border-l-4 border-zapier-orange pl-4">
+        <div className="self-end border-t border-[#d6d9fc] pt-4">
           <BodyText className="text-sm sm:text-base">{aside}</BodyText>
         </div>
       ) : null}

@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { FormField } from "@/components/ui/forms/form-field";
 import { CTAGroup } from "@/components/ui/molecules/cta-group";
 import { CardHeader } from "@/components/ui/molecules/card-header";
+import { FeatureCard } from "@/components/ui/molecules/feature-card";
 import { MetricCard } from "@/components/ui/molecules/metric-card";
 import { ProblemSolutionPair } from "@/components/ui/molecules/problem-solution-pair";
 
@@ -54,6 +55,21 @@ describe("UI molecules", () => {
 
     expect(screen.getByText("14")).toBeInTheDocument();
     expect(screen.getByText("average days saved before relaunch")).toBeInTheDocument();
+  });
+
+  it("renders generic legacy feature cards with optional tag and body copy", () => {
+    render(
+      <FeatureCard body="Legacy feature grid copy stays inside the reusable molecule." tag="Legacy" title="Reusable feature shell">
+        <span>Optional metadata</span>
+      </FeatureCard>,
+    );
+
+    const card = screen.getByRole("article");
+    expect(card).toHaveClass("rounded-lg", "border", "bg-cream");
+    expect(screen.getByText("Legacy")).toHaveClass("rounded-pill");
+    expect(screen.getByRole("heading", { level: 3, name: "Reusable feature shell" })).toBeInTheDocument();
+    expect(screen.getByText("Legacy feature grid copy stays inside the reusable molecule.")).toBeInTheDocument();
+    expect(screen.getByText("Optional metadata")).toBeInTheDocument();
   });
 
   it("renders problem and solution copy side by side with clear labels", () => {

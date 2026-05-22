@@ -15,23 +15,23 @@ const navItems = [
 export function Header() {
   return (
     <>
-      <header className="border-b border-zapier-sand bg-cream">
+      <header className="border-b border-zapier-sand/80 bg-white/88 backdrop-blur-xl">
         <Container className="flex min-h-20 flex-wrap items-center justify-between gap-4 py-4">
           <Link
             href="/"
-            className="flex min-h-11 items-center gap-3 text-zapier-black transition hover:text-zapier-charcoal"
+            className="flex min-h-11 items-center gap-3 text-zapier-black transition hover:text-[#533afd]"
           >
-            <span className="text-2xl font-semibold">
-              wakey<span className="text-zapier-orange">moment</span>
+            <span className="text-2xl font-semibold tracking-[-0.04em]">
+              wakey<span className="text-[#533afd]">moment</span>
             </span>
-            <PillTag className="border-zapier-orange/20 bg-[#fff2ea] text-xs font-semibold uppercase tracking-[0.5px] text-zapier-black">
+            <PillTag className="rounded-[5px] border-[#d6d9fc] bg-[#f4f7ff] text-xs font-medium uppercase tracking-[0.5px] text-[#533afd]">
               AI MVP Rescue
             </PillTag>
           </Link>
 
           <nav className="hidden items-center gap-6 text-sm font-medium text-zapier-charcoal md:flex">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className="inline-flex min-h-11 min-w-11 items-center justify-center transition hover:text-zapier-black">
+              <Link key={item.href} href={item.href} className="inline-flex min-h-11 min-w-11 items-center justify-center transition hover:text-[#533afd]">
                 {item.label}
               </Link>
             ))}

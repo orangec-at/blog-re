@@ -1,5 +1,5 @@
+import { ProofMetricCard } from "@/components/marketing/proof-metric-card";
 import { Container } from "@/components/layout/container";
-import { MetricCard } from "@/components/ui/molecules/metric-card";
 import { BodyText } from "@/components/ui/typography/body-text";
 import { Eyebrow } from "@/components/ui/typography/eyebrow";
 import { SectionHeading } from "@/components/ui/typography/section-heading";
@@ -27,7 +27,7 @@ export function ProofStatStrip({ metrics }: ProofStatStripProps) {
 
         <div className="grid gap-4 md:grid-cols-3">
           {metrics.map((metric, index) => (
-            <MetricCard
+            <ProofMetricCard
               key={metric.label}
               label={metric.label}
               tone={index % 2 === 0 ? "offwhite" : "cream"}

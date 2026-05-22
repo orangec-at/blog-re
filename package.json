@@ -9,17 +9,25 @@
     "lint": "eslint",
     "test": "vitest",
     "check": "pnpm content:check && pnpm lint && pnpm test",
+    "design:audit": "npx -y impeccable detect http://localhost:3000",
+    "design:audit:fast": "npx -y impeccable detect --fast src",
+    "design:ownership": "node scripts/check-design-ownership.mjs",
     "content:build": "NODE_ENV=production contentlayer build",
     "prebuild": "pnpm content:check && pnpm content:build",
     "content:check": "node scripts/check-content-engine.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-slot": "^1.2.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "lucide-react": "^1.16.0",
     "next": "16.2.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.72.1",
+    "tailwind-merge": "^3.6.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
