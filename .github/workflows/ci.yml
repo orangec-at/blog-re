@@ -2,20 +2,33 @@ name: CI
 
 on:
   push:
+    branches: [master]
   pull_request:
+
+# A push to a PR branch used to trigger both events and run everything twice.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+
+      - uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 10
+
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: pnpm
-      - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm test -- --passWithNoTests
+
+      - run: pnpm install --frozen-lockfile
+
+      # content-engine + eslint + vitest, the same gate that runs locally.
+      - run: pnpm check
+
+      # The job has always been called build and has never built anything.
+      - run: pnpm build
