@@ -13,7 +13,9 @@ export function Header() {
           href="/"
           className="flex min-h-11 items-center text-zapier-black transition hover:text-[#533afd]"
         >
-          <span className="text-2xl font-semibold tracking-[-0.04em]">
+          {/* At 320px the 2xl wordmark and the CTA total 304px inside a 288px
+              container, so flex-wrap drops the button onto its own row. */}
+          <span className="text-xl font-semibold tracking-[-0.04em] sm:text-2xl">
             wakey<span className="text-[#533afd]">moment</span>
           </span>
         </Link>

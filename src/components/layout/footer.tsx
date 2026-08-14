@@ -18,7 +18,7 @@ export function Footer() {
             <a
               key={item.label}
               href={item.href}
-              className="rounded-full border border-zapier-sand px-4 py-2 text-cream transition hover:bg-cream hover:text-zapier-black"
+              className="inline-flex min-h-11 items-center rounded-full border border-zapier-sand px-4 text-cream transition hover:bg-cream hover:text-zapier-black"
             >
               {item.label}
             </a>

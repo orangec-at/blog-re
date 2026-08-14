@@ -45,9 +45,11 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Three columns at sm squeezes each card to 196px and wraps every title
+            onto three lines. Hold the stack until md, where a card gets 239px. */}
         <section
           aria-label="Services"
-          className="grid gap-px overflow-hidden rounded-[5px] border border-zapier-sand bg-zapier-sand sm:grid-cols-3"
+          className="grid gap-px overflow-hidden rounded-[5px] border border-zapier-sand bg-zapier-sand md:grid-cols-3"
         >
           {offers.map((offer) => (
             <article key={offer.name} className="flex flex-col gap-3 bg-white p-6 sm:p-8">
