@@ -4,24 +4,26 @@ import { describe, expect, it } from "vitest";
 import { Header } from "@/components/layout/header";
 
 describe("Header", () => {
-  it("locks the redesigned brand, nav, and conversion CTA contract", () => {
+  it("locks the one-page contract: wordmark plus a single review CTA", () => {
     render(<Header />);
 
     const header = screen.getByRole("banner");
-    expect(within(header).getByText(/ai mvp rescue/i)).toBeVisible();
+    expect(within(header).getByRole("link", { name: /wakeymoment/i })).toHaveAttribute("href", "/");
 
-    const primaryNav = within(header).getByRole("navigation");
-
-    for (const label of ["Services", "Proof", "About", "Contact"]) {
-      expect(within(primaryNav).getByRole("link", { name: label })).toBeVisible();
-    }
-
-    for (const label of ["Posts", "Domains", "Resources"]) {
-      expect(within(primaryNav).queryByRole("link", { name: label })).not.toBeInTheDocument();
-    }
-
-    const primaryCta = within(header).getByRole("link", { name: /기술 부채 진단 문의하기/i });
+    const primaryCta = within(header).getByRole("link", { name: /^Start a review$/i });
     expect(primaryCta).toHaveAttribute("href", "/contact");
-    expect(screen.getByLabelText("Mobile primary navigation")).toBeInTheDocument();
+  });
+
+  it("ships no navigation while the inner pages carry no receipts", () => {
+    render(<Header />);
+
+    const header = screen.getByRole("banner");
+    expect(within(header).queryByRole("navigation")).not.toBeInTheDocument();
+
+    for (const label of ["Services", "Proof", "About", "Contact", "Posts", "Domains", "Resources"]) {
+      expect(within(header).queryByRole("link", { name: label })).not.toBeInTheDocument();
+    }
+
+    expect(screen.queryByLabelText("Mobile primary navigation")).not.toBeInTheDocument();
   });
 });

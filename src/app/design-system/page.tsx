@@ -54,7 +54,7 @@ const designSystemRailConfig: ConversionRailConfig = {
 
 export default function DesignSystemPage() {
   return (
-    <main className="flex flex-col gap-16 py-4" data-testid="design-system-page">
+    <div className="flex flex-col gap-16 py-4" data-testid="design-system-page">
       <section className="py-12 sm:py-16">
         <Container variant="wide" className="space-y-8">
           <SectionIntro
@@ -244,6 +244,6 @@ export default function DesignSystemPage() {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

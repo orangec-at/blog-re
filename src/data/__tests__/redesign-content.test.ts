@@ -37,7 +37,7 @@ describe("redesign typed content modules", () => {
   });
 
   it("provides contact guidance messaging", () => {
-    expect(contactHero.title).toMatch(/^AI MVP Technical Debt Audit으로 작게 시작하세요$/i);
+    expect(contactHero.title).toMatch(/^Start with a small review, not a big project\.$/i);
     expect(contactGuidance.title).toMatch(/^when to contact us$/i);
     expect(contactGuidance.reassurance).toMatch(
       /^if you're not sure, start with technical debt audit\.$/i,

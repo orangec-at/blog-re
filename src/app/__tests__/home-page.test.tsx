@@ -4,27 +4,45 @@ import { describe, expect, it } from "vitest";
 import Home from "@/app/page";
 
 describe("Home Page", () => {
-  it("repositions the home route around AI MVP rescue and next-step conversion", () => {
+  it("states the offer in one heading and two actions", () => {
     render(<Home />);
 
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /AI가 만든 MVP,\s+상용화 전에\s+기술 부채부터 고치세요\./i,
+        name: /^Launch-readiness engineering for software built with AI\.$/i,
       }),
     ).toBeVisible();
 
-    expect(screen.getByText(/Cursor, v0, Bolt/)).toBeVisible();
+    expect(screen.getByRole("link", { name: /^Start a review$/i })).toHaveAttribute("href", "/contact");
+    expect(screen.getByRole("link", { name: /^Read a sample report$/i })).toHaveAttribute(
+      "href",
+      "/posts/ai-mvp-technical-debt-audit-sample-report",
+    );
+  });
 
-    expect(screen.getAllByRole("link", { name: /^기술 부채 진단 문의하기$/i })[0]).toHaveAttribute("href", "/contact");
-    expect(screen.getAllByRole("link", { name: /^샘플 진단 리포트 읽어보기 →$/i })[0]).toHaveAttribute("href", "/posts/ai-mvp-technical-debt-audit-sample-report");
-    expect(screen.getByRole("heading", { level: 2, name: /^먼저 보는 위험 신호$/i })).toBeVisible();
-    expect(screen.getByRole("heading", { level: 2, name: /^진단 범위$/i })).toBeVisible();
-    expect(screen.getByRole("heading", { level: 2, name: /^받게 되는 결과물$/i })).toBeVisible();
-    expect(screen.getByRole("heading", { name: /^fixmyvibe$/i })).toBeVisible();
-    expect(screen.getAllByText(/^AI MVP 기술 부채 진단$/i).length).toBeGreaterThan(0);
-    expect(screen.getByRole("heading", { level: 2, name: /^AI MVP가 출시 전에 멈추는 이유$/i })).toBeVisible();
-    expect(screen.getByRole("heading", { level: 2, name: /^말보다 증거를 먼저 보여드립니다$/i })).toBeVisible();
-    expect(screen.getAllByText(/샘플 진단 리포트/).length).toBeGreaterThan(0);
+  it("shows three offers, each carrying an availability line instead of a case study", () => {
+    render(<Home />);
+
+    const offers = [
+      ["Launch Readiness Review", "Next available September '26"],
+      ["Technical Debt Audit", "Next available October '26"],
+      ["Founder Tech Partner", "Currently full"],
+    ] as const;
+
+    for (const [name, availability] of offers) {
+      expect(screen.getByRole("heading", { level: 2, name })).toBeVisible();
+      expect(screen.getByText(availability)).toBeVisible();
+    }
+  });
+
+  it("makes no proof claim the site cannot back yet", () => {
+    render(<Home />);
+
+    // The old home shipped a metric strip built from array lengths. Nothing on this page
+    // may imply delivered client work until there is a receipt to link to.
+    expect(screen.queryByText(/case stud/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/client result/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/trusted by/i)).not.toBeInTheDocument();
   });
 });

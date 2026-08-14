@@ -1,7 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Noto+Serif+KR:wght@500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap");
 @import "tailwindcss";
 
-:root {
+/* Tailwind v4 only generates color utilities (bg-cream, text-zapier-black, …) for
+   --color-* declared inside @theme. These lived in :root, so every custom color
+   class in the codebase compiled to nothing. @theme still emits them on :root,
+   so the var(--color-*) references below keep working. */
+@theme {
   --color-cream: #fbfcff;
   --color-offwhite: #f6f9fc;
   --color-zapier-black: #061b31;
@@ -18,6 +22,9 @@
   --color-text-default: #273951;
   --color-text-muted: #64748d;
   --color-border-strong: #b9b9f9;
+}
+
+:root {
   --article-measure: 68ch;
   --article-text: #273951;
   --article-muted: #64748d;

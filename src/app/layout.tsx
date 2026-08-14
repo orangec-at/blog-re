@@ -46,7 +46,7 @@ export default function RootLayout({
         />
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-1 bg-cream py-12 pb-28 md:pb-12">{children}</main>
+          <main className="flex-1 bg-cream py-12">{children}</main>
           <Footer />
         </div>
       </body>

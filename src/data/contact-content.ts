@@ -23,9 +23,9 @@ export type ContactGuidance = {
 
 export const contactHero: ContactHero = {
   eyebrow: "Contact",
-  title: "AI MVP Technical Debt Audit으로 작게 시작하세요",
+  title: "Start with a small review, not a big project.",
   body:
-    "지금 MVP가 ‘돌아가긴 하는데 불안한 상태’라면, 먼저 작은 기술 부채 진단으로 출시 전 리스크와 다음 2–4주 우선순위를 정리하세요.",
+    "If your MVP runs but you are not sure it is safe to put in front of real users, begin with a bounded audit: what can break before launch, and what to fix in the next two to four weeks.",
 };
 
 export const contactGuidance: ContactGuidance = {
