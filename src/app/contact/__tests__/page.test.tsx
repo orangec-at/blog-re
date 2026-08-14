@@ -11,7 +11,7 @@ describe("ContactPage", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /^AI MVP Technical Debt Audit으로 작게 시작하세요$/i,
+        name: /^Start with a small review, not a big project\.$/i,
       }),
     ).toBeVisible();
 

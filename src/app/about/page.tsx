@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="flex flex-col" data-testid="about-page">
+    <div className="flex flex-col" data-testid="about-page">
       <AboutHero />
 
       <section className="bg-offwhite pb-16 sm:pb-20">
@@ -47,6 +47,6 @@ export default function AboutPage() {
           </BorderedSurface>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

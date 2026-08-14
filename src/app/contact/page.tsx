@@ -14,11 +14,12 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="flex flex-col" data-testid="contact-page">
+    // The root layout already renders <main>; this page is a section inside it.
+    <div className="flex flex-col" data-testid="contact-page">
       <ContactHero data={contactHero} />
       <WhenToContactUs data={contactGuidance} />
       <InquiryFormShell cta={contactGuidance.primaryCta} />
       <ReassuranceNote message={contactGuidance.reassurance} />
-    </main>
+    </div>
   );
 }

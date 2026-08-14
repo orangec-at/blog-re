@@ -84,7 +84,7 @@ const servicePlans = {
 
 export default function ServicesPage() {
   return (
-    <main className="flex flex-col" data-testid="services-page">
+    <div className="flex flex-col" data-testid="services-page">
       <ServicesHero data={servicesIntro} />
       <ServiceDecisionGrid offers={serviceOffers} />
 
@@ -138,6 +138,6 @@ export default function ServicesPage() {
       </section>
 
       <FinalServicesCta diagnosisHref={servicesIntro.primaryCta.href} />
-    </main>
+    </div>
   );
 }
