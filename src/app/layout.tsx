@@ -1,9 +1,35 @@
 import type { Metadata } from "next";
+import { Newsreader, Noto_Serif_KR, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { absoluteUrl, siteConfig } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { buildOrganizationJsonLd, buildWebsiteJsonLd } from "@/lib/structured-data";
+
+// next/font downloads these at build time and serves them from our own origin,
+// so there is no render-blocking request to fonts.googleapis.com and no FOUT.
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
+
+const notoSerifKr = Noto_Serif_KR({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-noto-serif-kr",
+  display: "swap",
+});
+
+const sourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-source-sans",
+  display: "swap",
+});
+
+const fontVariables = `${newsreader.variable} ${notoSerifKr.variable} ${sourceSans.variable}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -19,13 +45,11 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     url: "/",
-    images: [absoluteUrl(siteConfig.defaultOgImage)],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [absoluteUrl(siteConfig.defaultOgImage)],
   },
 };
 
@@ -37,7 +61,7 @@ export default function RootLayout({
   const jsonLd = [buildWebsiteJsonLd(), buildOrganizationJsonLd()];
 
   return (
-    <html lang="en">
+    <html className={fontVariables} lang="en">
       <body className="min-h-screen bg-cream text-zapier-charcoal">
         <script
           type="application/ld+json"

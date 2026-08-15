@@ -83,16 +83,23 @@ describe("PostPage", () => {
         type: "article",
         url: absoluteUrl("/posts/ai-mvp-launch-checklist"),
         siteName: "wakeymoment",
-        images: [absoluteUrl("/og/ai-mvp-launch-checklist.png")],
       },
       twitter: {
         card: "summary_large_image",
         title: "AI MVP 출시 전 체크리스트: 고객 받기 전 7가지 점검",
         description: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
-        images: [absoluteUrl("/og/ai-mvp-launch-checklist.png")],
       },
     });
     expect(metadata.keywords).toEqual(["AI MVP", "launch readiness", "technical debt"]);
+  });
+
+  it("leaves og:image to the generated card instead of naming a file that does not exist", async () => {
+    const metadata = await generateMetadata({ params: Promise.resolve({ slug: "ai-mvp-launch-checklist" }) });
+
+    // Frontmatter still carries an ogImage path, but every /og/*.png it named was
+    // missing from the repo, so posts shared with no preview image.
+    expect(metadata.openGraph).not.toHaveProperty("images");
+    expect(metadata.twitter).not.toHaveProperty("images");
   });
 
   it("passes the frontmatter layout through to the mdx renderer", async () => {

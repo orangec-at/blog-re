@@ -12,7 +12,6 @@ export const siteConfig = {
     "Founder-friendly technical debt diagnosis, remodeling, and launch-readiness support for AI-built MVPs.",
   url: siteUrl,
   locale: "en",
-  defaultOgImage: "/og/default.png",
   contactPath: "/contact",
   disallowedPlaceholders: ["hello@example.com", "example.com", "TODO", "TBD"],
 } as const;
