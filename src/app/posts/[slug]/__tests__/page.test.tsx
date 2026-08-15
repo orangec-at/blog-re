@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import PostPage, { generateMetadata } from "@/app/posts/[slug]/page";
+import { absoluteUrl } from "@/config/site";
 
 const mockedNotFound = vi.hoisted(() => vi.fn());
 
@@ -80,15 +81,15 @@ describe("PostPage", () => {
         title: "AI MVP 출시 전 체크리스트: 고객 받기 전 7가지 점검",
         description: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
         type: "article",
-        url: "https://wakeymoment.vercel.app/posts/ai-mvp-launch-checklist",
+        url: absoluteUrl("/posts/ai-mvp-launch-checklist"),
         siteName: "wakeymoment",
-        images: ["https://wakeymoment.vercel.app/og/ai-mvp-launch-checklist.png"],
+        images: [absoluteUrl("/og/ai-mvp-launch-checklist.png")],
       },
       twitter: {
         card: "summary_large_image",
         title: "AI MVP 출시 전 체크리스트: 고객 받기 전 7가지 점검",
         description: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
-        images: ["https://wakeymoment.vercel.app/og/ai-mvp-launch-checklist.png"],
+        images: [absoluteUrl("/og/ai-mvp-launch-checklist.png")],
       },
     });
     expect(metadata.keywords).toEqual(["AI MVP", "launch readiness", "technical debt"]);

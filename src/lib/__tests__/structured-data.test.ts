@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { absoluteUrl, siteConfig } from "@/config/site";
 import { buildBlogPostingJsonLd, buildOrganizationJsonLd, buildWebsiteJsonLd } from "@/lib/structured-data";
 
 describe("structured data", () => {
@@ -7,7 +8,7 @@ describe("structured data", () => {
     expect(buildWebsiteJsonLd()).toMatchObject({
       "@type": "WebSite",
       name: "wakeymoment",
-      url: "https://wakeymoment.vercel.app",
+      url: siteConfig.url,
     });
   });
 
@@ -15,7 +16,7 @@ describe("structured data", () => {
     expect(buildOrganizationJsonLd()).toMatchObject({
       "@type": "Organization",
       name: "wakeymoment",
-      url: "https://wakeymoment.vercel.app",
+      url: siteConfig.url,
     });
   });
 
@@ -29,7 +30,7 @@ describe("structured data", () => {
     })).toMatchObject({
       "@type": "BlogPosting",
       headline: "Example",
-      url: "https://wakeymoment.vercel.app/posts/example",
+      url: absoluteUrl("/posts/example"),
       author: { name: "Jaeil Lee" },
     });
   });

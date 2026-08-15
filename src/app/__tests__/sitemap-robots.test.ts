@@ -15,24 +15,31 @@ vi.mock("@/lib/mdx", () => ({
 
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
+import { absoluteUrl } from "@/config/site";
 
 describe("metadata routes", () => {
   it("includes public static routes and excludes draft posts", () => {
     const urls = sitemap().map((entry) => entry.url);
 
-    expect(urls).toContain("https://wakeymoment.vercel.app/");
-    expect(urls).toContain("https://wakeymoment.vercel.app/posts");
-    expect(urls).toContain("https://wakeymoment.vercel.app/services");
-    expect(urls).toContain("https://wakeymoment.vercel.app/resources");
-    expect(urls).toContain("https://wakeymoment.vercel.app/contact");
-    expect(urls).toContain("https://wakeymoment.vercel.app/posts/ai-mvp-technical-debt-audit-sample-report");
-    expect(urls).not.toContain("https://wakeymoment.vercel.app/posts/ai-mvp-launch-checklist");
+    for (const path of ["/", "/posts", "/services", "/resources", "/contact"]) {
+      expect(urls).toContain(absoluteUrl(path));
+    }
+
+    expect(urls).toContain(absoluteUrl("/posts/ai-mvp-technical-debt-audit-sample-report"));
+    expect(urls).not.toContain(absoluteUrl("/posts/ai-mvp-launch-checklist"));
   });
 
   it("points robots to the sitemap", () => {
     expect(robots()).toMatchObject({
       rules: { userAgent: "*", allow: "/" },
-      sitemap: "https://wakeymoment.vercel.app/sitemap.xml",
+      sitemap: absoluteUrl("/sitemap.xml"),
     });
+  });
+
+  it("builds absolute urls against the deployment's own production domain", () => {
+    // Regression: these were pinned to a literal domain, so deleting that Vercel
+    // project left the whole site advertising URLs that 404.
+    expect(absoluteUrl("/")).toMatch(/^https:\/\/[^/]+\/$/);
+    expect(absoluteUrl("/")).not.toContain("undefined");
   });
 });
