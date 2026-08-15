@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { ServiceCardVisual } from "@/components/home/service-card-visual";
 import { Container } from "@/components/layout/container";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/button";
 
@@ -15,18 +16,21 @@ const offers = [
     name: "Launch Readiness Review",
     summary: "Workflow, data permissions, and payment risk — reviewed before your first real user.",
     availability: "Next available September '26",
+    visual: "gate",
   },
   {
     name: "Technical Debt Audit",
     summary: "A risk table and a two-week plan for apps built with Cursor, Lovable, or Bolt.",
     availability: "Next available October '26",
+    visual: "risk-table",
   },
   {
     name: "Founder Tech Partner",
     summary: "Ongoing technical judgment for founders shipping with AI and freelancers.",
     availability: "Currently full",
+    visual: "partner",
   },
-];
+] as const;
 
 export default function Home() {
   return (
@@ -52,12 +56,16 @@ export default function Home() {
           className="grid gap-px overflow-hidden rounded-[5px] border border-zapier-sand bg-zapier-sand md:grid-cols-3"
         >
           {offers.map((offer) => (
-            <article key={offer.name} className="flex flex-col gap-3 bg-white p-6 sm:p-8">
-              <h2 className="text-lg font-semibold tracking-[-0.02em] text-zapier-black">{offer.name}</h2>
-              <p className="text-sm leading-relaxed text-zapier-charcoal">{offer.summary}</p>
-              <p className="mt-auto pt-4 text-xs uppercase tracking-[0.5px] text-zapier-gray">
-                {offer.availability}
-              </p>
+            <article key={offer.name} className="flex flex-col bg-white">
+              <ServiceCardVisual variant={offer.visual} />
+
+              <div className="flex flex-1 flex-col gap-3 p-6 sm:p-8">
+                <h2 className="text-lg font-semibold tracking-[-0.02em] text-zapier-black">{offer.name}</h2>
+                <p className="text-sm leading-relaxed text-zapier-charcoal">{offer.summary}</p>
+                <p className="mt-auto pt-4 text-xs uppercase tracking-[0.5px] text-zapier-gray">
+                  {offer.availability}
+                </p>
+              </div>
             </article>
           ))}
         </section>

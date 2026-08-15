@@ -45,4 +45,13 @@ describe("Home Page", () => {
     expect(screen.queryByText(/client result/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/trusted by/i)).not.toBeInTheDocument();
   });
+
+  it("labels the risk rows as a sample so they cannot read as a real client's findings", () => {
+    const { container } = render(<Home />);
+
+    // The Technical Debt Audit card shows real rows lifted from the published sample
+    // report. Without the label those P0 lines look like someone's actual audit.
+    expect(container.textContent).toContain("Sample · risk table");
+    expect(container.textContent).toContain("Ownership check not proven server-side");
+  });
 });
