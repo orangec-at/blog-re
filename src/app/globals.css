@@ -1,4 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Noto+Serif+KR:wght@500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap");
+/* Fonts are self-hosted through next/font in layout.tsx. The remote @import that
+   used to live here never survived the production bundle — Lightning CSS dropped
+   it — so every heading rendered in the Georgia fallback instead of Newsreader. */
 @import "tailwindcss";
 
 /* Tailwind v4 only generates color utilities (bg-cream, text-zapier-black, …) for
@@ -29,9 +31,11 @@
   --article-text: #273951;
   --article-muted: #64748d;
   --article-rule: rgba(83, 58, 253, 0.16);
-  --font-display: "Newsreader", "Noto Serif KR", "Source Sans 3", "Georgia", serif;
-  --font-sans: "Source Sans 3", "Inter", "Helvetica", "Arial", sans-serif;
-  --font-serif: "GT Alpina", "Georgia", serif;
+  /* --font-newsreader / --font-noto-serif-kr / --font-source-sans come from
+     next/font in layout.tsx, which also emits the @font-face rules. */
+  --font-display: var(--font-newsreader), var(--font-noto-serif-kr), "Georgia", serif;
+  --font-sans: var(--font-source-sans), "Helvetica", "Arial", sans-serif;
+  --font-serif: var(--font-newsreader), "Georgia", serif;
 }
 
 *, *::before, *::after {

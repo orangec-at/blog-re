@@ -40,7 +40,8 @@ export function buildBlogPostingJsonLd(input: BlogPostingJsonLdInput) {
     url: absoluteUrl(input.url),
     datePublished: input.datePublished,
     dateModified: input.dateModified ?? input.datePublished,
-    image: absoluteUrl(input.image ?? siteConfig.defaultOgImage),
+    // Falls back to the generated card at /posts/<slug>/opengraph-image.
+    image: absoluteUrl(input.image ?? `${input.url}/opengraph-image`),
     author: {
       "@type": "Person",
       name: authorName,

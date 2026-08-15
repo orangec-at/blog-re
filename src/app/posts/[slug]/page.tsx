@@ -104,7 +104,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const description = seo.seoDescription ?? post.summary;
   const canonical = seo.canonicalPath ?? post.url;
   const canonicalUrl = absoluteUrl(canonical);
-  const image = absoluteUrl(seo.ogImage ?? siteConfig.defaultOgImage);
   const keywords = [...new Set([...(seo.keywords ?? []), ...(seo.tags ?? [])])];
 
   return {
@@ -120,13 +119,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       type: "article",
       url: canonicalUrl,
       siteName: siteConfig.name,
-      images: [image],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [image],
     },
   };
 }
