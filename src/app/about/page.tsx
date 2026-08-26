@@ -11,7 +11,7 @@ import { SectionHeading } from "@/components/ui/typography/section-heading";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Learn how wakeymoment supports founder-led launches with practical technical judgment and safer productization.",
+  description: "Who runs fmv. Wakeymoment is the practice behind it — founder-led launches, practical technical judgment, safer productization.",
   alternates: { canonical: "/about" },
 };
 

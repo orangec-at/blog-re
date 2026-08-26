@@ -82,7 +82,7 @@ describe("PostPage", () => {
         description: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
         type: "article",
         url: absoluteUrl("/posts/ai-mvp-launch-checklist"),
-        siteName: "wakeymoment",
+        siteName: "fmv",
       },
       twitter: {
         card: "summary_large_image",
