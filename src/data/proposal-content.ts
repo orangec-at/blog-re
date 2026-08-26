@@ -113,8 +113,10 @@ export const systemMap = {
   argument: "One tool generated all of it. The risk is not inside any box — it is where the boxes meet.",
 } as const;
 
+// business/fixmyvibe/service-packages.md § Homepage / Services Page Translation
 export const whyMe = {
   body: "I publish the method before anyone pays for it. The checklist I work from, the way I read a stack, and the writing behind both are open — so you can judge the work before you commission it.",
+  ctaLabel: "Get an independent review",
   links: [
     { label: "The method, in public", href: "https://github.com/orangec-at/vibe-hardening" },
     { label: "Writing", href: "/posts" },

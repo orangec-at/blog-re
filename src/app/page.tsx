@@ -64,7 +64,7 @@ export default function Home() {
           ))}
         </ul>
         <div className="pt-2">
-          <PrimaryButton href={hero.primaryCta.href}>Get an independent review</PrimaryButton>
+          <PrimaryButton href={hero.primaryCta.href}>{whyMe.ctaLabel}</PrimaryButton>
         </div>
       </ProposalSection>
     </div>
