@@ -24,6 +24,20 @@
   --color-text-default: #273951;
   --color-text-muted: #64748d;
   --color-border-strong: #b9b9f9;
+
+  /* Proposal system — see DESIGN.md. Semantic names: the value's job, not a
+     company's brand. The zapier-* names above hold another system's values and
+     are deprecated; pages migrate off them as they are touched. */
+  --color-paper: #fdfcfa;
+  --color-ink: #16130f;
+  --color-ink-muted: #5c564e;
+  --color-rule: #e0dbd2;
+  --color-panel-dark: #16130f;
+  --color-panel-dark-muted: #a8a099;
+  --color-p0: #b3261e;
+  --color-p1: #9a6700;
+  --color-ok: #1a6c37;
+  --color-deferred: #6b6259;
 }
 
 :root {
@@ -48,22 +62,11 @@ body {
   margin: 0;
   min-height: 100%;
   overflow-x: hidden;
-  background-color: var(--color-cream);
-  color: var(--color-text-default);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   font-feature-settings: "ss01";
   -webkit-font-smoothing: antialiased;
-}
-
-body::before {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  content: "";
-  background:
-    radial-gradient(circle at 82% 8%, rgba(249, 107, 238, 0.14), transparent 26rem),
-    linear-gradient(135deg, rgba(255, 255, 255, 0) 0 52%, rgba(244, 247, 255, 0.78) 52% 72%, rgba(255, 255, 255, 0) 72%);
 }
 
 p,
