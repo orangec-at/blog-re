@@ -4,14 +4,20 @@ import { describe, expect, it } from "vitest";
 import Home from "@/app/page";
 
 describe("Home Page", () => {
-  it("states the offer in one heading and two actions", () => {
+  it("states the offer in one heading, one subhead, and two actions", () => {
     render(<Home />);
 
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /^Launch-readiness engineering for software built with AI\.$/i,
+        name: /^Your developer says it’s done\. You have no way to check\.$/i,
       }),
+    ).toBeVisible();
+
+    // The subhead carries the three buying moments. Without it the headline names
+    // the fear and nothing tells the reader when a review is worth paying for.
+    expect(
+      screen.getByText(/before the next milestone payment, the first customers, or the ad spend/i),
     ).toBeVisible();
 
     expect(screen.getByRole("link", { name: /^Start a review$/i })).toHaveAttribute("href", "/contact");

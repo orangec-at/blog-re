@@ -50,7 +50,7 @@ export default async function PostOpengraphImage({ params }: { params: Promise<{
         </div>
 
         <div style={{ display: "flex", fontSize: 26, color: "#64748d" }}>
-          Launch-readiness engineering for software built with AI.
+          Your developer says it’s done. You have no way to check.
         </div>
       </div>
     ),
