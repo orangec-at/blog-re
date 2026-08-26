@@ -9,9 +9,36 @@ const inventoryPath = path.join(root, 'docs/design-system/ui-pattern-inventory.m
 
 // The four marketing cards this table used to guard were only ever rendered by
 // src/components/home-redesign/, which the proposal-home redesign deleted. The
-// table is empty rather than removed so the next reusable pattern has a place
-// to register itself. See docs/plans/2026-08-26-proposal-home-redesign-design.md.
-const requiredOwners = [];
+// table went empty, then the proposal-home redesign registered its own five
+// reusable patterns below — the ones src/app/page.tsx now composes the home
+// page from.
+const requiredOwners = [
+  {
+    name: 'ProposalSection',
+    owner: 'src/components/proposal/proposal-section.tsx',
+    usedBy: 'src/app/page.tsx',
+  },
+  {
+    name: 'SystemMapPanel',
+    owner: 'src/components/proposal/system-map-panel.tsx',
+    usedBy: 'src/app/page.tsx',
+  },
+  {
+    name: 'GateList',
+    owner: 'src/components/proposal/gate-list.tsx',
+    usedBy: 'src/app/page.tsx',
+  },
+  {
+    name: 'VerdictSheet',
+    owner: 'src/components/proposal/verdict-sheet.tsx',
+    usedBy: 'src/app/page.tsx',
+  },
+  {
+    name: 'ScopeTable',
+    owner: 'src/components/proposal/scope-table.tsx',
+    usedBy: 'src/app/page.tsx',
+  },
+];
 
 function readRequired(filePath) {
   if (!fs.existsSync(filePath)) {

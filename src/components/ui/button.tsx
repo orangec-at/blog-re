@@ -10,11 +10,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "min-h-11 rounded-[5px] border border-rule bg-paper text-ink shadow-[0_24px_36px_-24px_rgba(50,50,93,0.35),0_14px_24px_-18px_rgba(0,0,0,0.16)] hover:border-ink hover:bg-ink hover:text-paper",
+          "min-h-11 rounded-[5px] border border-ink bg-ink text-paper shadow-[0_24px_36px_-24px_rgba(50,50,93,0.35),0_14px_24px_-18px_rgba(0,0,0,0.16)] hover:border-ink-muted hover:bg-ink-muted hover:text-paper",
         secondary:
           "min-h-11 rounded-[5px] border border-ink bg-paper text-ink shadow-[0_16px_32px_-24px_rgba(50,50,93,0.24)] hover:bg-rule",
         ghost:
-          "min-h-11 rounded-[5px] border border-rule bg-paper text-ink shadow-[0_12px_28px_-24px_rgba(50,50,93,0.24)] hover:border-ink",
+          "min-h-11 rounded-[5px] border border-ink-muted bg-paper text-ink shadow-[0_12px_28px_-24px_rgba(50,50,93,0.24)] hover:border-ink",
         text: "border-transparent bg-transparent px-0 py-0 text-ink underline decoration-rule decoration-2 underline-offset-4 hover:decoration-ink",
       },
       size: {

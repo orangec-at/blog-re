@@ -28,7 +28,7 @@ export function PostConversionRail({ config }: PostConversionRailProps) {
           <p className="px-2 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-ink-muted">On this guide</p>
           <div className="mt-3 grid gap-1">
             {config.sections.map((section) => (
-              <a key={section.href} href={section.href} className="rounded-xl px-2 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-[#f8f3ea] hover:text-ink">
+              <a key={section.href} href={section.href} className="rounded-xl px-2 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:bg-[#f8f3ea] hover:text-ink">
                 {section.label}
               </a>
             ))}

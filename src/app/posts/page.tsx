@@ -34,7 +34,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
             className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
               !selectedDomain
                 ? "border-[#c63d00] bg-[#c63d00] text-paper"
-                : "border-rule text-ink hover:border-rule"
+                : "border-rule text-ink hover:border-ink"
             }`}
           >
             All
@@ -46,7 +46,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
               className={`rounded-full border px-4 py-2 text-sm font-medium capitalize transition ${
                 selectedDomain === domain
                   ? "border-[#c63d00] bg-[#c63d00] text-paper"
-                  : "border-rule text-ink hover:border-rule"
+                  : "border-rule text-ink hover:border-ink"
               }`}
             >
               {domain}

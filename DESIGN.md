@@ -69,6 +69,8 @@ Every repeated visual pattern must have one implementation owner. Page and secti
 
 The numbered top-level section wrapper. Every `01`–`06` section on the page is one of these — there is no second way to start a section.
 
+Owner: `src/components/proposal/proposal-section.tsx`. Used by: `src/app/page.tsx`.
+
 - Required content order: section number → `--font-display` heading → optional one-line dek → body content → `rule` divider closing the section.
 - The section number and heading share a baseline; the number is `ink-muted`, never a verdict color — it is a locator, not a finding.
 - Do not give a section a background fill or a card shell. A section is a run of the page, not a panel.
@@ -77,6 +79,8 @@ The numbered top-level section wrapper. Every `01`–`06` section on the page is
 ### SystemMapPanel
 
 The system map. Section 02, and the only place `panel-dark` is used.
+
+Owner: `src/components/proposal/system-map-panel.tsx`. Used by: `src/app/page.tsx`.
 
 - Required content order: layer stack, top to bottom in document order → the argument sentence → the boundary list, numbered, each with its between-clause and its audit question.
 - Layer and boundary names are rendered as real text nodes (`<li>`, `<p>`, `<span>`), never as SVG paths or CSS-drawn shapes — a screen reader and a search crawler must be able to read what the drawing says, since the panel carries the page's central argument.
@@ -87,6 +91,8 @@ The system map. Section 02, and the only place `panel-dark` is used.
 
 The gate-by-gate list under "How I look at it".
 
+Owner: `src/components/proposal/gate-list.tsx`. Used by: `src/app/page.tsx`.
+
 - Required content order: for each gate, name (mono) → failure mode → audit question, in the data's order — never sorted or reordered by the component.
 - Rows are separated by a `rule` top border, not a card shell.
 - The component never renders a count of the gates (no "N gates" text or `aria-label`); the page argues from what each gate checks, not from how many there are.
@@ -95,6 +101,8 @@ The gate-by-gate list under "How I look at it".
 
 The founder-summary artifact shown as evidence, under "What you get".
 
+Owner: `src/components/proposal/verdict-sheet.tsx`. Used by: `src/app/page.tsx`.
+
 - Required content order: title and sample notice on one header row → each section's heading (mono, uppercase) then its body, in the data's order.
 - Rendered as a `<figure>` — a document artifact being shown, not a card or a testimonial quote.
 - The sample notice always renders; it is the only thing marking the artifact as a sample rather than delivered client work, so it must never be conditionally hidden.
@@ -102,6 +110,8 @@ The founder-summary artifact shown as evidence, under "What you get".
 ### ScopeTable
 
 The included/excluded lists under "Scope".
+
+Owner: `src/components/proposal/scope-table.tsx`. Used by: `src/app/page.tsx`.
 
 - Required content order: included list first, excluded list second, side by side — two independent lists, not a `<table>`, since the exclusions have no column to share with the inclusions.
 - Excluded items always render in `deferred`, never `p0` or `p1` — being out of scope is not a finding, so it does not get a severity color.

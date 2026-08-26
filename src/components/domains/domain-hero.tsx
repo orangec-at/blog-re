@@ -33,7 +33,7 @@ export function DomainHero({ domain }: DomainHeroProps) {
             <a
               key={`${link.label}-${link.href}`}
               href={link.href}
-              className="inline-flex items-center rounded-full border border-rule px-4 py-2 text-sm font-semibold text-ink transition hover:border-rule hover:text-ink"
+              className="inline-flex items-center rounded-full border border-rule px-4 py-2 text-sm font-semibold text-ink transition hover:border-ink"
             >
               {link.label}
             </a>

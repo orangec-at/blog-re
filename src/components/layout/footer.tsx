@@ -24,10 +24,10 @@ export function Footer() {
             </a>
           ))}
         </div>
-        <p className="text-xs text-ink-muted">
+        <p className="text-xs text-panel-dark-muted">
           © {siteConfig.name} {new Date().getFullYear()}. All rights reserved.
         </p>
-        <p className="font-mono text-xs text-ink-muted">
+        <p className="font-mono text-xs text-panel-dark-muted">
           wakeymoment · launch-readiness review · rev. 2026-08
         </p>
       </Container>

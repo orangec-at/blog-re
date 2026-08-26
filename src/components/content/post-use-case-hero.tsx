@@ -41,7 +41,7 @@ export function PostUseCaseHero({
       <div className="min-w-0 space-y-4 sm:space-y-5">
         <Link
           href={backHref}
-          className="inline-flex min-h-11 items-center text-sm font-semibold text-ink hover:text-ink"
+          className="inline-flex min-h-11 items-center text-sm font-semibold text-ink-muted hover:text-ink"
         >
           ← {backLabel}
         </Link>

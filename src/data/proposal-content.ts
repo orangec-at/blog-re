@@ -91,8 +91,9 @@ export const scope = {
 } as const;
 
 // business/fixmyvibe/sample-audit-report-template.md § 3 System Map.
-// Layers are the document's; the boundary list is its general form.
-// See Task 7 — the vault table is generalized before this section is built.
+// Layers are the document's; the boundary list is its general form — the
+// source document still describes one specific sample app, and generalizing
+// its vault table is scope not yet done.
 export const systemMap = {
   layers: [
     { name: "The tool that generated it" },

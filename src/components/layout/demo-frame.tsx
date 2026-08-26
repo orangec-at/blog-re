@@ -65,7 +65,7 @@ export function DemoMeta({ stack = [], links = [], className = "" }: DemoMetaPro
               <a
                 key={`${link.label}-${link.href}`}
                 href={link.href}
-                className="inline-flex items-center rounded-full border border-rule px-3 py-1 text-sm font-semibold text-ink transition hover:border-rule"
+                className="inline-flex items-center rounded-full border border-rule px-3 py-1 text-sm font-semibold text-ink transition hover:border-ink"
               >
                 {link.label}
               </a>
