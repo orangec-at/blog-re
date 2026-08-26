@@ -47,7 +47,7 @@ export function PostMobileConversionRail({ config }: PostConversionRailProps) {
         <p className="px-1 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-ink-muted">On this guide</p>
         <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
           {config.sections.map((section) => (
-            <a key={section.href} href={section.href} className="inline-flex min-h-11 shrink-0 items-center rounded-full border border-rule bg-paper px-3 py-2 text-xs font-semibold text-ink transition-colors hover:border-ink hover:bg-[#fff4ec]">
+            <a key={section.href} href={section.href} className="inline-flex min-h-11 shrink-0 items-center rounded-full border border-rule bg-paper px-3 py-2 text-xs font-semibold text-ink transition-colors hover:border-ink hover:bg-rule/30">
               {section.label}
             </a>
           ))}
@@ -67,14 +67,14 @@ function RailCtaCard({ config }: PostConversionRailProps) {
       <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
         <Link
           href="/contact"
-          className="inline-flex min-h-11 justify-center rounded-xl border border-[#c63d00] bg-[#c63d00] px-4 py-2.5 text-sm font-semibold text-[#fffefb] transition-[background-color,border-color,transform] hover:border-ink hover:bg-ink active:translate-y-px"
+          className="inline-flex min-h-11 justify-center rounded-xl border border-ink bg-ink px-4 py-2.5 text-sm font-semibold text-paper transition-[background-color,border-color,transform] hover:border-ink hover:bg-ink active:translate-y-px"
         >
           {config.ctaLabel}
         </Link>
         {config.secondaryHref && config.secondaryLabel ? (
           <Link
             href={config.secondaryHref}
-            className="inline-flex min-h-11 justify-center rounded-xl border border-rule bg-paper px-4 py-2.5 text-sm font-semibold text-ink transition-[background-color,border-color,transform] hover:border-ink hover:bg-[#fff4ec] active:translate-y-px"
+            className="inline-flex min-h-11 justify-center rounded-xl border border-rule bg-paper px-4 py-2.5 text-sm font-semibold text-ink transition-[background-color,border-color,transform] hover:border-ink hover:bg-rule/30 active:translate-y-px"
           >
             {config.secondaryLabel}
           </Link>

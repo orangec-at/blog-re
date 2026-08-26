@@ -59,13 +59,13 @@ export function PostUseCaseHero({
         <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap">
           <Link
             href={primary.href}
-            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-[#c63d00] bg-[#c63d00] px-4 py-2.5 text-sm font-semibold text-[#fffefb] transition-[background-color,border-color,transform] hover:border-ink hover:bg-ink active:translate-y-px"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-ink bg-ink px-4 py-2.5 text-sm font-semibold text-paper transition-[background-color,border-color,transform] hover:border-ink hover:bg-ink active:translate-y-px"
           >
             {primary.label}
           </Link>
           <Link
             href={secondary.href}
-            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-rule bg-paper px-4 py-2.5 text-sm font-semibold text-ink transition-[background-color,border-color,transform] hover:border-ink hover:bg-[#fff4ec] active:translate-y-px"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-rule bg-paper px-4 py-2.5 text-sm font-semibold text-ink transition-[background-color,border-color,transform] hover:border-ink hover:bg-rule/30 active:translate-y-px"
           >
             {secondary.label}
           </Link>
@@ -94,7 +94,7 @@ export function PostUseCaseHero({
             <li key={item} className="flex gap-3 text-sm leading-6 text-ink lg:text-[#fff7ef]">
               <span
                 aria-hidden="true"
-                className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#ff4f00] text-[11px] font-bold text-[#fffefb]"
+                className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ink text-[11px] font-bold text-paper"
               >
                 ✓
               </span>

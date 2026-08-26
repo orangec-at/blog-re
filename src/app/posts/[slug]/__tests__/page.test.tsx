@@ -127,9 +127,9 @@ describe("PostPage", () => {
     expect(screen.getByText("7 launch gates")).toBeVisible();
     expect(screen.getByText("Risk table")).toBeVisible();
     expect(screen.getAllByRole("link", { name: "Auth & Session" })[0]).toHaveAttribute("href", "#auth-session");
-    expect(screen.getAllByText("진단 산출물").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByText("Risk table · System map · 2주 안정화").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByRole("link", { name: "진단 문의" })[0]).toHaveAttribute("href", "/contact");
+    expect(screen.getAllByText("What the review produces").length).toBeGreaterThanOrEqual(2);
+    expect(screen.getAllByText("Risk table · System map · Two-week plan").length).toBeGreaterThanOrEqual(2);
+    expect(screen.getAllByRole("link", { name: "Start a review" })[0]).toHaveAttribute("href", "/contact");
   });
 
   it("adds a sample-report rail that previews deliverables and keeps the contact path visible", async () => {
@@ -143,8 +143,8 @@ describe("PostPage", () => {
     expect(screen.getByText("Sample report")).toBeVisible();
     expect(screen.getByText("Audit output")).toBeVisible();
     expect(screen.getAllByRole("link", { name: "Executive Summary" })[0]).toHaveAttribute("href", "#executive-summary");
-    expect(screen.getAllByText("샘플 리포트 구성" ).length).toBeGreaterThanOrEqual(2);
+    expect(screen.getAllByText("What is in the sample").length).toBeGreaterThanOrEqual(2);
     expect(screen.getAllByText("Executive summary · Risk table · Go / No-Go" ).length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByRole("link", { name: "진단 문의" })[0]).toHaveAttribute("href", "/contact");
+    expect(screen.getAllByRole("link", { name: "Start a review" })[0]).toHaveAttribute("href", "/contact");
   });
 });

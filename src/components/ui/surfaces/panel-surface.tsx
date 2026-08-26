@@ -29,7 +29,7 @@ function joinClasses(...classes: Array<string | undefined>) {
 const toneClasses: Record<PanelSurfaceTone, string> = {
   default: "border-rule bg-paper",
   muted: "border-rule bg-paper",
-  accent: "border-rule bg-[#fff4ec]",
+  accent: "border-rule bg-rule/30",
 };
 
 export function PanelSurface(props: PanelSurfaceProps) {

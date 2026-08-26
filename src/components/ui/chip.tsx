@@ -43,7 +43,7 @@ const chipSizeClasses: Record<ChipSize, string> = {
 
 const chipToneClasses: Record<ChipTone, string> = {
   neutral: "border-rule bg-paper text-ink",
-  accent: "border-rule bg-[#fff4ec] text-ink",
+  accent: "border-ink bg-transparent text-ink",
   inverse: "border-white/15 bg-white/5 text-[#fff7f2]",
 };
 

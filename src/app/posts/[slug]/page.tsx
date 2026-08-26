@@ -1,5 +1,7 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { format, parseISO } from "date-fns";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { PostConversionRail, PostMobileConversionRail, type ConversionRailConfig } from "@/components/content/post-conversion-rail";
 import { PostUseCaseHero, type PostUseCaseHeroProps } from "@/components/content/post-use-case-hero";
@@ -21,10 +23,10 @@ type PostSeoFields = {
 };
 
 const checklistRail: ConversionRailConfig = {
-  ctaLabel: "진단 문의",
-  description: "글을 읽는 것에서 끝내지 않고, 실제 출시 리스크를 산출물로 정리합니다.",
+  ctaLabel: "Start a review",
+  description: "Reading is not the point. The review turns launch risk into something you can act on.",
   navLabel: "AI MVP checklist sections",
-  railTitle: "진단 산출물",
+  railTitle: "What the review produces",
   sections: [
     { href: "#real-user-scenarios", label: "User Scenarios" },
     { href: "#auth-session", label: "Auth & Session" },
@@ -35,32 +37,32 @@ const checklistRail: ConversionRailConfig = {
     { href: "#maintainability-handoff", label: "Handoff" },
   ],
   secondaryHref: "/posts/ai-mvp-technical-debt-audit-sample-report",
-  secondaryLabel: "샘플 리포트",
-  title: "Risk table · System map · 2주 안정화",
+  secondaryLabel: "Sample report",
+  title: "Risk table · System map · Two-week plan",
 };
 
 const sampleReportRail: ConversionRailConfig = {
-  ctaLabel: "진단 문의",
-  description: "샘플을 읽은 뒤 우리 MVP의 리포트가 어떻게 생길지 바로 상담으로 연결합니다.",
+  ctaLabel: "Start a review",
+  description: "Once you have read the sample, the next step is seeing what yours would say.",
   navLabel: "Sample audit report sections",
-  railTitle: "샘플 리포트 구성",
+  railTitle: "What is in the sample",
   sections: [
     { href: "#executive-summary", label: "Executive Summary" },
     { href: "#system-map", label: "System Map" },
     { href: "#risk-table", label: "Risk Table" },
     { href: "#security-data", label: "Security & Data" },
-    { href: "#stabilization-plan", label: "2주 Plan" },
+    { href: "#stabilization-plan", label: "Two-week plan" },
     { href: "#go-no-go", label: "Go / No-Go" },
   ],
   secondaryHref: "/posts/ai-mvp-launch-checklist",
-  secondaryLabel: "체크리스트로 돌아가기",
+  secondaryLabel: "Back to the checklist",
   title: "Executive summary · Risk table · Go / No-Go",
 };
 
 const checklistHero: Omit<PostUseCaseHeroProps, "summary" | "title"> = {
   bestFor: [
-    "AI 코딩 도구로 만든 MVP를 첫 고객 앞에 내놓기 전인 founder",
-    "Auth, data ownership, payment, deploy recovery를 빠르게 launch gate로 정리해야 하는 팀",
+    "Founders about to put an AI-built MVP in front of its first customers",
+    "Teams that need auth, data ownership, payment and deploy recovery turned into launch gates",
   ],
   eyebrow: "FixMyVibe use case · Launch-readiness checklist",
   meta: [
@@ -68,14 +70,14 @@ const checklistHero: Omit<PostUseCaseHeroProps, "summary" | "title"> = {
     { label: "Scope", value: "7 launch gates" },
     { label: "Output", value: "Risk table" },
   ],
-  primary: { href: "/contact", label: "기술 부채 진단 문의하기" },
-  secondary: { href: "/posts/ai-mvp-technical-debt-audit-sample-report", label: "샘플 리포트 보기" },
+  primary: { href: "/contact", label: "Start a review" },
+  secondary: { href: "/posts/ai-mvp-technical-debt-audit-sample-report", label: "Read the sample report" },
 };
 
 const sampleReportHero: Omit<PostUseCaseHeroProps, "summary" | "title"> = {
   bestFor: [
-    "Technical Debt Audit을 받으면 어떤 산출물이 나오는지 먼저 보고 싶은 founder",
-    "Risk table, system map, Go / No-Go recommendation의 깊이를 확인해야 하는 팀",
+    "Founders who want to see what a review produces before commissioning one",
+    "Teams checking how deep the risk table, system map and Go / No-Go go",
   ],
   eyebrow: "FixMyVibe use case · Sample audit report",
   meta: [
@@ -83,8 +85,8 @@ const sampleReportHero: Omit<PostUseCaseHeroProps, "summary" | "title"> = {
     { label: "Scope", value: "Audit output" },
     { label: "Next", value: "Go / No-Go" },
   ],
-  primary: { href: "/contact", label: "진단 문의하기" },
-  secondary: { href: "/posts/ai-mvp-launch-checklist", label: "체크리스트 보기" },
+  primary: { href: "/contact", label: "Start a review" },
+  secondary: { href: "/posts/ai-mvp-launch-checklist", label: "Read the checklist" },
 };
 
 export async function generateStaticParams() {
@@ -196,10 +198,24 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   return (
     <NarrowPage>
-      <div data-testid="post-narrow-layout" className="mx-auto max-w-3xl space-y-5 text-center">
-        <p className="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-ink">{post.domain}</p>
-        <h1 className="text-4xl font-semibold leading-[1.05] tracking-[-0.055em] text-ink sm:text-6xl">{post.title}</h1>
-        <p className="mx-auto max-w-2xl text-base leading-7 text-ink sm:text-lg">{post.summary}</p>
+      {/* Left-aligned, and the title is text-4xl rather than text-6xl: a post
+          headline larger than the site's own h1 inverts the hierarchy. The
+          eyebrow was {post.domain}, which reads "fixmyvibe" on every post and
+          therefore says nothing — the date is the fact a document should carry. */}
+      <div data-testid="post-narrow-layout" className="flex max-w-3xl flex-col gap-5">
+        <div className="flex items-baseline gap-4">
+          <Link className="font-mono text-sm text-ink-muted transition hover:text-ink" href="/posts">
+            ← Proof
+          </Link>
+          <time className="font-mono text-sm text-ink-muted" dateTime={post.date}>
+            {format(parseISO(post.date), "yyyy-MM-dd")}
+          </time>
+        </div>
+
+        <h1 className="font-display text-3xl font-normal leading-tight tracking-[-0.03em] text-ink sm:text-4xl">
+          {post.title}
+        </h1>
+        <p className="max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg">{post.summary}</p>
       </div>
       <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-ink">
         <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />

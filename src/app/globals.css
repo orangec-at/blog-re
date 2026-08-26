@@ -158,14 +158,15 @@ button {
   line-height: 1.14;
 }
 
+/* A list is a list, not a card. The cream fill and 22px radius belonged to an
+   editorial palette this system no longer carries; a rule above and below sets
+   the block apart without inventing a surface. */
 .fmv-article-prose > :where(ul, ol):not(.not-prose) {
-  margin-block: 1.3rem 1.7rem;
-  padding: 1rem 1.15rem;
-  border: 1px solid rgba(32, 21, 21, 0.08);
-  border-radius: 22px;
-  background: #fffaf3;
+  margin-block: 1.6rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
   color: var(--article-text);
-  box-shadow: 0 1px 0 rgba(32, 21, 21, 0.03);
 }
 
 .fmv-article-prose > :where(ul, ol):not(.not-prose) li {
@@ -184,23 +185,28 @@ button {
 
 .fmv-article-prose :where(code):not(pre code) {
   border: 1px solid rgba(32, 21, 21, 0.1);
-  border-radius: 0.45rem;
-  background: #fff4ec;
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--color-rule) 45%, transparent);
   padding: 0.12em 0.36em;
   color: var(--color-ink);
   font-size: 0.9em;
 }
 
+/* Ink, not orange. On this site colour means a verdict, and the editorial
+   orange sat 15 degrees from p0 on the hue wheel — a reader who learned that red
+   means a P0 finding met an orange-red link and had to unlearn it. The
+   affordance is the underline, drawn as a border because this build emits no
+   .underline utility. */
 .fmv-article-prose :where(a) {
-  color: #a93400;
+  color: var(--color-ink);
   font-weight: 650;
   text-decoration: underline;
-  text-decoration-color: rgba(198, 61, 0, 0.34);
+  text-decoration-color: var(--color-rule);
+  text-decoration-thickness: 2px;
   text-underline-offset: 0.18em;
 }
 
 .fmv-article-prose :where(a:hover) {
-  color: #7e2800;
   text-decoration-color: currentColor;
 }
 
