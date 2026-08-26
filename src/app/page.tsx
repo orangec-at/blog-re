@@ -6,7 +6,8 @@ import { PrimaryButton, SecondaryButton } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Home",
-  description: "Launch-readiness engineering for software built with AI.",
+  description:
+    "An independent review of your AI-built or outsourced app — before the next milestone payment, the first customers, or the ad spend. Plain English. Three pages. One decision.",
   alternates: { canonical: "/" },
 };
 
@@ -37,9 +38,18 @@ export default function Home() {
     <div data-testid="home-page" className="py-16 sm:py-24">
       <Container variant="wide" className="flex flex-col gap-16 sm:gap-24">
         <section className="flex flex-col gap-8">
-          <h1 className="max-w-3xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-zapier-black sm:text-4xl">
-            Launch-readiness engineering for software built with AI.
-          </h1>
+          <div className="flex flex-col gap-5">
+            {/* text-balance keeps the second sentence off a one-word line — without it
+                1280px orphans "check." by itself under a nearly full first line. */}
+            <h1 className="max-w-3xl text-balance text-3xl font-semibold leading-tight tracking-[-0.03em] text-zapier-black sm:text-4xl">
+              Your developer says it’s done. You have no way to check.
+            </h1>
+
+            <p className="max-w-2xl text-base leading-relaxed text-zapier-charcoal sm:text-lg">
+              An independent review of your AI-built or outsourced app — before the next milestone
+              payment, the first customers, or the ad spend. Plain English. Three pages. One decision.
+            </p>
+          </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <PrimaryButton href="/contact">Start a review</PrimaryButton>
