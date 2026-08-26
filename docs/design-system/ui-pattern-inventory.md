@@ -8,8 +8,7 @@ Last updated: 2026-05-21
 
 - `DESIGN.md` owns the visual contracts and prohibited patterns.
 - `src/components/ui/**` owns primitives and low-level molecules.
-- `src/components/marketing/**` owns productized marketing card patterns.
-- `src/components/home-redesign/**`, `src/components/services/**`, `src/components/content/**`, `src/app/**` should compose existing components and own only data selection, section order, and responsive layout.
+- `src/components/services/**`, `src/components/content/**`, `src/app/**` should compose existing components and own only data selection, section order, and responsive layout.
 
 ## Pattern ownership map
 
@@ -31,9 +30,8 @@ Last updated: 2026-05-21
 
 - `Badge`
   - Owner: `src/components/ui/badge.tsx`
-  - Role: compact, content-sized classification labels for shadcn-style `Card` and marketing components.
-  - Used by: `ServicePackageCard`, `ProofArtifactCard`, chooser note.
-  - Boundary: default for new marketing cards; must remain inline/`w-fit` and must not become a full-width or rounded-pill chip unless a card contract explicitly documents that exception.
+  - Role: compact, content-sized classification labels for shadcn-style `Card` and components.
+  - Boundary: default for new reusable cards; must remain inline/`w-fit` and must not become a full-width or rounded-pill chip unless a card contract explicitly documents that exception.
   - Contract source: `DESIGN.md` > Pill Tag / Badge.
   - Status: accepted primitive; Task 1.2 removed old-orange leakage from the `label` variant, which now uses Primary Purple for Stripe-direction emphasis.
 
@@ -47,11 +45,10 @@ Last updated: 2026-05-21
 
 - `Card`
   - Owner: `src/components/ui/card.tsx`
-  - Role: shadcn-style card shell with header/content/footer slots for new marketing cards and marketing-owned wrappers.
-  - Used by: `src/components/marketing/**` and a few section-level notes.
-  - Boundary: default shell for new productized/repeated marketing cards; use slots (`CardHeader`, `CardContent`, `CardFooter`, `CardTitle`, `CardDescription`) rather than page-local `rounded-* border bg-* p-* shadow-*` shells.
+  - Role: shadcn-style card shell with header/content/footer slots for reusable cards and section-level wrappers.
+  - Boundary: default shell for new productized/repeated cards; use slots (`CardHeader`, `CardContent`, `CardFooter`, `CardTitle`, `CardDescription`) rather than page-local `rounded-* border bg-* p-* shadow-*` shells.
   - Contract source: `DESIGN.md` > Card shell role boundaries.
-  - Status: accepted primitive; do not use legacy surfaces as the default shell for new marketing card families.
+  - Status: accepted primitive; do not use legacy surfaces as the default shell for new card families.
 
 - `Separator`
   - Owner: `src/components/ui/separator.tsx`
@@ -79,16 +76,16 @@ Last updated: 2026-05-21
   - Owner: `src/components/ui/molecules/feature-card.tsx`
   - Role: generic legacy title/body/tag feature card.
   - Used by: older services/about/home sections.
-  - Boundary: keep for existing broad feature grids and incremental cleanup; do not start new productized marketing card families from `FeatureCard`.
+  - Boundary: keep for existing broad feature grids and incremental cleanup; do not start new productized card families from `FeatureCard`.
   - Contract source: `DESIGN.md` > Card shell role boundaries / Feature Card.
-  - Status: legacy-compatible molecule; specialized repeated marketing cards should graduate to `Card` composition under `src/components/marketing/**`.
+  - Status: legacy-compatible molecule; specialized repeated cards should graduate to `Card` composition.
 
 - `MetricCard`
   - Owner: `src/components/ui/molecules/metric-card.tsx`
   - Role: generic metric primitive.
-  - Used by: older generic sections and `ProofMetricCard`.
-  - Contract source: `DESIGN.md` > Proof Metric Card.
-  - Status: accepted generic primitive; `ProofMetricCard` now wraps this for marketing semantics instead of maintaining a separate shell.
+  - Used by: older generic sections.
+  - Contract source: `DESIGN.md` > Metric Card.
+  - Status: accepted generic primitive for metric display.
 
 - `BorderedSurface` / `PanelSurface`
   - Owner: `src/components/ui/surfaces/bordered-surface.tsx`, `src/components/ui/surfaces/panel-surface.tsx`
@@ -101,73 +98,17 @@ Last updated: 2026-05-21
 - `ConsolePanel`
   - Owner: `src/components/ui/surfaces/console-panel.tsx`
   - Role: productized diagnostic proof panel.
-  - Used by: `src/components/home-redesign/home-hero.tsx`.
   - Contract source: `DESIGN.md` > Diagnostic Console Panel.
-  - Status: important owner component. The remaining hero-local diagnostic rows should be candidates for subcomponents, not more inline markup.
+  - Status: important owner component for diagnostic panels.
 
 - `SectionIntro`
   - Owner: `src/components/ui/patterns/section-intro.tsx`
   - Role: standard section eyebrow/title/body/aside layout.
   - Used by: newer pages where adopted.
   - Contract source: `DESIGN.md` > Section Intro.
-  - Status: underused in `home-redesign`; next cleanup should replace repeated section intro scaffolding where copy shape matches.
-
-### Marketing-specific components
-
-- `ServicePackageCard`
-  - Owner: `src/components/marketing/service-package-card.tsx`
-  - Used by: `src/components/home-redesign/services-preview-grid.tsx`.
-  - Contract source: `DESIGN.md` > Service Package Card.
-  - Status: accepted owner for the three core service packages.
-  - Do not: recreate service/package cards inside section files, add floating chips/progress rows, or create another service card variant without updating `DESIGN.md`.
-
-- `ProofArtifactCard`
-  - Owner: `src/components/marketing/proof-artifact-card.tsx`
-  - Used by: `src/components/home-redesign/featured-insight-row.tsx`.
-  - Contract source: `DESIGN.md` > Proof Artifact Card.
-  - Status: accepted owner for proof/project artifact cards.
-  - Do not: use nested cards or fake dashboard rows for proof unless the artifact is an actual chart/report component.
-
-- `PainSignalCard`
-  - Owner: `src/components/marketing/pain-signal-card.tsx`
-  - Used by: `src/components/home-redesign/pain-point-grid.tsx`.
-  - Contract source: `DESIGN.md` > Feature Card / Pain Signal Card.
-  - Status: accepted owner for problem/next-fix signal cards.
-  - Do not: duplicate the problem/solution card shape directly in grids.
-
-- `ProofMetricCard`
-  - Owner: `src/components/marketing/proof-metric-card.tsx`
-  - Used by: `src/components/home-redesign/proof-stat-strip.tsx`.
-  - Contract source: `DESIGN.md` > Proof Metric Card.
-  - Status: accepted semantic wrapper over `MetricCard` for compact home proof metrics.
-  - Do not: add CTA links, badges, nested metadata, or vague number-only cards.
+  - Status: accepted pattern; sections should prefer this over inline scaffolding where copy shape matches.
 
 ## Section ownership map
-
-- Home hero
-  - Owner: `src/components/home-redesign/home-hero.tsx`
-  - Current component owners used: `Container`, `CTAGroup`, `PillTag`, `SignalList`, `ConsolePanel`, typography primitives.
-  - Debt: still owns multiple diagnostic-console internals inline (`auditRows`, dark grid cells, scope rows). Next cleanup should extract `DiagnosticPriorityGrid` and/or `AuditScopeList` under `src/components/marketing/` or `src/components/ui/patterns/`.
-
-- Services preview
-  - Owner: `src/components/home-redesign/services-preview-grid.tsx`
-  - Current component owners used: `ServicePackageCard`, `Card`, `Badge`, typography primitives.
-  - Debt: chooser note is still a section-local card. If reused elsewhere, extract `ChooserNoteCard` or turn it into a `SectionIntro` aside.
-
-- Featured proof row
-  - Owner: `src/components/home-redesign/featured-insight-row.tsx`
-  - Current component owners used: `ProofArtifactCard`, typography primitives.
-  - Status: thin enough; keep proof card internals inside `ProofArtifactCard`.
-
-- Pain point grid
-  - Owner: `src/components/home-redesign/pain-point-grid.tsx`
-  - Current component owners used: `PainSignalCard`, typography primitives.
-  - Status: thin enough; consider `SectionIntro` migration only if it improves consistency without hiding copy intent.
-
-- Proof stat strip
-  - Owner: `src/components/home-redesign/proof-stat-strip.tsx`
-  - Current component owners used: `ProofMetricCard`, typography primitives.
-  - Status: thin enough.
 
 - Content article blocks
   - Owner: `src/components/content/article-blocks.tsx`
@@ -180,14 +121,13 @@ A quick scan for card-like classes (`rounded-*`, `border-*`, `bg-*`, `shadow-*`,
 
 1. `src/components/content/article-blocks.tsx` — 132 matches; article/MDX component system; needs separate content-pattern pass.
 2. `src/components/demos/workspace-onboarding-demo.tsx` — 66 matches; demo-specific visual; likely acceptable unless reused.
-3. `src/components/home-redesign/home-hero.tsx` — 59 matches; hero diagnostic console internals; next extraction target.
-4. `src/components/content/post-use-case-hero.tsx` — 38 matches; content hero surface; inspect before reusing.
-5. `src/components/ui/button.tsx` — 35 matches; primitive owner, acceptable but should stay centralized.
-6. `src/components/content/post-conversion-rail.tsx` — 34 matches; content conversion surface; inspect before reusing.
-7. `src/components/ui/chip.tsx` — 23 matches; older primitive/legacy classification surface.
-8. `src/components/layout/header.tsx` and `src/components/demos/device-frame.tsx` — 13 matches each.
-9. `src/components/ui/surfaces/console-panel.tsx` — 12 matches; owner component for diagnostic panels.
-10. `src/components/ui/badge.tsx` — 11 matches; primitive owner, acceptable but color-role leakage must be controlled.
+3. `src/components/content/post-use-case-hero.tsx` — 38 matches; content hero surface; inspect before reusing.
+4. `src/components/ui/button.tsx` — 35 matches; primitive owner, acceptable but should stay centralized.
+5. `src/components/content/post-conversion-rail.tsx` — 34 matches; content conversion surface; inspect before reusing.
+6. `src/components/ui/chip.tsx` — 23 matches; older primitive/legacy classification surface.
+7. `src/components/layout/header.tsx` and `src/components/demos/device-frame.tsx` — 13 matches each.
+8. `src/components/ui/surfaces/console-panel.tsx` — 12 matches; owner component for diagnostic panels.
+9. `src/components/ui/badge.tsx` — 11 matches; primitive owner, acceptable but color-role leakage must be controlled.
 
 Baseline command used on 2026-05-21:
 
@@ -217,9 +157,7 @@ PY
 
 ### P1 next extraction targets
 
-1. `home-hero.tsx`: extract diagnostic priority/scope rows out of inline markup.
-2. `services-preview-grid.tsx`: decide whether chooser note becomes `SectionIntro.aside` or a named `ChooserNoteCard`.
-3. `Badge` vs `PillTag`: usage boundary is documented; `Badge` label old-orange cleanup is complete. Future work should only revisit this if `PillTag` legacy compatibility is intentionally changed.
+1. `Badge` vs `PillTag`: usage boundary is documented; `Badge` label old-orange cleanup is complete. Future work should only revisit this if `PillTag` legacy compatibility is intentionally changed.
 
 ### P2 later audits
 

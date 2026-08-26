@@ -7,28 +7,11 @@ const root = process.cwd();
 const designPath = path.join(root, 'DESIGN.md');
 const inventoryPath = path.join(root, 'docs/design-system/ui-pattern-inventory.md');
 
-const requiredOwners = [
-  {
-    name: 'ServicePackageCard',
-    owner: 'src/components/marketing/service-package-card.tsx',
-    usedBy: 'src/components/home-redesign/services-preview-grid.tsx',
-  },
-  {
-    name: 'ProofArtifactCard',
-    owner: 'src/components/marketing/proof-artifact-card.tsx',
-    usedBy: 'src/components/home-redesign/featured-insight-row.tsx',
-  },
-  {
-    name: 'PainSignalCard',
-    owner: 'src/components/marketing/pain-signal-card.tsx',
-    usedBy: 'src/components/home-redesign/pain-point-grid.tsx',
-  },
-  {
-    name: 'ProofMetricCard',
-    owner: 'src/components/marketing/proof-metric-card.tsx',
-    usedBy: 'src/components/home-redesign/proof-stat-strip.tsx',
-  },
-];
+// The four marketing cards this table used to guard were only ever rendered by
+// src/components/home-redesign/, which the proposal-home redesign deleted. The
+// table is empty rather than removed so the next reusable pattern has a place
+// to register itself. See docs/plans/2026-08-26-proposal-home-redesign-design.md.
+const requiredOwners = [];
 
 function readRequired(filePath) {
   if (!fs.existsSync(filePath)) {
