@@ -28,13 +28,13 @@ function joinClasses(...classes: Array<string | undefined>) {
 }
 
 const toneClasses = {
-  cream: "bg-cream",
-  offwhite: "bg-offwhite",
+  cream: "bg-paper",
+  offwhite: "bg-paper",
 } as const;
 
 export function BorderedSurface(props: BorderedSurfaceProps) {
   const composedClassName = joinClasses(
-    "rounded-lg border border-zapier-sand p-6",
+    "rounded-lg border border-rule p-6",
     toneClasses[props.tone ?? "cream"],
     props.className,
   );

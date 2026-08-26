@@ -41,13 +41,13 @@ export default async function DomainShowcasePage({
         emptyMessage={`No published demos yet for ${showcase.name}. Browse the linked repos below while the next walkthrough is in progress.`}
       />
 
-      <section className="bg-cream py-12">
+      <section className="bg-paper py-12">
         <Container variant="wide" className="space-y-8">
           <div className="space-y-2">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zapier-gray">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ink-muted">
               Associated repos
             </p>
-            <h2 className="text-3xl font-semibold text-zapier-black">
+            <h2 className="text-3xl font-semibold text-ink">
               Projects shipping inside this domain
             </h2>
           </div>
@@ -56,14 +56,14 @@ export default async function DomainShowcasePage({
             {relatedProjects.map((project) => (
               <article
                 key={project.id}
-                className="flex h-full flex-col gap-4 rounded-2xl border border-zapier-sand bg-offwhite p-6"
+                className="flex h-full flex-col gap-4 rounded-2xl border border-rule bg-paper p-6"
               >
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-semibold text-zapier-black">{project.name}</h3>
-                  <p className="text-zapier-charcoal">{project.summary}</p>
+                  <h3 className="text-2xl font-semibold text-ink">{project.name}</h3>
+                  <p className="text-ink">{project.summary}</p>
                 </div>
 
-                <ul className="space-y-2 text-sm text-zapier-charcoal">
+                <ul className="space-y-2 text-sm text-ink">
                   {project.highlights.map((highlight) => (
                     <li key={highlight}>• {highlight}</li>
                   ))}
@@ -76,7 +76,7 @@ export default async function DomainShowcasePage({
                       <a
                         key={`${project.id}-${link.label}`}
                         href={link.href}
-                        className="text-sm font-semibold text-zapier-orange"
+                        className="text-sm font-semibold text-ink"
                       >
                         {link.label} →
                       </a>
@@ -86,20 +86,20 @@ export default async function DomainShowcasePage({
             ))}
           </div>
 
-          <div className="rounded-2xl border border-zapier-sand bg-offwhite p-6">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zapier-gray">
+          <div className="rounded-2xl border border-rule bg-paper p-6">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ink-muted">
               Refactoring log
             </p>
-            <h2 className="mt-2 text-2xl font-semibold text-zapier-black">
+            <h2 className="mt-2 text-2xl font-semibold text-ink">
               Keep the architecture narrative attached to the demos.
             </h2>
-            <p className="mt-2 text-zapier-charcoal">
+            <p className="mt-2 text-ink">
               Every domain page should point back to the notes, trade-offs, and rollout details that made
               the demo possible.
             </p>
             <Link
               href={showcase.refactoringLogHref}
-              className="mt-4 inline-flex text-sm font-semibold text-zapier-orange"
+              className="mt-4 inline-flex text-sm font-semibold text-ink"
             >
               Read the refactoring log →
             </Link>

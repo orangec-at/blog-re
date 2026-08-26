@@ -106,10 +106,6 @@ The included/excluded lists under "Scope".
 - Required content order: included list first, excluded list second, side by side — two independent lists, not a `<table>`, since the exclusions have no column to share with the inclusions.
 - Excluded items always render in `deferred`, never `p0` or `p1` — being out of scope is not a finding, so it does not get a severity color.
 
-## Deprecated
-
-The `zapier-*` tokens in `src/app/globals.css` (`--color-zapier-black`, `--color-zapier-charcoal`, `--color-zapier-gray`, `--color-zapier-sand`, `--color-zapier-light-sand`, `--color-zapier-orange`, and the `cream`/`offwhite`/`panel`/`accent-surface`/`console-*`/`text-*`/`border-strong` tokens that shipped alongside them) hold another company's palette values under borrowed names. They are deprecated, not deleted: existing pages still depend on them. Migrate a page off `zapier-*` and onto the semantic tokens above when you touch that page for another reason — do not do a standalone token-migration pass.
-
 ## Do's and Don'ts
 
 ### Do

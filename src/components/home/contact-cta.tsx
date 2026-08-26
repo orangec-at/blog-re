@@ -15,20 +15,20 @@ export function ContactCta({ data }: ContactCtaProps) {
   const { title, body, primaryLabel, primaryHref, secondaryLabel, secondaryHref } = data;
 
   return (
-    <section data-testid="contact-cta" className="bg-zapier-black py-16 text-cream">
+    <section data-testid="contact-cta" className="bg-ink py-16 text-paper">
       <Container variant="wide">
-        <BorderedSurface className="rounded-2xl bg-zapier-charcoal p-8 text-cream">
+        <BorderedSurface className="rounded-2xl bg-ink p-8 text-paper">
           <div className="space-y-4">
             <Eyebrow>Let’s refactor together</Eyebrow>
-            <SectionHeading className="text-3xl text-cream sm:text-4xl sm:leading-tight">{title}</SectionHeading>
-            <BodyText className="text-base text-cream/80 sm:text-base sm:leading-6">{body}</BodyText>
+            <SectionHeading className="text-3xl text-paper sm:text-4xl sm:leading-tight">{title}</SectionHeading>
+            <BodyText className="text-base text-paper/80 sm:text-base sm:leading-6">{body}</BodyText>
           </div>
           <div className="mt-6 flex flex-col gap-4 sm:flex-row">
             <PrimaryButton className="rounded-lg px-6 py-3 text-base" href={primaryHref}>
               {primaryLabel}
             </PrimaryButton>
             <SecondaryButton
-              className="border-zapier-sand bg-transparent px-6 py-3 text-base text-cream hover:bg-zapier-sand hover:text-zapier-black"
+              className="border-rule bg-transparent px-6 py-3 text-base text-paper hover:bg-rule hover:text-ink"
               href={secondaryHref}
             >
               {secondaryLabel}

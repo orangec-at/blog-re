@@ -40,7 +40,7 @@ export function ServiceDetailSection({
   const surfaceTone = tone === "cream" ? "offwhite" : "cream";
 
   return (
-    <section id={id} className={tone === "cream" ? "bg-cream py-16 sm:py-20" : "bg-offwhite py-16 sm:py-20"}>
+    <section id={id} className={tone === "cream" ? "bg-paper py-16 sm:py-20" : "bg-paper py-16 sm:py-20"}>
       <Container variant="wide" className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
         <div className="space-y-4">
           <Eyebrow>{eyebrow}</Eyebrow>
@@ -63,8 +63,8 @@ export function ServiceDetailSection({
               <Eyebrow>What we work through</Eyebrow>
               <ul className="space-y-3">
                 {deliveryItems.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-zapier-charcoal sm:text-base">
-                    <span aria-hidden="true" className="mt-1 h-2.5 w-2.5 rounded-full bg-zapier-orange" />
+                  <li key={item} className="flex items-start gap-3 text-sm text-ink sm:text-base">
+                    <span aria-hidden="true" className="mt-1 h-2.5 w-2.5 rounded-full bg-ink" />
                     <span>{item}</span>
                   </li>
                 ))}

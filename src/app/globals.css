@@ -3,31 +3,13 @@
    it — so every heading rendered in the Georgia fallback instead of Newsreader. */
 @import "tailwindcss";
 
-/* Tailwind v4 only generates color utilities (bg-cream, text-zapier-black, …) for
+/* Tailwind v4 only generates color utilities (bg-paper, text-ink, …) for
    --color-* declared inside @theme. These lived in :root, so every custom color
    class in the codebase compiled to nothing. @theme still emits them on :root,
    so the var(--color-*) references below keep working. */
 @theme {
-  --color-cream: #fbfcff;
-  --color-offwhite: #f6f9fc;
-  --color-zapier-black: #061b31;
-  --color-zapier-charcoal: #273951;
-  --color-zapier-gray: #64748d;
-  --color-zapier-sand: #e5edf5;
-  --color-zapier-light-sand: #f6f9fc;
-  --color-zapier-orange: #533afd;
-  --color-panel: #fbfcff;
-  --color-accent-surface: #f4f7ff;
-  --color-console-text: #fbfcff;
-  --color-console-muted: rgba(255, 255, 255, 0.72);
-  --color-text-strong: #061b31;
-  --color-text-default: #273951;
-  --color-text-muted: #64748d;
-  --color-border-strong: #b9b9f9;
-
   /* Proposal system — see DESIGN.md. Semantic names: the value's job, not a
-     company's brand. The zapier-* names above hold another system's values and
-     are deprecated; pages migrate off them as they are touched. */
+     company's brand. */
   --color-paper: #fdfcfa;
   --color-ink: #16130f;
   --color-ink-muted: #5c564e;
@@ -42,9 +24,9 @@
 
 :root {
   --article-measure: 68ch;
-  --article-text: #273951;
-  --article-muted: #64748d;
-  --article-rule: rgba(83, 58, 253, 0.16);
+  --article-text: var(--color-ink);
+  --article-muted: var(--color-ink-muted);
+  --article-rule: var(--color-rule);
   /* --font-newsreader / --font-noto-serif-kr / --font-source-sans come from
      next/font in layout.tsx, which also emits the @font-face rules. */
   --font-display: var(--font-newsreader), var(--font-noto-serif-kr), "Georgia", serif;
@@ -83,7 +65,7 @@ a {
 
 a:hover {
   text-decoration: underline;
-  text-decoration-color: var(--color-zapier-sand);
+  text-decoration-color: var(--color-rule);
 }
 
 .font-display {
@@ -99,7 +81,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-zapier-orange);
+  outline: 2px solid var(--color-ink);
   outline-offset: 2px;
 }
 
@@ -153,7 +135,7 @@ button {
 }
 
 .fmv-article-prose > :where(h2, h3):not(.not-prose) {
-  color: var(--color-zapier-black);
+  color: var(--color-ink);
   font-family: var(--font-display);
   font-weight: 680;
   letter-spacing: -0.045em;
@@ -196,7 +178,7 @@ button {
 }
 
 .fmv-article-prose :where(strong, b) {
-  color: var(--color-zapier-black);
+  color: var(--color-ink);
   font-weight: 700;
 }
 
@@ -205,7 +187,7 @@ button {
   border-radius: 0.45rem;
   background: #fff4ec;
   padding: 0.12em 0.36em;
-  color: var(--color-zapier-black);
+  color: var(--color-ink);
   font-size: 0.9em;
 }
 

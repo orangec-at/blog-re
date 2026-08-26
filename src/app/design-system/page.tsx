@@ -124,7 +124,7 @@ export default function DesignSystemPage() {
             />
 
             <ConsolePanel
-              aside={<span className="rounded-pill border border-zapier-sand bg-cream px-4 py-1 text-sm font-semibold text-zapier-black">Reusable dark shell</span>}
+              aside={<span className="rounded-pill border border-rule bg-paper px-4 py-1 text-sm font-semibold text-ink">Reusable dark shell</span>}
               heading="Diagnostic Console"
               kicker="Operational pattern"
               summary="Use for triage, audits, and high-density founder guidance that needs stronger contrast."
@@ -172,7 +172,7 @@ export default function DesignSystemPage() {
             <BodyText>
               A mobile-first bottom app bar built from interactive chips and one primary action.
             </BodyText>
-            <div className="relative min-h-28 rounded-[24px] border border-dashed border-zapier-sand bg-offwhite">
+            <div className="relative min-h-28 rounded-[24px] border border-dashed border-rule bg-paper">
               <MobileFloatingAppbarFrame />
             </div>
           </PanelSurface>
@@ -237,7 +237,7 @@ export default function DesignSystemPage() {
             <div className="space-y-4">
               <SectionHeading className="text-2xl sm:text-3xl">Post Conversion Rail</SectionHeading>
               <PostConversionRail config={designSystemRailConfig} />
-              <div className="rounded-[28px] border border-dashed border-zapier-sand bg-offwhite p-4 lg:hidden">
+              <div className="rounded-[28px] border border-dashed border-rule bg-paper p-4 lg:hidden">
                 <PostMobileConversionRail config={designSystemRailConfig} />
               </div>
             </div>

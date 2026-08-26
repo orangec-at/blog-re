@@ -27,9 +27,9 @@ function joinClasses(...classes: Array<string | undefined>) {
 }
 
 const toneClasses: Record<PanelSurfaceTone, string> = {
-  default: "border-zapier-sand bg-cream",
-  muted: "border-zapier-sand bg-offwhite",
-  accent: "border-zapier-orange/30 bg-[#fff4ec]",
+  default: "border-rule bg-paper",
+  muted: "border-rule bg-paper",
+  accent: "border-rule bg-[#fff4ec]",
 };
 
 export function PanelSurface(props: PanelSurfaceProps) {

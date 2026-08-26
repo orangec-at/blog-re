@@ -109,7 +109,7 @@ export default function ServicesPage() {
         );
       })}
 
-      <section className="bg-offwhite py-16 sm:py-20">
+      <section className="bg-paper py-16 sm:py-20">
         <Container variant="wide" className="space-y-8">
           <div className="max-w-3xl space-y-4">
             <Eyebrow>Proof and supporting content</Eyebrow>

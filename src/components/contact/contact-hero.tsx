@@ -10,7 +10,7 @@ type ContactHeroProps = {
 
 export function ContactHero({ data }: ContactHeroProps) {
   return (
-    <section className="bg-cream py-16 sm:py-24" data-testid="contact-hero">
+    <section className="bg-paper py-16 sm:py-24" data-testid="contact-hero">
       <Container variant="wide" className="max-w-4xl space-y-4">
         <Eyebrow>{data.eyebrow}</Eyebrow>
         <DisplayHeading>{data.title}</DisplayHeading>

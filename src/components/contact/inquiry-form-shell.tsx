@@ -18,7 +18,7 @@ type InquiryFormShellProps = {
 };
 
 const inputClasses =
-  "min-h-12 w-full rounded-[4px] border border-zapier-sand bg-cream px-4 py-3 text-base text-zapier-black placeholder:text-zapier-gray focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zapier-black focus-visible:ring-offset-2 focus-visible:ring-offset-cream";
+  "min-h-12 w-full rounded-[4px] border border-rule bg-paper px-4 py-3 text-base text-ink placeholder:text-ink-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper";
 
 const initialState: InquiryState = { status: "idle" };
 
@@ -28,7 +28,7 @@ export function InquiryFormShell({ cta }: InquiryFormShellProps) {
   const fieldErrors = state.status === "error" ? state.fieldErrors : undefined;
 
   return (
-    <section className="bg-cream py-16 sm:py-20" data-testid="contact-inquiry-form">
+    <section className="bg-paper py-16 sm:py-20" data-testid="contact-inquiry-form">
       <Container variant="wide">
         <BorderedSurface as="section" className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]" tone="offwhite">
           <div className="space-y-4">

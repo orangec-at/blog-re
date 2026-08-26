@@ -5,17 +5,17 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 font-medium transition-[background-color,border-color,color,box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#533afd] focus-visible:ring-offset-2 focus-visible:ring-offset-cream active:translate-y-px touch-manipulation disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 font-medium transition-[background-color,border-color,color,box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper active:translate-y-px touch-manipulation disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         primary:
-          "min-h-11 rounded-[5px] border border-[#533afd] bg-[#533afd] text-white shadow-[0_24px_36px_-24px_rgba(50,50,93,0.35),0_14px_24px_-18px_rgba(0,0,0,0.16)] hover:border-[#4434d4] hover:bg-[#4434d4]",
+          "min-h-11 rounded-[5px] border border-rule bg-paper text-ink shadow-[0_24px_36px_-24px_rgba(50,50,93,0.35),0_14px_24px_-18px_rgba(0,0,0,0.16)] hover:border-ink hover:bg-ink hover:text-paper",
         secondary:
-          "min-h-11 rounded-[5px] border border-[#b9b9f9] bg-white text-[#533afd] shadow-[0_16px_32px_-24px_rgba(50,50,93,0.24)] hover:border-[#533afd] hover:bg-[#f4f7ff] hover:text-[#4434d4]",
+          "min-h-11 rounded-[5px] border border-ink bg-paper text-ink shadow-[0_16px_32px_-24px_rgba(50,50,93,0.24)] hover:bg-rule",
         ghost:
-          "min-h-11 rounded-[5px] border border-zapier-sand bg-white text-zapier-black shadow-[0_12px_28px_-24px_rgba(50,50,93,0.24)] hover:border-[#b9b9f9] hover:bg-offwhite",
-        text: "border-transparent bg-transparent px-0 py-0 text-[#533afd] underline decoration-[#b9b9f9] decoration-2 underline-offset-4 hover:text-[#4434d4] hover:no-underline",
+          "min-h-11 rounded-[5px] border border-rule bg-paper text-ink shadow-[0_12px_28px_-24px_rgba(50,50,93,0.24)] hover:border-ink",
+        text: "border-transparent bg-transparent px-0 py-0 text-ink underline decoration-rule decoration-2 underline-offset-4 hover:decoration-ink",
       },
       size: {
         sm: "px-3 py-3 text-sm",

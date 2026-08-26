@@ -11,7 +11,7 @@ type FinalServicesCtaProps = {
 
 export function FinalServicesCta({ diagnosisHref }: FinalServicesCtaProps) {
   return (
-    <section className="bg-cream py-16 sm:py-20" data-testid="final-services-cta">
+    <section className="bg-paper py-16 sm:py-20" data-testid="final-services-cta">
       <Container variant="wide">
         <BorderedSurface as="section" className="flex flex-col gap-6" tone="offwhite">
           <div className="space-y-4">

@@ -139,20 +139,20 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     return (
       <>
         <FullWidth
-          className="border-y border-zapier-sand bg-offwhite py-16"
+          className="border-y border-rule bg-paper py-16"
           contentClassName="space-y-6"
         >
           <div data-testid="post-full-layout" className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
             <div className="space-y-3">
-              <p className="text-sm uppercase tracking-[0.25em] text-zapier-gray">{post.domain}</p>
-              <h1 className="text-4xl font-semibold text-zapier-black sm:text-5xl">{post.title}</h1>
-              <p className="max-w-3xl text-lg text-zapier-charcoal">{post.summary}</p>
+              <p className="text-sm uppercase tracking-[0.25em] text-ink-muted">{post.domain}</p>
+              <h1 className="text-4xl font-semibold text-ink sm:text-5xl">{post.title}</h1>
+              <p className="max-w-3xl text-lg text-ink">{post.summary}</p>
             </div>
-            <div className="space-y-3 rounded-2xl border border-zapier-sand bg-cream p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zapier-gray">
+            <div className="space-y-3 rounded-2xl border border-rule bg-paper p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-muted">
                 Layout sample
               </p>
-              <p className="text-sm text-zapier-charcoal">
+              <p className="text-sm text-ink">
                 This post uses the full-width shell so demos can break out of the reading column and feel
                 closer to a product walkthrough.
               </p>
@@ -161,7 +161,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </FullWidth>
 
         <Container variant="narrow" className="space-y-8 py-12">
-          <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-zapier-orange">
+          <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-ink">
             <div data-testid="post-full-body">
               <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />
             </div>
@@ -185,7 +185,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <PostUseCaseHero title={post.title} summary={post.summary} {...heroConfig} />
         <PostMobileConversionRail config={railConfig} />
         <div className="mt-12 grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
-          <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral min-w-0 max-w-none break-words prose-a:text-zapier-orange [overflow-wrap:anywhere]">
+          <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral min-w-0 max-w-none break-words prose-a:text-ink [overflow-wrap:anywhere]">
             <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />
           </article>
           <PostConversionRail config={railConfig} />
@@ -197,11 +197,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   return (
     <NarrowPage>
       <div data-testid="post-narrow-layout" className="mx-auto max-w-3xl space-y-5 text-center">
-        <p className="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-zapier-orange">{post.domain}</p>
-        <h1 className="text-4xl font-semibold leading-[1.05] tracking-[-0.055em] text-zapier-black sm:text-6xl">{post.title}</h1>
-        <p className="mx-auto max-w-2xl text-base leading-7 text-zapier-charcoal sm:text-lg">{post.summary}</p>
+        <p className="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-ink">{post.domain}</p>
+        <h1 className="text-4xl font-semibold leading-[1.05] tracking-[-0.055em] text-ink sm:text-6xl">{post.title}</h1>
+        <p className="mx-auto max-w-2xl text-base leading-7 text-ink sm:text-lg">{post.summary}</p>
       </div>
-      <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-zapier-orange">
+      <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-ink">
         <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />
       </article>
     </NarrowPage>

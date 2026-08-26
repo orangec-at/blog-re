@@ -32,8 +32,8 @@ export function TeamSnapshot() {
 
       <div className="grid gap-4">
         {snapshotItems.map((item) => (
-          <article key={item.title} className="rounded-lg border border-zapier-sand bg-cream p-4">
-            <h3 className="text-lg font-semibold text-zapier-black">{item.title}</h3>
+          <article key={item.title} className="rounded-lg border border-rule bg-paper p-4">
+            <h3 className="text-lg font-semibold text-ink">{item.title}</h3>
             <BodyText className="mt-2 text-sm sm:text-base">{item.body}</BodyText>
           </article>
         ))}

@@ -21,14 +21,14 @@ export default function AboutPage() {
     <div className="flex flex-col" data-testid="about-page">
       <AboutHero />
 
-      <section className="bg-offwhite pb-16 sm:pb-20">
+      <section className="bg-paper pb-16 sm:pb-20">
         <Container variant="wide" className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <TeamSnapshot />
           <WhyWeWorkThisWay />
         </Container>
       </section>
 
-      <section className="bg-zapier-black py-16 text-cream sm:py-20">
+      <section className="bg-ink py-16 text-paper sm:py-20">
         <Container variant="wide">
           <BorderedSurface as="section" className="flex flex-col gap-6" tone="offwhite">
             <div className="space-y-3">

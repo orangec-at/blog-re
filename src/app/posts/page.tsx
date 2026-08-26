@@ -23,9 +23,9 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
   return (
     <Container variant="wide" className="space-y-8 py-12">
       <header className="space-y-4 text-center">
-        <p className="text-sm uppercase tracking-wide text-zapier-gray">Posts</p>
-        <h1 className="text-4xl font-semibold text-zapier-black">Technical insight for founder-led launches</h1>
-        <p className="mx-auto max-w-3xl text-zapier-charcoal">
+        <p className="text-sm uppercase tracking-wide text-ink-muted">Posts</p>
+        <h1 className="text-4xl font-semibold text-ink">Technical insight for founder-led launches</h1>
+        <p className="mx-auto max-w-3xl text-ink">
           The thinking behind AI MVP rescues, architecture rewrites, and proof-building delivery.
         </p>
         <div data-testid="posts-filter" className="flex flex-wrap justify-center gap-2">
@@ -33,8 +33,8 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
             href="/posts"
             className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
               !selectedDomain
-                ? "border-[#c63d00] bg-[#c63d00] text-cream"
-                : "border-zapier-sand text-zapier-charcoal hover:border-zapier-orange"
+                ? "border-[#c63d00] bg-[#c63d00] text-paper"
+                : "border-rule text-ink hover:border-rule"
             }`}
           >
             All
@@ -45,8 +45,8 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
               href={`/posts?domain=${domain}`}
               className={`rounded-full border px-4 py-2 text-sm font-medium capitalize transition ${
                 selectedDomain === domain
-                  ? "border-[#c63d00] bg-[#c63d00] text-cream"
-                  : "border-zapier-sand text-zapier-charcoal hover:border-zapier-orange"
+                  ? "border-[#c63d00] bg-[#c63d00] text-paper"
+                  : "border-rule text-ink hover:border-rule"
               }`}
             >
               {domain}
@@ -57,25 +57,25 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
       <div className="space-y-6">
         {posts.length > 0 ? (
           posts.map((post) => (
-            <article key={post.slug} className="rounded-lg border border-zapier-sand bg-offwhite p-6">
-              <p className="text-sm text-zapier-gray">
+            <article key={post.slug} className="rounded-lg border border-rule bg-paper p-6">
+              <p className="text-sm text-ink-muted">
                 {format(parseISO(post.date), "LLLL d, yyyy")} •{" "}
                 <span className="uppercase">{post.domain}</span>
               </p>
-              <h2 className="text-2xl font-semibold text-zapier-black">
+              <h2 className="text-2xl font-semibold text-ink">
                 <Link href={`/posts/${post.slug}`}>{post.title}</Link>
               </h2>
-              <p className="text-zapier-charcoal">{post.summary}</p>
+              <p className="text-ink">{post.summary}</p>
               <div className="mt-4 flex flex-wrap items-center gap-4">
                 <Link
                   href={`/posts/${post.slug}`}
-                  className="text-sm font-semibold text-zapier-orange"
+                  className="text-sm font-semibold text-ink"
                 >
                   Read post →
                 </Link>
                 <Link
                   href={`/domains/${post.domain}`}
-                  className="text-sm font-medium uppercase tracking-wide text-zapier-charcoal"
+                  className="text-sm font-medium uppercase tracking-wide text-ink"
                 >
                   View domain →
                 </Link>
@@ -83,12 +83,12 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
             </article>
           ))
         ) : (
-          <div className="rounded-lg border border-dashed border-zapier-sand bg-offwhite p-8 text-center">
-            <h2 className="text-2xl font-semibold text-zapier-black">No posts in this domain yet</h2>
-            <p className="mt-2 text-zapier-charcoal">
+          <div className="rounded-lg border border-dashed border-rule bg-paper p-8 text-center">
+            <h2 className="text-2xl font-semibold text-ink">No posts in this domain yet</h2>
+            <p className="mt-2 text-ink">
               Try another filter or browse all field notes while the next walkthrough is being published.
             </p>
-            <Link href="/posts" className="mt-4 inline-flex text-sm font-semibold text-zapier-orange">
+            <Link href="/posts" className="mt-4 inline-flex text-sm font-semibold text-ink">
               View all posts →
             </Link>
           </div>

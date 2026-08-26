@@ -11,7 +11,7 @@ type DomainHeroProps = {
 
 export function DomainHero({ domain }: DomainHeroProps) {
   return (
-    <section data-testid="domain-hero" className="bg-cream py-16">
+    <section data-testid="domain-hero" className="bg-paper py-16">
       <Container variant="wide" className="space-y-6">
         <div className="space-y-3">
           <Eyebrow>{domain.eyebrow}</Eyebrow>
@@ -33,7 +33,7 @@ export function DomainHero({ domain }: DomainHeroProps) {
             <a
               key={`${link.label}-${link.href}`}
               href={link.href}
-              className="inline-flex items-center rounded-full border border-zapier-sand px-4 py-2 text-sm font-semibold text-zapier-charcoal transition hover:border-zapier-orange hover:text-zapier-orange"
+              className="inline-flex items-center rounded-full border border-rule px-4 py-2 text-sm font-semibold text-ink transition hover:border-rule hover:text-ink"
             >
               {link.label}
             </a>

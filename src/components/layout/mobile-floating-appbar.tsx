@@ -36,7 +36,7 @@ export function MobileFloatingAppbarFrame({ floating = false }: MobileFloatingAp
     <div className={floating ? "fixed inset-x-0 bottom-4 z-40 px-4 md:hidden" : "px-4 py-4"}>
       <nav
         aria-label="Mobile primary navigation"
-        className="mx-auto flex max-w-xl items-center justify-between gap-3 rounded-[28px] border border-zapier-sand bg-[#fffaf5]/95 px-3 py-3 shadow-[0_12px_40px_rgba(32,21,21,0.12)] backdrop-blur"
+        className="mx-auto flex max-w-xl items-center justify-between gap-3 rounded-[28px] border border-rule bg-[#fffaf5]/95 px-3 py-3 shadow-[0_12px_40px_rgba(32,21,21,0.12)] backdrop-blur"
       >
         <ChipGroup className="flex-1">
           {mobileNavItems.map((item) => (

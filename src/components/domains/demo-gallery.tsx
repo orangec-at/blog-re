@@ -24,7 +24,7 @@ type DemoGalleryProps = {
 
 export function DemoGallery({ title, items, emptyMessage }: DemoGalleryProps) {
   return (
-    <section data-testid="demo-gallery" className="bg-offwhite py-16">
+    <section data-testid="demo-gallery" className="bg-paper py-16">
       <Container variant="wide" className="space-y-6">
         <div className="space-y-2">
           <Eyebrow>Featured demos</Eyebrow>
@@ -44,7 +44,7 @@ export function DemoGallery({ title, items, emptyMessage }: DemoGalleryProps) {
                   <PillTag className="px-3 py-1 text-xs uppercase">
                     {item.layout} layout
                   </PillTag>
-                  <Link href={item.href} className="text-sm font-semibold text-zapier-orange">
+                  <Link href={item.href} className="text-sm font-semibold text-ink">
                     Open walkthrough →
                   </Link>
                 </div>

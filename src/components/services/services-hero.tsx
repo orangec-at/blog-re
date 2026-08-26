@@ -18,7 +18,7 @@ const diagnosisChecklist = [
 
 export function ServicesHero({ data }: ServicesHeroProps) {
   return (
-    <section className="bg-cream py-16 sm:py-24" data-testid="services-hero">
+    <section className="bg-paper py-16 sm:py-24" data-testid="services-hero">
       <Container
         variant="wide"
         className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start"
@@ -49,8 +49,8 @@ export function ServicesHero({ data }: ServicesHeroProps) {
           </BodyText>
           <ul className="space-y-3">
             {diagnosisChecklist.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-sm text-zapier-charcoal sm:text-base">
-                <span aria-hidden="true" className="mt-1 h-2.5 w-2.5 rounded-full bg-zapier-orange" />
+              <li key={item} className="flex items-start gap-3 text-sm text-ink sm:text-base">
+                <span aria-hidden="true" className="mt-1 h-2.5 w-2.5 rounded-full bg-ink" />
                 <span>{item}</span>
               </li>
             ))}

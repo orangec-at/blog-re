@@ -24,7 +24,7 @@ export function WhyWeWorkThisWay() {
 
       <ul className="space-y-3">
         {principles.map((principle) => (
-          <li key={principle} className="rounded-lg border border-zapier-sand bg-offwhite px-4 py-3 text-sm text-zapier-charcoal sm:text-base">
+          <li key={principle} className="rounded-lg border border-rule bg-paper px-4 py-3 text-sm text-ink sm:text-base">
             {principle}
           </li>
         ))}

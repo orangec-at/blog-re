@@ -26,7 +26,7 @@ export function ProofRow({ ctaHref, ctaLabel, highlights, summary, title }: Proo
           {highlights.map((highlight) => (
             <span
               key={highlight}
-              className="rounded-pill border border-zapier-sand bg-cream px-3 py-1 text-xs font-medium text-zapier-charcoal"
+              className="rounded-pill border border-rule bg-paper px-3 py-1 text-xs font-medium text-ink"
             >
               {highlight}
             </span>

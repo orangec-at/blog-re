@@ -7,7 +7,7 @@ const MDXContentRenderer = dynamic(
   () => import("./mdx-content").then((module) => module.MDXContentRenderer),
   {
     ssr: false,
-    loading: () => <p className="text-sm text-zapier-gray">Loading walkthrough…</p>,
+    loading: () => <p className="text-sm text-ink-muted">Loading walkthrough…</p>,
   },
 );
 

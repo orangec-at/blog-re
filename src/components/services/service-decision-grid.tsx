@@ -9,7 +9,7 @@ type ServiceDecisionGridProps = {
 
 export function ServiceDecisionGrid({ offers }: ServiceDecisionGridProps) {
   return (
-    <section className="bg-offwhite py-16 sm:py-20" data-testid="service-decision-grid">
+    <section className="bg-paper py-16 sm:py-20" data-testid="service-decision-grid">
       <Container variant="wide" className="space-y-8">
         <SectionIntro
           aside="The first job is not choosing the biggest package. It is choosing the safest next decision."

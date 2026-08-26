@@ -19,7 +19,7 @@ export function MetricCard({ className, label, tone = "cream", value }: MetricCa
       className={joinClasses("flex flex-col gap-3", className)}
       tone={tone}
     >
-      <p className="font-display text-4xl font-medium leading-none text-zapier-black sm:text-5xl">{value}</p>
+      <p className="font-display text-4xl font-medium leading-none text-ink sm:text-5xl">{value}</p>
       <BodyText>{label}</BodyText>
     </BorderedSurface>
   );

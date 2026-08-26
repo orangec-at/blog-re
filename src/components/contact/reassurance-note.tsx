@@ -9,7 +9,7 @@ type ReassuranceNoteProps = {
 
 export function ReassuranceNote({ message }: ReassuranceNoteProps) {
   return (
-    <section className="bg-offwhite pb-16 sm:pb-20" data-testid="contact-reassurance-note">
+    <section className="bg-paper pb-16 sm:pb-20" data-testid="contact-reassurance-note">
       <Container variant="wide">
         <BorderedSurface className="space-y-3" tone="cream">
           <Eyebrow>Not sure yet?</Eyebrow>
