@@ -62,4 +62,17 @@ describe("Home Page", () => {
     // and textContent cannot see it.
     expect(container.innerHTML).not.toMatch(/\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|\d+)[\s-]+gates?\b/i);
   });
+
+  it("draws the stack and names where it breaks", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("region", { name: /^What you actually built$/i })).toBeVisible();
+    expect(screen.getByText("Auth → user data")).toBeVisible();
+  });
+
+  it("keeps the unverified terminal step out of the drawing", () => {
+    const { container } = render(<Home />);
+
+    expect(container.textContent).not.toMatch(/terminal/i);
+  });
 });

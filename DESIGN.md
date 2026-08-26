@@ -76,19 +76,35 @@ The numbered top-level section wrapper. Every `01`–`06` section on the page is
 
 ### SystemMapPanel
 
-Owner and contract to be written when this component is built (Tasks 5–8).
+The system map. Section 02, and the only place `panel-dark` is used.
+
+- Required content order: layer stack, top to bottom in document order → the argument sentence → the boundary list, numbered, each with its between-clause and its audit question.
+- Layer and boundary names are rendered as real text nodes (`<li>`, `<p>`, `<span>`), never as SVG paths or CSS-drawn shapes — a screen reader and a search crawler must be able to read what the drawing says, since the panel carries the page's central argument.
+- This is the only component permitted to use `bg-panel-dark`; nothing else on the page may reach for that surface.
+- Text on the panel uses `paper`, `panel-dark-muted`, and `p0` only — never `ink` or `ink-muted`, which are calibrated against the light `paper` ground, not the dark one.
 
 ### GateList
 
-Owner and contract to be written when this component is built (Tasks 5–8).
+The gate-by-gate list under "How I look at it".
+
+- Required content order: for each gate, name (mono) → failure mode → audit question, in the data's order — never sorted or reordered by the component.
+- Rows are separated by a `rule` top border, not a card shell.
+- The component never renders a count of the gates (no "N gates" text or `aria-label`); the page argues from what each gate checks, not from how many there are.
 
 ### VerdictSheet
 
-Owner and contract to be written when this component is built (Tasks 5–8).
+The founder-summary artifact shown as evidence, under "What you get".
+
+- Required content order: title and sample notice on one header row → each section's heading (mono, uppercase) then its body, in the data's order.
+- Rendered as a `<figure>` — a document artifact being shown, not a card or a testimonial quote.
+- The sample notice always renders; it is the only thing marking the artifact as a sample rather than delivered client work, so it must never be conditionally hidden.
 
 ### ScopeTable
 
-Owner and contract to be written when this component is built (Tasks 5–8).
+The included/excluded lists under "Scope".
+
+- Required content order: included list first, excluded list second, side by side — two independent lists, not a `<table>`, since the exclusions have no column to share with the inclusions.
+- Excluded items always render in `deferred`, never `p0` or `p1` — being out of scope is not a finding, so it does not get a severity color.
 
 ## Deprecated
 

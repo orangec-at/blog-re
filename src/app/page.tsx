@@ -4,9 +4,10 @@ import { Container } from "@/components/layout/container";
 import { GateList } from "@/components/proposal/gate-list";
 import { ProposalSection } from "@/components/proposal/proposal-section";
 import { ScopeTable } from "@/components/proposal/scope-table";
+import { SystemMapPanel } from "@/components/proposal/system-map-panel";
 import { VerdictSheet } from "@/components/proposal/verdict-sheet";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/button";
-import { gates, hero, scope, verdict, whyMe } from "@/data/proposal-content";
+import { gates, hero, scope, systemMap, verdict, whyMe } from "@/data/proposal-content";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -46,6 +47,14 @@ export default function Home() {
           </div>
         </Container>
       </section>
+
+      <ProposalSection number="02" title="What you actually built">
+        <SystemMapPanel
+          layers={systemMap.layers}
+          boundaries={systemMap.boundaries}
+          argument={systemMap.argument}
+        />
+      </ProposalSection>
 
       <ProposalSection number="03" title="How I look at it">
         <p className="max-w-2xl text-base leading-relaxed text-ink-muted">
