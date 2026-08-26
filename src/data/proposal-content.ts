@@ -70,7 +70,10 @@ export const verdict = {
 // business/fixmyvibe/ai-mvp-platform-launch-gate.md § Deliverables and § Out of Scope by Default
 export const scope = {
   duration: "One week.",
-  priceNote: "Fixed price, quoted in the first reply.",
+  // The figure is published as of 2026-08-26. Both competitors on this buyer's
+  // shortlist show a price, the number has been fixed since 2026-08-17, and a
+  // buyer who is paying for predictability should not have to ask what it costs.
+  priceNote: "$1,200 fixed.",
   included: [
     "Executive launch-readiness summary",
     "Platform map: frontend, backend, DB, auth, storage, billing, hosting, edge, observability",
@@ -116,7 +119,7 @@ export const systemMap = {
 
 // business/fixmyvibe/service-packages.md § Homepage / Services Page Translation
 export const whyMe = {
-  body: "I publish the method before anyone pays for it. The checklist I work from, the way I read a stack, and the writing behind both are open — so you can judge the work before you commission it.",
+  body: "Six years of engineering, an app of my own shipped to the App Store, and front-end lead on a public-sector platform. I publish the method before anyone pays for it — the checklist I work from, the way I read a stack, and the writing behind both are open, so you can judge the work before you commission it.",
   ctaLabel: "Get an independent review",
   links: [
     { label: "The method, in public", href: "https://github.com/orangec-at/vibe-hardening" },

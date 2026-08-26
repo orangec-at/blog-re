@@ -19,6 +19,24 @@ describe("Home Page", () => {
     ).toBeVisible();
   });
 
+  it("offers one action and one reference, not two competing buttons", () => {
+    render(<Home />);
+
+    // Nothing pinned these before, so the hero's two CTAs could change shape
+    // silently. They are not peers: one commissions the work, the other is a
+    // look around, and the markup has to keep saying so.
+    const commission = screen.getByRole("link", { name: /^Start a review$/i });
+    const browse = screen.getByRole("link", { name: /^Read a sample report$/i });
+
+    expect(commission).toHaveAttribute("href", "/contact");
+    expect(browse).toHaveAttribute("href", "/posts/ai-mvp-technical-debt-audit-sample-report");
+    // The link is underlined with a border rather than text-decoration: this
+    // build emits no .underline utility at all, so a text-decoration assertion
+    // would pass on a class that renders nothing.
+    expect(browse.className).toMatch(/border-b-2/);
+    expect(commission.className).not.toMatch(/border-b-2/);
+  });
+
   it("states the scope with its exclusions", () => {
     render(<Home />);
 
@@ -44,12 +62,13 @@ describe("Home Page", () => {
     expect(screen.queryByText(/trusted by/i)).not.toBeInTheDocument();
   });
 
-  it("shows no price figure", () => {
+  it("shows the price on the page", () => {
     const { container } = render(<Home />);
 
-    // Publishing the number is not an approved action; it is quoted in
-    // conversation only.
-    expect(container.textContent).not.toMatch(/\$\s?\d/);
+    // Inverted on 2026-08-26. The figure was withheld while publishing it was
+    // an approval gate. It is published now, and a page that argues for
+    // predictability should not make the reader ask what it costs.
+    expect(container.textContent).toContain("$1,200");
   });
 
   it("describes the method without claiming a number of gates", () => {

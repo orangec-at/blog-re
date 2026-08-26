@@ -6,7 +6,7 @@ import { ProposalSection } from "@/components/proposal/proposal-section";
 import { ScopeTable } from "@/components/proposal/scope-table";
 import { SystemMapPanel } from "@/components/proposal/system-map-panel";
 import { VerdictSheet } from "@/components/proposal/verdict-sheet";
-import { PrimaryButton, SecondaryButton } from "@/components/ui/button";
+import { PrimaryButton, TextLink } from "@/components/ui/button";
 import { gates, hero, scope, systemMap, verdict, whyMe } from "@/data/proposal-content";
 
 export const metadata: Metadata = {
@@ -39,9 +39,12 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3">
+              {/* One button, one link. The two actions are not peers — one is a
+                  commission and the other is a look around — and a page typeset
+                  as a document does not set two buttons side by side. */}
+              <div className="flex flex-wrap items-center gap-6">
                 <PrimaryButton href={hero.primaryCta.href}>{hero.primaryCta.label}</PrimaryButton>
-                <SecondaryButton href={hero.secondaryCta.href}>{hero.secondaryCta.label}</SecondaryButton>
+                <TextLink href={hero.secondaryCta.href}>{hero.secondaryCta.label}</TextLink>
               </div>
             </div>
           </div>

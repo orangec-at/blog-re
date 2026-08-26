@@ -14,8 +14,12 @@ describe("proposal content", () => {
     }
   });
 
-  it("never states a price figure", () => {
-    expect(JSON.stringify(scope)).not.toMatch(/\$\s?\d/);
+  it("states the price, because the buyer is paying for predictability", () => {
+    // This assertion was the inverse until 2026-08-26. Publishing the figure was
+    // an approval gate; the approval came, and both competitors on this buyer's
+    // shortlist show theirs. Flipping it rather than deleting it keeps the
+    // decision visible to whoever reads this next.
+    expect(scope.priceNote).toMatch(/\$1,200/);
   });
 
   it("gives every gate a failure mode and an audit question", () => {
