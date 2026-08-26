@@ -73,12 +73,6 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
                 >
                   Read post →
                 </Link>
-                <Link
-                  href={`/domains/${post.domain}`}
-                  className="text-sm font-medium uppercase tracking-wide text-ink"
-                >
-                  View domain →
-                </Link>
               </div>
             </article>
           ))

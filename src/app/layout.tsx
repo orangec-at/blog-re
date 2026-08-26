@@ -3,7 +3,6 @@ import { Newsreader, Noto_Serif_KR, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { MobileFloatingAppbar } from "@/components/layout/mobile-floating-appbar";
 import { siteConfig } from "@/config/site";
 import { buildOrganizationJsonLd, buildWebsiteJsonLd } from "@/lib/structured-data";
 
@@ -73,7 +72,6 @@ export default function RootLayout({
           <Header />
           <main className="flex-1 bg-paper py-12">{children}</main>
           <Footer />
-          <MobileFloatingAppbar />
         </div>
       </body>
     </html>
