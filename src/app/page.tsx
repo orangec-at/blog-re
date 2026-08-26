@@ -3,8 +3,9 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/container";
 import { ProposalSection } from "@/components/proposal/proposal-section";
 import { ScopeTable } from "@/components/proposal/scope-table";
+import { VerdictSheet } from "@/components/proposal/verdict-sheet";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/button";
-import { hero, scope, whyMe } from "@/data/proposal-content";
+import { hero, scope, verdict, whyMe } from "@/data/proposal-content";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -44,6 +45,10 @@ export default function Home() {
           </div>
         </Container>
       </section>
+
+      <ProposalSection number="04" title="What you get">
+        <VerdictSheet title={verdict.title} sampleNotice={verdict.sampleNotice} sections={verdict.sections} />
+      </ProposalSection>
 
       <ProposalSection number="05" title="Scope">
         <p className="text-base leading-relaxed text-ink-muted">

@@ -26,6 +26,14 @@ describe("Home Page", () => {
     expect(screen.getByText("Full rewrite")).toBeVisible();
   });
 
+  it("shows the artifact the buyer receives, marked as a sample", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("region", { name: /^What you get$/i })).toBeVisible();
+    expect(screen.getByRole("heading", { level: 4, name: /^The decision$/i })).toBeVisible();
+    expect(screen.getByText(/^Sample —/)).toBeVisible();
+  });
+
   it("makes no proof claim the site cannot back yet", () => {
     render(<Home />);
 
