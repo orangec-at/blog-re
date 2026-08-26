@@ -5,8 +5,10 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChipGroup, InteractiveChip } from "@/components/ui/chip";
 
+// Mirrors the header's nav so the two never disagree about what the site links
+// to. /services is gone from here for the same reason it is gone from there: it
+// is written in Korean and this buyer reads English.
 const mobileNavItems = [
-  { href: "/services", label: "Services" },
   { href: "/posts", label: "Proof" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -36,7 +38,7 @@ export function MobileFloatingAppbarFrame({ floating = false }: MobileFloatingAp
     <div className={floating ? "fixed inset-x-0 bottom-4 z-40 px-4 md:hidden" : "px-4 py-4"}>
       <nav
         aria-label="Mobile primary navigation"
-        className="mx-auto flex max-w-xl items-center justify-between gap-3 rounded-[28px] border border-rule bg-[#fffaf5]/95 px-3 py-3 shadow-[0_12px_40px_rgba(32,21,21,0.12)] backdrop-blur"
+        className="mx-auto flex max-w-xl items-center justify-between gap-3 rounded-[28px] border border-rule bg-paper/95 px-3 py-3 shadow-[0_12px_40px_rgba(32,21,21,0.12)] backdrop-blur"
       >
         <ChipGroup className="flex-1">
           {mobileNavItems.map((item) => (
@@ -47,7 +49,7 @@ export function MobileFloatingAppbarFrame({ floating = false }: MobileFloatingAp
         </ChipGroup>
 
         <Button className="shrink-0" href="/contact" size="sm" variant="primary">
-          진단 문의
+          Start a review
         </Button>
       </nav>
     </div>

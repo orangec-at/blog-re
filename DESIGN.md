@@ -134,7 +134,9 @@ Owner: `src/components/proposal/scope-table.tsx`. Used by: `src/app/page.tsx`.
 - Do not add page-local cards, metrics, or CTA groups when an owner component exists.
 - If a visual pattern appears more than once, improve an existing owner component or create a named reusable component before reusing it.
 - Do not introduce a brand accent color. Color means a verdict or it doesn't belong.
-- **One exception: the logo mark's red dot.** The mark is an aperture — a ring
-  broken at the upper right with a dot in the notch — and that dot is identity, not
-  a verdict. It appears in the header lockup and `src/app/icon.svg`, nowhere else.
+- **One exception: the logo mark's red dot.** The mark is a lens aperture — blades
+  around a circle, three missing at the upper right, one red dot inside that opening —
+  and that dot is identity, not a verdict. It appears in the header lockup and
+  `src/app/icon.svg`, nowhere else. Never rotate or animate the mark: radial blades
+  share a silhouette with a loading spinner, and motion makes it one.
   Canonical spec: `business/fixmyvibe/design/logo/README.md` in the `vault` repo.

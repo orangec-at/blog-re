@@ -14,17 +14,22 @@ describe("MobileFloatingAppbar", () => {
     mockedUsePathname.mockReturnValue("/");
   });
 
-  it("renders mobile navigation chips and a Korean diagnosis action", () => {
+  it("carries the header's links and the same English action", () => {
     render(<MobileFloatingAppbar />);
 
     const appbar = screen.getByLabelText("Mobile primary navigation");
     expect(appbar).toBeInTheDocument();
 
-    for (const label of ["Services", "Proof", "About", "Contact"]) {
+    for (const label of ["Proof", "About", "Contact"]) {
       expect(within(appbar).getByRole("link", { name: label })).toBeVisible();
     }
 
-    expect(within(appbar).getByRole("link", { name: "진단 문의" })).toHaveAttribute(
+    // Services is gone from both navs: the page is written in Korean and this
+    // site's buyer arrives from Upwork in English.
+    expect(within(appbar).queryByRole("link", { name: "Services" })).not.toBeInTheDocument();
+
+    // The action was labelled 진단 문의 on an otherwise English site.
+    expect(within(appbar).getByRole("link", { name: "Start a review" })).toHaveAttribute(
       "href",
       "/contact",
     );
