@@ -103,6 +103,22 @@ button {
   outline-offset: 2px;
 }
 
+/* The map's boundary markers settle in one at a time as the panel enters view.
+   They are opaque by default — the animation is additive, so a blocked script,
+   a failed observer, or reduced motion all leave the content readable. */
+@media (prefers-reduced-motion: no-preference) {
+  .map-boundary-armed {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  .map-boundary-revealed {
+    opacity: 1;
+    transform: none;
+    transition: opacity 320ms ease-out, transform 320ms ease-out;
+  }
+}
+
 /*
  * Article prose system
  * Tailwind Typography is not installed in this app, so the `prose` class alone

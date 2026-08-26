@@ -7,11 +7,11 @@ import { PrimaryButton } from "@/components/ui/actions/primary-button";
 // until there are receipts to put on them. Add a nav item back, not a page, when there are.
 export function Header() {
   return (
-    <header className="border-b border-zapier-sand/80 bg-white/88 backdrop-blur-xl">
+    <header className="border-b border-rule/80 bg-white/88 backdrop-blur-xl">
       <Container className="flex min-h-20 flex-wrap items-center justify-between gap-4 py-4">
         <Link
           href="/"
-          className="flex min-h-11 items-center text-zapier-black transition hover:text-[#533afd]"
+          className="flex min-h-11 items-center text-ink transition hover:text-[#533afd]"
         >
           {/* At 320px the 2xl wordmark and the CTA total 304px inside a 288px
               container, so flex-wrap drops the button onto its own row. */}
