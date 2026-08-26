@@ -1,85 +1,72 @@
 import type { Metadata } from "next";
 
-import { ServiceCardVisual } from "@/components/home/service-card-visual";
 import { Container } from "@/components/layout/container";
+import { ProposalSection } from "@/components/proposal/proposal-section";
+import { ScopeTable } from "@/components/proposal/scope-table";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/button";
+import { hero, scope, whyMe } from "@/data/proposal-content";
 
 export const metadata: Metadata = {
   title: "Home",
-  description:
-    "An independent review of your AI-built or outsourced app — before the next milestone payment, the first customers, or the ad spend. Plain English. Three pages. One decision.",
+  description: hero.subheadline,
   alternates: { canonical: "/" },
 };
 
-// ponytail: three offers stay inline — a data module earns its place at the second consumer.
-const offers = [
-  {
-    name: "Launch Readiness Review",
-    summary: "Workflow, data permissions, and payment risk — reviewed before your first real user.",
-    availability: "Next available September '26",
-    visual: "gate",
-  },
-  {
-    name: "Technical Debt Audit",
-    summary: "A risk table and a two-week plan for apps built with Cursor, Lovable, or Bolt.",
-    availability: "Next available October '26",
-    visual: "risk-table",
-  },
-  {
-    name: "Founder Tech Partner",
-    summary: "Ongoing technical judgment for founders shipping with AI and freelancers.",
-    availability: "Currently full",
-    visual: "partner",
-  },
-] as const;
-
 export default function Home() {
   return (
-    <div data-testid="home-page" className="py-16 sm:py-24">
-      <Container variant="wide" className="flex flex-col gap-16 sm:gap-24">
-        <section className="flex flex-col gap-8">
-          <div className="flex flex-col gap-5">
-            {/* text-balance keeps the second sentence off a one-word line — without it
-                1280px orphans "check." by itself under a nearly full first line. */}
-            <h1 className="max-w-3xl text-balance text-3xl font-semibold leading-tight tracking-[-0.03em] text-zapier-black sm:text-4xl">
-              Your developer says it’s done. You have no way to check.
-            </h1>
+    <div data-testid="home-page">
+      <section aria-labelledby="section-01" className="py-16 sm:py-24">
+        <Container variant="wide">
+          <div className="grid gap-8 lg:grid-cols-[6rem_minmax(0,1fr)] lg:gap-12">
+            <p aria-hidden="true" className="font-mono text-sm text-ink-muted">01</p>
 
-            <p className="max-w-2xl text-base leading-relaxed text-zapier-charcoal sm:text-lg">
-              An independent review of your AI-built or outsourced app — before the next milestone
-              payment, the first customers, or the ad spend. Plain English. Three pages. One decision.
-            </p>
-          </div>
+            <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-5">
+                {/* text-balance keeps the second sentence off a one-word line — without
+                    it 1280px orphans "check." by itself under a nearly full first line. */}
+                <h1
+                  id="section-01"
+                  className="max-w-3xl text-balance font-display text-3xl font-normal leading-tight tracking-[-0.03em] text-ink sm:text-4xl"
+                >
+                  {hero.headline}
+                </h1>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <PrimaryButton href="/contact">Start a review</PrimaryButton>
-            <SecondaryButton href="/posts/ai-mvp-technical-debt-audit-sample-report">
-              Read a sample report
-            </SecondaryButton>
-          </div>
-        </section>
-
-        {/* Three columns at sm squeezes each card to 196px and wraps every title
-            onto three lines. Hold the stack until md, where a card gets 239px. */}
-        <section
-          aria-label="Services"
-          className="grid gap-px overflow-hidden rounded-[5px] border border-zapier-sand bg-zapier-sand md:grid-cols-3"
-        >
-          {offers.map((offer) => (
-            <article key={offer.name} className="flex flex-col bg-white">
-              <ServiceCardVisual variant={offer.visual} />
-
-              <div className="flex flex-1 flex-col gap-3 p-6 sm:p-8">
-                <h2 className="text-lg font-semibold tracking-[-0.02em] text-zapier-black">{offer.name}</h2>
-                <p className="text-sm leading-relaxed text-zapier-charcoal">{offer.summary}</p>
-                <p className="mt-auto pt-4 text-xs uppercase tracking-[0.5px] text-zapier-gray">
-                  {offer.availability}
+                <p className="max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg">
+                  {hero.subheadline}
                 </p>
               </div>
-            </article>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <PrimaryButton href={hero.primaryCta.href}>{hero.primaryCta.label}</PrimaryButton>
+                <SecondaryButton href={hero.secondaryCta.href}>{hero.secondaryCta.label}</SecondaryButton>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <ProposalSection number="05" title="Scope">
+        <p className="text-base leading-relaxed text-ink-muted">
+          {scope.duration} {scope.priceNote}
+        </p>
+        <ScopeTable included={scope.included} excluded={scope.excluded} />
+      </ProposalSection>
+
+      <ProposalSection number="06" title="Why me">
+        <p className="max-w-2xl text-base leading-relaxed text-ink-muted">{whyMe.body}</p>
+        <ul className="flex flex-wrap gap-6">
+          {whyMe.links.map((link) => (
+            <li key={link.href}>
+              <a className="text-sm text-ink underline decoration-rule underline-offset-4 hover:decoration-ink" href={link.href}>
+                {link.label}
+              </a>
+            </li>
           ))}
-        </section>
-      </Container>
+        </ul>
+        <div className="pt-2">
+          <PrimaryButton href={hero.primaryCta.href}>Get an independent review</PrimaryButton>
+        </div>
+      </ProposalSection>
     </div>
   );
 }
