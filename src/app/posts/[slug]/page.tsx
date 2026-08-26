@@ -6,7 +6,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { Container } from "@/components/layout/container";
 import { FullWidth } from "@/components/layout/full-width";
 import { NarrowPage } from "@/components/layout/narrow-page";
-import { ClientPostContent } from "@/components/mdx/client-post-content";
+import { ServerPostContent } from "@/components/mdx/server-post-content";
 import { absoluteUrl, siteConfig } from "@/config/site";
 
 type PostSeoFields = {
@@ -100,7 +100,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <Container variant="narrow" className="space-y-8 py-12">
           <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-ink">
             <div data-testid="post-full-body">
-              <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />
+              <ServerPostContent code={post.body.code} defaultDemoLayout={post.layout} />
             </div>
           </article>
         </Container>
@@ -136,7 +136,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <p className="max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg">{post.summary}</p>
       </div>
       <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-ink">
-        <ClientPostContent code={post.body.code} defaultDemoLayout={post.layout} />
+        <ServerPostContent code={post.body.code} defaultDemoLayout={post.layout} />
       </article>
     </NarrowPage>
   );

@@ -2,7 +2,7 @@ import type { ComponentType } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import { MDXContentRenderer } from "@/components/mdx/mdx-content";
+import { ServerPostContent } from "@/components/mdx/server-post-content";
 
 type MdxComponents = Record<string, ComponentType<Record<string, unknown>>>;
 
@@ -111,15 +111,15 @@ vi.mock("@/components/demos/workspace-onboarding-demo", () => ({
   ),
 }));
 
-describe("MDXContentRenderer", () => {
+describe("ServerPostContent", () => {
   it("exposes the workspace onboarding demo to MDX content", () => {
-    render(<MDXContentRenderer code="ignored" defaultDemoLayout="full" />);
+    render(<ServerPostContent code="ignored" defaultDemoLayout="full" />);
 
     expect(screen.getByTestId("workspace-demo-marker")).toBeInTheDocument();
   });
 
   it("exposes article readability components to MDX content", () => {
-    render(<MDXContentRenderer code="ignored" defaultDemoLayout="narrow" />);
+    render(<ServerPostContent code="ignored" defaultDemoLayout="narrow" />);
 
     expect(screen.getAllByText("Launch question").length).toBeGreaterThanOrEqual(2);
     expect(screen.getByText("Can this MVP survive real users?")).toBeVisible();

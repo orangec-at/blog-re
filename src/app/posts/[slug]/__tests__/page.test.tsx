@@ -10,8 +10,8 @@ vi.mock("next/navigation", () => ({
   notFound: mockedNotFound,
 }));
 
-vi.mock("@/components/mdx/client-post-content", () => ({
-  ClientPostContent: ({
+vi.mock("@/components/mdx/server-post-content", () => ({
+  ServerPostContent: ({
     defaultDemoLayout,
   }: {
     code: string;
