@@ -56,6 +56,10 @@ describe("Home Page", () => {
     const { container } = render(<Home />);
 
     expect(screen.getByRole("region", { name: /^How I look at it$/i })).toBeVisible();
-    expect(container.textContent).not.toMatch(/\b(twelve|seven|\d+)\s+gates\b/i);
+
+    // Scans innerHTML, not textContent: an attribute value like
+    // aria-label="Seven gates evaluated" is a real surface for this string,
+    // and textContent cannot see it.
+    expect(container.innerHTML).not.toMatch(/\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|\d+)[\s-]+gates?\b/i);
   });
 });

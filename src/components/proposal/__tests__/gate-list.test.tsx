@@ -19,6 +19,9 @@ describe("GateList", () => {
   it("states no count", () => {
     const { container } = render(<GateList gates={gates} />);
 
-    expect(container.textContent).not.toMatch(/\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|\d+)\s+gates\b/i);
+    // Scans innerHTML, not textContent: an attribute value like
+    // aria-label="Seven gates evaluated" is a real surface for this string,
+    // and textContent cannot see it.
+    expect(container.innerHTML).not.toMatch(/\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|\d+)[\s-]+gates?\b/i);
   });
 });
