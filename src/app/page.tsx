@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 
 import { Container } from "@/components/layout/container";
+import { GateList } from "@/components/proposal/gate-list";
 import { ProposalSection } from "@/components/proposal/proposal-section";
 import { ScopeTable } from "@/components/proposal/scope-table";
 import { VerdictSheet } from "@/components/proposal/verdict-sheet";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/button";
-import { hero, scope, verdict, whyMe } from "@/data/proposal-content";
+import { gates, hero, scope, verdict, whyMe } from "@/data/proposal-content";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -45,6 +46,14 @@ export default function Home() {
           </div>
         </Container>
       </section>
+
+      <ProposalSection number="03" title="How I look at it">
+        <p className="max-w-2xl text-base leading-relaxed text-ink-muted">
+          The gates that apply to your stack, in order. Each one has a way it fails and a question that
+          settles it.
+        </p>
+        <GateList gates={gates} />
+      </ProposalSection>
 
       <ProposalSection number="04" title="What you get">
         <VerdictSheet title={verdict.title} sampleNotice={verdict.sampleNotice} sections={verdict.sections} />

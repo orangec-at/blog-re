@@ -51,4 +51,11 @@ describe("Home Page", () => {
     // conversation only.
     expect(container.textContent).not.toMatch(/\$\s?\d/);
   });
+
+  it("describes the method without claiming a number of gates", () => {
+    const { container } = render(<Home />);
+
+    expect(screen.getByRole("region", { name: /^How I look at it$/i })).toBeVisible();
+    expect(container.textContent).not.toMatch(/\b(twelve|seven|\d+)\s+gates\b/i);
+  });
 });
