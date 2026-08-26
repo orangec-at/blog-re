@@ -44,6 +44,7 @@ vi.mock("@/lib/mdx", () => ({
         summary: "AI MVP launch checklist",
         seoTitle: "AI MVP 출시 전 체크리스트: 고객 받기 전 7가지 점검",
         seoDescription: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
+        date: "2026-05-05",
         canonicalPath: "/posts/ai-mvp-launch-checklist",
         keywords: ["AI MVP", "launch readiness"],
         tags: ["technical debt", "AI MVP"],
@@ -57,8 +58,9 @@ vi.mock("@/lib/mdx", () => ({
     if (slug === "ai-mvp-technical-debt-audit-sample-report") {
       return {
         slug,
-        title: "AI MVP 기술 부채 진단 샘플 리포트에는 무엇이 들어가야 하나",
+        title: "What goes into a sample AI MVP technical debt audit report",
         summary: "FixMyVibe sample audit report walkthrough",
+        date: "2026-05-05",
         domain: "fixmyvibe",
         layout: "narrow",
         body: { code: "compiled-code" },
@@ -113,38 +115,23 @@ describe("PostPage", () => {
     expect(mockedNotFound).not.toHaveBeenCalled();
   });
 
-  it("adds a Lazyweb-inspired conversion rail to the AI MVP checklist article", async () => {
-    render(await PostPage({ params: Promise.resolve({ slug: "ai-mvp-launch-checklist" }) }));
+  it("gives the product articles the same shell as every other post", async () => {
+    // These two slugs used to get a landing page bolted on top of the article:
+    // an eyebrow, a meta row, a "best for" list, a table of contents, and a
+    // conversion rail rendered twice. Five chrome blocks before the first
+    // sentence, on the two posts a reader is most likely to have arrived to read.
+    for (const slug of ["ai-mvp-launch-checklist", "ai-mvp-technical-debt-audit-sample-report"]) {
+      const { unmount } = render(await PostPage({ params: Promise.resolve({ slug }) }));
 
-    expect(screen.getByTestId("post-conversion-rail")).toBeInTheDocument();
-    expect(screen.getByTestId("post-mobile-conversion-rail")).toBeInTheDocument();
-    expect(screen.getByRole("navigation", { name: "AI MVP checklist sections" })).toBeVisible();
-    expect(screen.getByRole("navigation", { name: "Mobile AI MVP checklist sections" })).toBeVisible();
-    expect(screen.getByRole("region", { name: "Post use-case summary" })).toBeVisible();
-    expect(screen.getByTestId("post-article-body")).toHaveClass("fmv-article-prose");
-    expect(screen.getByText("FixMyVibe use case · Launch-readiness checklist")).toBeVisible();
-    expect(screen.getByText("Best for")).toBeVisible();
-    expect(screen.getByText("7 launch gates")).toBeVisible();
-    expect(screen.getByText("Risk table")).toBeVisible();
-    expect(screen.getAllByRole("link", { name: "Auth & Session" })[0]).toHaveAttribute("href", "#auth-session");
-    expect(screen.getAllByText("What the review produces").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByText("Risk table · System map · Two-week plan").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByRole("link", { name: "Start a review" })[0]).toHaveAttribute("href", "/contact");
-  });
+      expect(screen.getByTestId("post-narrow-layout")).toBeInTheDocument();
+      expect(screen.queryByText(/^Best for$/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/^On this guide$/i)).not.toBeInTheDocument();
 
-  it("adds a sample-report rail that previews deliverables and keeps the contact path visible", async () => {
-    render(await PostPage({ params: Promise.resolve({ slug: "ai-mvp-technical-debt-audit-sample-report" }) }));
+      // The article's own <ArticleCTA> sits at the end of the MDX, where a reader
+      // who finished is the one being asked. The rail asked before they started.
+      expect(screen.queryByText(/^What is in the sample$/i)).not.toBeInTheDocument();
 
-    expect(screen.getByTestId("post-conversion-rail")).toBeInTheDocument();
-    expect(screen.getByTestId("post-mobile-conversion-rail")).toBeInTheDocument();
-    expect(screen.getByRole("navigation", { name: "Sample audit report sections" })).toBeVisible();
-    expect(screen.getByRole("navigation", { name: "Mobile Sample audit report sections" })).toBeVisible();
-    expect(screen.getByText("FixMyVibe use case · Sample audit report")).toBeVisible();
-    expect(screen.getByText("Sample report")).toBeVisible();
-    expect(screen.getByText("Audit output")).toBeVisible();
-    expect(screen.getAllByRole("link", { name: "Executive Summary" })[0]).toHaveAttribute("href", "#executive-summary");
-    expect(screen.getAllByText("What is in the sample").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByText("Executive summary · Risk table · Go / No-Go" ).length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByRole("link", { name: "Start a review" })[0]).toHaveAttribute("href", "/contact");
+      unmount();
+    }
   });
 });

@@ -235,7 +235,7 @@ export function GoNoGoTable({ rows }: GoNoGoTableProps) {
     <div className="my-10 overflow-hidden rounded-[30px] border border-rule/70 bg-white not-prose shadow-[0_0_0_1px_rgba(32,21,21,0.03),0_18px_60px_rgba(32,21,21,0.07)]">
       <div className="border-b border-rule/60 bg-[#f8f3ea] px-5 py-5 sm:px-6">
         <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-ink-muted">Decision table</p>
-        <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-ink sm:text-3xl">Go / No-Go 간단 기준</h3>
+        <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-ink sm:text-3xl">A simple Go / No-Go test</h3>
       </div>
       <div className="overflow-x-auto">
         <table aria-label="Go / No-Go decision table" className="min-w-full border-collapse text-left text-sm">
