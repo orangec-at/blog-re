@@ -71,6 +71,55 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     notFound();
   }
 
+  // A report is a deliverable, so it is set as a sheet rather than as an
+  // article: a bordered page on the paper ground, with a running head and foot
+  // the way a PDF audit carries them. The sheet is wider than the reading
+  // measure because a seven-column risk table needs the room — and inside it
+  // --article-measure is the sheet's own content width, so prose and tables
+  // still share one right edge rather than reintroducing four of them.
+  if (post.layout === "report") {
+    return (
+      <Container variant="wide" className="py-12 sm:py-16">
+        <div className="mx-auto w-full max-w-[56rem]">
+          <div className="mb-4 flex items-baseline justify-between gap-4 font-mono text-sm text-ink-muted">
+            <Link className="transition hover:text-ink" href="/posts">
+              ← Proof
+            </Link>
+            <time dateTime={post.date}>{format(parseISO(post.date), "yyyy-MM-dd")}</time>
+          </div>
+
+          <article
+            data-testid="post-report-layout"
+            className="border border-rule bg-paper"
+            style={{ ["--article-measure" as string]: "100%" }}
+          >
+            <header className="border-b border-rule px-6 py-10 sm:px-12 sm:py-14">
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted">
+                FixMyVibe · Launch Gate Audit
+              </p>
+              <h1 className="mt-5 font-display text-3xl font-normal leading-tight tracking-[-0.03em] text-ink sm:text-4xl">
+                {post.title}
+              </h1>
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink">{post.summary}</p>
+            </header>
+
+            <div
+              data-testid="post-article-body"
+              className="fmv-article-prose prose prose-neutral max-w-none px-6 py-10 prose-a:text-ink sm:px-12 sm:py-14"
+            >
+              <ServerPostContent code={post.body.code} defaultDemoLayout="narrow" />
+            </div>
+
+            <footer className="flex flex-wrap items-baseline justify-between gap-3 border-t border-rule px-6 py-5 font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted sm:px-12">
+              <span>fmv · sample audit report</span>
+              <span>{post.slug}</span>
+            </footer>
+          </article>
+        </div>
+      </Container>
+    );
+  }
+
   if (post.layout === "full") {
     return (
       <>

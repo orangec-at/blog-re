@@ -12,7 +12,7 @@ export const Post = defineDocumentType(() => ({
     updated: { type: "date" },
     summary: { type: "string", required: true },
     domain: { type: "string", required: true },
-    layout: { type: "enum", options: ["full", "narrow"], required: true },
+    layout: { type: "enum", options: ["full", "narrow", "report"], required: true },
     draft: { type: "boolean", default: false },
     author: { type: "string", default: "Jaeil Lee" },
     demoComponent: { type: "string" },

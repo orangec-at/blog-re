@@ -25,9 +25,10 @@ vi.mock("@/lib/mdx", () => ({
     { slug: "ai-mvp-launch-checklist", title: "AI MVP launch checklist", date: "2026-05-05" },
     {
       slug: "ai-mvp-technical-debt-audit-sample-report",
-      title: "What goes into a sample AI MVP technical debt audit report",
+      title: "AI MVP Technical Debt Audit — Sample Report",
       date: "2026-05-04",
     },
+    { slug: "remodeling-sprint-for-ai-built-apps", title: "What a Remodeling Sprint is", date: "2026-05-03" },
   ],
   getPostBySlug: (slug: string) => {
     if (slug === "hello-world") {
@@ -59,6 +60,18 @@ vi.mock("@/lib/mdx", () => ({
       };
     }
 
+    if (slug === "remodeling-sprint-for-ai-built-apps") {
+      return {
+        slug,
+        title: "What a Remodeling Sprint is",
+        summary: "Turning a prototype into a product",
+        date: "2026-05-03",
+        domain: "fixmyvibe",
+        layout: "narrow",
+        body: { code: "compiled-code" },
+      };
+    }
+
     if (slug === "ai-mvp-technical-debt-audit-sample-report") {
       return {
         slug,
@@ -66,7 +79,7 @@ vi.mock("@/lib/mdx", () => ({
         summary: "FixMyVibe sample audit report walkthrough",
         date: "2026-05-05",
         domain: "fixmyvibe",
-        layout: "narrow",
+        layout: "report",
         body: { code: "compiled-code" },
       };
     }
@@ -124,7 +137,7 @@ describe("PostPage", () => {
     // an eyebrow, a meta row, a "best for" list, a table of contents, and a
     // conversion rail rendered twice. Five chrome blocks before the first
     // sentence, on the two posts a reader is most likely to have arrived to read.
-    for (const slug of ["ai-mvp-launch-checklist", "ai-mvp-technical-debt-audit-sample-report"]) {
+    for (const slug of ["ai-mvp-launch-checklist"]) {
       const { unmount } = render(await PostPage({ params: Promise.resolve({ slug }) }));
 
       expect(screen.getByTestId("post-narrow-layout")).toBeInTheDocument();
@@ -157,14 +170,33 @@ describe("PostPage", () => {
     render(await PostPage({ params: Promise.resolve({ slug: "ai-mvp-launch-checklist" }) }));
 
     expect(
-      screen.getByRole("link", { name: /What goes into a sample AI MVP technical debt audit report/ }),
+      screen.getByRole("link", { name: /AI MVP Technical Debt Audit — Sample Report/ }),
     ).toHaveAttribute("href", "/posts/ai-mvp-technical-debt-audit-sample-report");
+  });
+
+  it("sets the sample report as a sheet, because it is a deliverable", async () => {
+    // The one page on the site that renders an artifact rather than describing
+    // one. It gets a bordered sheet with a running head and foot, not the
+    // article shell, and the reading measure gives way to the sheet's own width
+    // so a seven-column risk table has room.
+    render(
+      await PostPage({
+        params: Promise.resolve({ slug: "ai-mvp-technical-debt-audit-sample-report" }),
+      }),
+    );
+
+    const sheet = screen.getByTestId("post-report-layout");
+    expect(sheet).toBeInTheDocument();
+    expect(sheet).toHaveClass("border", "border-rule");
+    expect(screen.queryByTestId("post-narrow-layout")).not.toBeInTheDocument();
+    expect(screen.getByText("FixMyVibe · Launch Gate Audit")).toBeVisible();
+    expect(screen.getByText("fmv · sample audit report")).toBeVisible();
   });
 
   it("falls back to the index when a post is the oldest one", async () => {
     render(
       await PostPage({
-        params: Promise.resolve({ slug: "ai-mvp-technical-debt-audit-sample-report" }),
+        params: Promise.resolve({ slug: "remodeling-sprint-for-ai-built-apps" }),
       }),
     );
 

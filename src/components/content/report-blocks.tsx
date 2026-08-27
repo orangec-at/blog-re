@@ -68,7 +68,9 @@ export function ReportMeta({
   ];
 
   return (
-    <section className="not-prose my-10 border-y border-rule">
+    // border-t only: the notice carries its own rule and section 01 opens with
+    // one, so a bottom border here put two rules 56px apart.
+    <section className="not-prose my-10 border-t border-rule">
       <dl className="grid gap-x-6 gap-y-3 py-6 sm:grid-cols-[10rem_minmax(0,1fr)]">
         {rows.map(([label, value]) => (
           <div key={label} className="grid gap-1 sm:col-span-2 sm:grid-cols-subgrid">
@@ -161,7 +163,9 @@ export function ReportTable({ caption, headers, rows, verdictColumns = [] }: Rep
                 {row.map((cell, column) => (
                   <td
                     key={`${column}-${cell}`}
-                    className={`py-3 pr-5 leading-6 ${
+                    // A single-word cell never wraps: browsers break on the
+                    // hyphen and rendered finding ids as "R-" over "001".
+                    className={`py-3 pr-5 leading-6 ${/\s/.test(cell) ? "" : "whitespace-nowrap"} ${
                       verdict.has(column) ? `font-semibold ${verdictClass(cell)}` : "text-ink"
                     }`}
                   >
