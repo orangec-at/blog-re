@@ -42,7 +42,13 @@ export default function Home() {
               {/* One button, one link. The two actions are not peers — one is a
                   commission and the other is a look around — and a page typeset
                   as a document does not set two buttons side by side. */}
-              <div className="flex flex-wrap items-center gap-6">
+              {/* Bottoms flush, not centres and not text baselines. The button is
+                  a 50px padded box and the link is a 28px line with a 2px rule
+                  under it; centring left the rule floating 9px above the button's
+                  bottom edge, which is the line the eye actually reads the pair
+                  against. Aligning the boxes costs 9px between the two labels'
+                  baselines — the smaller of the two errors. */}
+              <div className="flex flex-wrap items-end gap-6">
                 <PrimaryButton href={hero.primaryCta.href}>{hero.primaryCta.label}</PrimaryButton>
                 <TextLink href={hero.secondaryCta.href}>{hero.secondaryCta.label}</TextLink>
               </div>

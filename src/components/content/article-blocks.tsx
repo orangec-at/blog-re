@@ -128,12 +128,16 @@ export function CheckList({ items }: CheckListProps) {
 
 export function ExpertInsight({ children, source = "Expert insight" }: ExpertInsightProps) {
   return (
-    <aside className="not-prose my-9 rounded-lg border-l-2 border-ink bg-rule/20 p-5 sm:p-6">
-      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-ink">
+    // The last card shell in the file. bc791fb set eight of these with rules
+    // instead; this one kept its 8px radius, its bg-rule/20 fill and a 2px ink
+    // bar, which DESIGN.md forbids in its own words - "do not create ad-hoc card
+    // shells" - and which reads as decoration rather than as a document.
+    <aside className="not-prose my-9 border-y border-rule py-6">
+      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
         {source}
       </p>
-      <blockquote className="mt-3 text-xl font-semibold leading-snug tracking-[-0.035em] text-ink sm:text-2xl">
-        “{children}”
+      <blockquote className="mt-4 max-w-2xl text-xl font-semibold leading-snug tracking-[-0.035em] text-ink sm:text-2xl">
+        {children}
       </blockquote>
     </aside>
   );
