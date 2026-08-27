@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 
-import { PillTag } from "@/components/ui/feedback/pill-tag";
-
 type ChildrenProps = {
   children: ReactNode;
 };
