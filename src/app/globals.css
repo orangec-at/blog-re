@@ -109,16 +109,17 @@ button {
  * section dividers, and scan-friendly plain lists without turning every
  * paragraph into another card.
  */
+/* One measure for the whole document. The cap used to sit on the prose children
+   only, so a plain paragraph stopped at 68ch while every .not-prose MDX block
+   ran the full column — the page had four different right edges and nothing
+   lined up with anything. The column is the measure now and every child
+   inherits it, so prose, checklists, and tables share both edges. */
 .fmv-article-prose {
-  color: var(--article-text);
-  font-size: 1.0625rem;
-  line-height: 1.82;
-  letter-spacing: -0.006em;
-}
-
-.fmv-article-prose > :where(p, ul, ol, blockquote):not(.not-prose),
-.fmv-article-prose > :where(h2, h3, h4):not(.not-prose) {
   max-width: var(--article-measure);
+  color: var(--article-text);
+  font-size: 1.125rem;
+  line-height: 1.75;
+  letter-spacing: -0.006em;
 }
 
 .fmv-article-prose > p:not(.not-prose) {
@@ -131,7 +132,7 @@ button {
 }
 
 .fmv-article-prose > p:not(.not-prose) + p:not(.not-prose) {
-  margin-top: 1rem;
+  margin-top: 1.35rem;
 }
 
 .fmv-article-prose > :where(h2, h3):not(.not-prose) {

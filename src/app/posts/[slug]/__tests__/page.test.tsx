@@ -21,9 +21,13 @@ vi.mock("@/components/mdx/server-post-content", () => ({
 
 vi.mock("@/lib/mdx", () => ({
   getAllPosts: () => [
-    { slug: "hello-world" },
-    { slug: "ai-mvp-launch-checklist" },
-    { slug: "ai-mvp-technical-debt-audit-sample-report" },
+    { slug: "hello-world", title: "Hello World", date: "2026-05-20" },
+    { slug: "ai-mvp-launch-checklist", title: "AI MVP launch checklist", date: "2026-05-05" },
+    {
+      slug: "ai-mvp-technical-debt-audit-sample-report",
+      title: "What goes into a sample AI MVP technical debt audit report",
+      date: "2026-05-04",
+    },
   ],
   getPostBySlug: (slug: string) => {
     if (slug === "hello-world") {
@@ -133,5 +137,40 @@ describe("PostPage", () => {
 
       unmount();
     }
+  });
+
+  it("typesets a post as a document, not as a bare column", async () => {
+    // A post was the one page in the system without document chrome: no locator
+    // in the margin, no closing stamp, and a reading column that agreed with
+    // nothing around it. The home page and the index both use this grid.
+    render(await PostPage({ params: Promise.resolve({ slug: "ai-mvp-launch-checklist" }) }));
+
+    expect(screen.getByTestId("post-narrow-layout")).toHaveClass("lg:grid-cols-[6rem_minmax(0,1fr)]");
+    expect(screen.getByRole("link", { name: /← Proof/ })).toHaveAttribute("href", "/posts");
+    expect(screen.getByText("2026-05-05")).toHaveAttribute("datetime", "2026-05-05");
+    expect(screen.getByText(/End of document · ai-mvp-launch-checklist/)).toBeVisible();
+  });
+
+  it("points the reader at the next document instead of just stopping", async () => {
+    // getAllPosts is sorted newest first, so the post after this one in reading
+    // order is the next index, not the previous one.
+    render(await PostPage({ params: Promise.resolve({ slug: "ai-mvp-launch-checklist" }) }));
+
+    expect(
+      screen.getByRole("link", { name: /What goes into a sample AI MVP technical debt audit report/ }),
+    ).toHaveAttribute("href", "/posts/ai-mvp-technical-debt-audit-sample-report");
+  });
+
+  it("falls back to the index when a post is the oldest one", async () => {
+    render(
+      await PostPage({
+        params: Promise.resolve({ slug: "ai-mvp-technical-debt-audit-sample-report" }),
+      }),
+    );
+
+    expect(screen.getByRole("link", { name: /Everything I have published/ })).toHaveAttribute(
+      "href",
+      "/posts",
+    );
   });
 });

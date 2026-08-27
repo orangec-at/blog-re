@@ -5,7 +5,6 @@ import { format, parseISO } from "date-fns";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { Container } from "@/components/layout/container";
 import { FullWidth } from "@/components/layout/full-width";
-import { NarrowPage } from "@/components/layout/narrow-page";
 import { ServerPostContent } from "@/components/mdx/server-post-content";
 import { absoluteUrl, siteConfig } from "@/config/site";
 
@@ -114,30 +113,79 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   // sentence. Every other post went straight to the writing and read better for
   // it. The rail's CTA is also already in the MDX as <ArticleCTA>, at the end,
   // where a reader who finished is the one being asked.
+  //
+  // The shell is the same 6rem margin grid the home page and the index use. A
+  // post was the one page in the system not typeset as a document: no locator
+  // in the margin, no closing stamp, a reading column that agreed with nothing
+  // around it. Sharing the grid is what makes it read as the same publication.
+  const posts = getAllPosts();
+  const position = posts.findIndex((candidate) => candidate.slug === post.slug);
+  const nextPost = position >= 0 ? posts[position + 1] : undefined;
+
   return (
-    <NarrowPage>
-      {/* Left-aligned, and the title is text-4xl rather than text-6xl: a post
-          headline larger than the site's own h1 inverts the hierarchy. The
-          eyebrow was {post.domain}, which reads "fixmyvibe" on every post and
-          therefore says nothing — the date is the fact a document should carry. */}
-      <div data-testid="post-narrow-layout" className="flex max-w-3xl flex-col gap-5">
-        <div className="flex items-baseline gap-4">
-          <Link className="font-mono text-sm text-ink-muted transition hover:text-ink" href="/posts">
+    <Container variant="wide" className="py-16 sm:py-24">
+      {/* The grid is centred as a unit rather than filling the wide container.
+          The home page and the index let their right cell fill the 1fr, but a
+          post caps that cell at the reading measure, so filling would leave the
+          document hugging the left edge with a void beside it. */}
+      <div
+        data-testid="post-narrow-layout"
+        className="mx-auto grid max-w-[calc(6rem+3rem+var(--article-measure))] gap-8 lg:grid-cols-[6rem_minmax(0,1fr)] lg:gap-12"
+      >
+        {/* The margin carries the locator, the way a report's section mark does.
+            The eyebrow used to be {post.domain}, which reads "fixmyvibe" on every
+            post and therefore says nothing; the date is the fact a document
+            should carry. */}
+        <div className="flex flex-row items-baseline gap-4 font-mono text-sm text-ink-muted lg:flex-col lg:gap-2">
+          <Link className="transition hover:text-ink" href="/posts">
             ← Proof
           </Link>
-          <time className="font-mono text-sm text-ink-muted" dateTime={post.date}>
-            {format(parseISO(post.date), "yyyy-MM-dd")}
-          </time>
+          <time dateTime={post.date}>{format(parseISO(post.date), "yyyy-MM-dd")}</time>
         </div>
 
-        <h1 className="font-display text-3xl font-normal leading-tight tracking-[-0.03em] text-ink sm:text-4xl">
-          {post.title}
-        </h1>
-        <p className="max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg">{post.summary}</p>
+        <div className="flex w-full flex-col gap-10">
+          {/* The title is text-3xl/4xl rather than text-6xl: a post headline
+              larger than the site's own h1 inverts the hierarchy. The summary is
+              ink, not ink-muted — DESIGN.md reserves muted for metadata, and
+              this paragraph carries the article's argument. */}
+          <header className="flex flex-col gap-5 border-b border-rule pb-10">
+            <h1 className="font-display text-3xl font-normal leading-tight tracking-[-0.03em] text-ink sm:text-4xl">
+              {post.title}
+            </h1>
+            <p className="text-lg leading-relaxed text-ink">{post.summary}</p>
+          </header>
+
+          <article
+            data-testid="post-article-body"
+            className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-ink"
+          >
+            <ServerPostContent code={post.body.code} defaultDemoLayout={post.layout} />
+          </article>
+
+          {/* A document ends by saying so and pointing at the next one. Before
+              this the article just stopped. */}
+          <footer className="flex flex-col gap-6 border-t border-rule pt-8">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-ink-muted">
+              End of document · {post.slug}
+            </p>
+
+            {nextPost?.title ? (
+              <Link className="flex flex-col gap-1 group" href={`/posts/${nextPost.slug}`}>
+                <span className="font-mono text-xs uppercase tracking-[0.18em] text-ink-muted">
+                  Next
+                </span>
+                <span className="font-display text-lg font-normal text-ink transition group-hover:text-ink-muted">
+                  {nextPost.title}
+                </span>
+              </Link>
+            ) : (
+              <Link className="text-sm text-ink transition hover:text-ink-muted" href="/posts">
+                ← Everything I have published
+              </Link>
+            )}
+          </footer>
+        </div>
       </div>
-      <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-ink">
-        <ServerPostContent code={post.body.code} defaultDemoLayout={post.layout} />
-      </article>
-    </NarrowPage>
+    </Container>
   );
 }
