@@ -1,52 +1,91 @@
 import type { Metadata } from "next";
-import { AboutHero } from "@/components/about/about-hero";
-import { TeamSnapshot } from "@/components/about/team-snapshot";
-import { WhyWeWorkThisWay } from "@/components/about/why-we-work-this-way";
+
 import { Container } from "@/components/layout/container";
-import { CTAGroup } from "@/components/ui/molecules/cta-group";
-import { BorderedSurface } from "@/components/ui/surfaces/bordered-surface";
-import { BodyText } from "@/components/ui/typography/body-text";
-import { Eyebrow } from "@/components/ui/typography/eyebrow";
-import { SectionHeading } from "@/components/ui/typography/section-heading";
+import { ProposalSection } from "@/components/proposal/proposal-section";
+import { PrimaryButton } from "@/components/ui/button";
+import { about } from "@/data/about-content";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Who runs fmv. Wakeymoment is the practice behind it — founder-led launches, practical technical judgment, safer productization.",
+  description:
+    "fmv is the review service and wakeymoment is the company behind it. One engineer: six years of engineering, an app shipped to the App Store, front-end lead on a public-sector platform.",
   alternates: { canonical: "/about" },
 };
 
-
+// Typeset like the rest of the site: the 6rem mono margin, hairline rules, no
+// card shells and no dark CTA band. The page this replaced had eight bordered
+// panels and a full-bleed bg-ink section, which DESIGN.md forbids by name —
+// panel-dark "is not page chrome, not a CTA background".
 export default function AboutPage() {
   return (
-    <div className="flex flex-col" data-testid="about-page">
-      <AboutHero />
-
-      <section className="bg-paper pb-16 sm:pb-20">
-        <Container variant="wide" className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <TeamSnapshot />
-          <WhyWeWorkThisWay />
-        </Container>
-      </section>
-
-      <section className="bg-ink py-16 text-paper sm:py-20">
+    <div data-testid="about-page">
+      <section aria-labelledby="about-lede" className="py-16 sm:py-24">
         <Container variant="wide">
-          <BorderedSurface as="section" className="flex flex-col gap-6" tone="offwhite">
-            <div className="space-y-3">
-              <Eyebrow>Next step</Eyebrow>
-              <SectionHeading>Need founder-facing technical judgment for the next launch decision?</SectionHeading>
-              <BodyText>
-                Start with the diagnosis when you need clarity on what to fix first, how much rescue work is
-                actually required, and which proof path will help the team ship again.
-              </BodyText>
-            </div>
+          <div className="grid gap-8 lg:grid-cols-[6rem_minmax(0,1fr)] lg:gap-12">
+            <p aria-hidden="true" className="font-mono text-sm text-ink-muted">
+              {about.eyebrow}
+            </p>
 
-            <CTAGroup
-              primaryAction={{ href: "/contact", label: "Start with diagnosis" }}
-              secondaryAction={{ href: "/posts", label: "Read the field notes" }}
-            />
-          </BorderedSurface>
+            <div className="flex flex-col gap-5">
+              <h1
+                id="about-lede"
+                className="max-w-3xl text-balance font-display text-3xl font-normal leading-tight tracking-[-0.03em] text-ink sm:text-4xl"
+              >
+                {about.headline}
+              </h1>
+              <p className="max-w-2xl text-base leading-relaxed text-ink sm:text-lg">{about.lede}</p>
+            </div>
+          </div>
         </Container>
       </section>
+
+      <ProposalSection number="01" title={about.grounds.caption}>
+        <ul className="flex max-w-2xl flex-col border-t border-rule">
+          {about.grounds.items.map((item) => (
+            <li key={item} className="border-b border-rule py-4 text-base leading-relaxed text-ink">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </ProposalSection>
+
+      <ProposalSection number="02" title={about.method.caption}>
+        <p className="max-w-2xl text-base leading-relaxed text-ink">{about.method.body}</p>
+
+        <ul className="flex flex-wrap gap-6">
+          {about.links.map((link) => (
+            <li key={link.href}>
+              <a
+                className="text-sm text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+                href={link.href}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </ProposalSection>
+
+      <ProposalSection number="03" title={about.boundaries.caption}>
+        {/* Exclusions are named, the way section 05 of the home page names them:
+            in proposal grammar what is ruled out builds more trust than what is
+            promised, so it is not buried. deferred, never a severity — being out
+            of scope is not a finding. */}
+        <ul className="flex max-w-2xl flex-col border-t border-rule">
+          {about.boundaries.items.map((item) => (
+            <li
+              key={item}
+              className="border-b border-rule py-4 text-base leading-relaxed text-deferred"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <div className="pt-2">
+          <PrimaryButton href={about.ctaHref}>{about.ctaLabel}</PrimaryButton>
+        </div>
+      </ProposalSection>
     </div>
   );
 }
