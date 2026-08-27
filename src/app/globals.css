@@ -59,13 +59,21 @@ li {
   overflow-wrap: anywhere;
 }
 
-a {
-  text-decoration: none;
-}
+/* In @layer base, not unlayered. `@import "tailwindcss"` puts every utility in
+   @layer utilities, and unlayered CSS beats every layer regardless of
+   specificity - so this rule was silently killing `.underline` and every
+   `.decoration-*` utility site-wide. The utilities were always emitted; they
+   just never won. That is why an anchor given class="underline" computed to
+   text-decoration-line: none. */
+@layer base {
+  a {
+    text-decoration: none;
+  }
 
-a:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--color-rule);
+  a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-rule);
+  }
 }
 
 .font-display {
@@ -198,7 +206,13 @@ button {
    means a P0 finding met an orange-red link and had to unlearn it. The
    affordance is the underline, drawn as a border because this build emits no
    .underline utility. */
-.fmv-article-prose :where(a) {
+/* Scoped out of .not-prose subtrees. This rule is a descendant selector with
+   no guard, and at 0,1,0 it ties with a Tailwind colour utility and wins on
+   source order — so every anchor inside an MDX block got repainted ink and
+   underlined. On ArticleCTA's dark panel that is ink on panel-dark, the same
+   value twice, and the secondary action's label vanished into its background.
+   DESIGN.md: text on the panel is paper, panel-dark-muted, or p0 — never ink. */
+.fmv-article-prose :where(a:not(.not-prose *)) {
   color: var(--color-ink);
   font-weight: 650;
   text-decoration: underline;
@@ -207,7 +221,7 @@ button {
   text-underline-offset: 0.18em;
 }
 
-.fmv-article-prose :where(a:hover) {
+.fmv-article-prose :where(a:not(.not-prose *):hover) {
   text-decoration-color: currentColor;
 }
 
