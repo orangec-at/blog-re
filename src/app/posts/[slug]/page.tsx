@@ -143,7 +143,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <time dateTime={post.date}>{format(parseISO(post.date), "yyyy-MM-dd")}</time>
         </div>
 
-        <div className="flex w-full flex-col gap-10">
+        {/* min-w-0: a grid item defaults to min-width:auto and will not shrink below
+            its content, so one wide table inside the article widened the whole
+            reading column and pushed every section off a narrow screen. */}
+        <div className="flex w-full min-w-0 flex-col gap-10">
           {/* The title is text-3xl/4xl rather than text-6xl: a post headline
               larger than the site's own h1 inverts the hierarchy. The summary is
               ink, not ink-muted — DESIGN.md reserves muted for metadata, and

@@ -38,6 +38,26 @@ const requiredOwners = [
     owner: 'src/components/proposal/scope-table.tsx',
     usedBy: 'src/app/page.tsx',
   },
+  {
+    name: 'ReportMeta',
+    owner: 'src/components/content/report-blocks.tsx',
+    usedBy: 'content/posts/ai-mvp-technical-debt-audit-sample-report.mdx',
+  },
+  {
+    name: 'ReportSection',
+    owner: 'src/components/content/report-blocks.tsx',
+    usedBy: 'content/posts/ai-mvp-technical-debt-audit-sample-report.mdx',
+  },
+  {
+    name: 'ReportTable',
+    owner: 'src/components/content/report-blocks.tsx',
+    usedBy: 'content/posts/ai-mvp-technical-debt-audit-sample-report.mdx',
+  },
+  {
+    name: 'ReportList',
+    owner: 'src/components/content/report-blocks.tsx',
+    usedBy: 'content/posts/ai-mvp-technical-debt-audit-sample-report.mdx',
+  },
 ];
 
 function readRequired(filePath) {

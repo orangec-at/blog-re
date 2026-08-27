@@ -12,6 +12,35 @@ Last updated: 2026-08-26
 
 ## Pattern ownership map
 
+### Report components
+
+These four own the sample audit report, the only page that renders a deliverable rather than
+describing one. Contracts are in `DESIGN.md` > Component contracts > Report components.
+
+- `ReportMeta`
+  - Owner: `src/components/content/report-blocks.tsx`
+  - Role: the report's cover block — product, audit type, date, preparer, status, and the sample notice.
+  - Used by: `content/posts/ai-mvp-technical-debt-audit-sample-report.mdx`.
+  - Status: accepted owner; the sample notice is a standing approval boundary, not a style choice.
+
+- `ReportSection`
+  - Owner: `src/components/content/report-blocks.tsx`
+  - Role: one numbered section `01`–`12` — mono locator, `--font-display` heading, body.
+  - Used by: `content/posts/ai-mvp-technical-debt-audit-sample-report.mdx`.
+  - Status: accepted owner; do not start a report section any other way.
+
+- `ReportTable`
+  - Owner: `src/components/content/report-blocks.tsx`
+  - Role: every table in the report, with verdict colour confined to declared columns.
+  - Used by: `content/posts/ai-mvp-technical-debt-audit-sample-report.mdx`.
+  - Status: accepted owner. This is the one place on the site where "colour means a verdict" is literally true.
+
+- `ReportList`
+  - Owner: `src/components/content/report-blocks.tsx`
+  - Role: a named list inside a section — checks, tasks, evidence.
+  - Used by: `content/posts/ai-mvp-technical-debt-audit-sample-report.mdx`.
+  - Status: accepted owner.
+
 ### Proposal components
 
 These five own the home page (`src/app/page.tsx`), section `01`–`06`. Each has a required content order and prohibited shortcuts documented in `DESIGN.md` > Component contracts; this table only tracks ownership and usage.

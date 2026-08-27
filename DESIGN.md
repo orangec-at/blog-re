@@ -116,6 +116,36 @@ Owner: `src/components/proposal/scope-table.tsx`. Used by: `src/app/page.tsx`.
 - Required content order: included list first, excluded list second, side by side — two independent lists, not a `<table>`, since the exclusions have no column to share with the inclusions.
 - Excluded items always render in `deferred`, never `p0` or `p1` — being out of scope is not a finding, so it does not get a severity color.
 
+### Report components
+
+The sample audit report (`content/posts/ai-mvp-technical-debt-audit-sample-report.mdx`)
+is the one page on the site that renders a deliverable rather than describing one, so it
+has its own furniture. Owner for all four: `src/components/content/report-blocks.tsx`.
+
+**`ReportMeta`** — the report's cover block.
+
+- Required content order: product → audit type → audit date → prepared by → report status → sample notice.
+- The sample notice always renders, in `p1`, the same caution colour `VerdictSheet` uses for the same job. It is the only thing marking the document as synthetic, so it must never be conditionally hidden.
+- It is not a finding, so it never takes `p0`.
+
+**`ReportSection`** — one numbered section, `01`–`12`.
+
+- Required content order: mono section number → `--font-display` heading → body.
+- Set inside the reading column rather than a page margin: the article measure has no margin to give it. This is the only permitted difference from `ProposalSection`'s grammar.
+- Numbers run in sequence and are never skipped or reordered.
+
+**`ReportTable`** — every table in the report.
+
+- Required content order: mono caption → header row → body rows, in the data's order.
+- Only cells in `verdictColumns` may carry colour, and only from the closed vocabulary declared in the component. Every other cell is `ink`.
+- Severity, readiness status, and launch decision are verdicts and take `p0`/`p1`/`ok`. Evidence state (`Unknown`, `Missing`) is not a finding and takes `deferred`.
+- Rules, never a card shell or a zebra fill. The table scrolls inside its own box so a seven-column risk table cannot push the reading column sideways.
+
+**`ReportList`** — a named list inside a section: checks, tasks, evidence.
+
+- Required content order: optional mono caption → items, in the data's order.
+- Rows are separated by `rule` borders, not a card shell or a filled block.
+
 ## Do's and Don'ts
 
 ### Do

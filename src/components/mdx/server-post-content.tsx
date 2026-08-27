@@ -26,6 +26,12 @@ import {
   NoGoSignal,
   RiskSection,
 } from "@/components/content/article-blocks";
+import {
+  ReportList,
+  ReportMeta,
+  ReportSection,
+  ReportTable,
+} from "@/components/content/report-blocks";
 import { DemoFrame, DemoMeta, type DemoLayout, type DemoLink } from "@/components/layout/demo-frame";
 import { FullWidth } from "@/components/layout/full-width";
 
@@ -80,6 +86,10 @@ export function ServerPostContent({
     MiniCaseStudy,
     ActionTimeline,
     DiagnosticArtifactCard,
+    ReportMeta,
+    ReportSection,
+    ReportTable,
+    ReportList,
     FullWidth: ({ children, className = "" }: WrapperProps) => (
       <FullWidth className={`py-8 ${className}`.trim()}>{children}</FullWidth>
     ),
