@@ -11,21 +11,26 @@ const links = [
 
 export function Footer() {
   return (
-    <footer className="bg-zapier-black text-cream">
+    <footer className="bg-ink text-paper">
       <Container className="flex flex-col gap-6 py-10">
         <div className="flex flex-wrap gap-4 text-sm">
           {links.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="inline-flex min-h-11 items-center rounded-full border border-zapier-sand px-4 text-cream transition hover:bg-cream hover:text-zapier-black"
+              className="inline-flex min-h-11 items-center rounded-full border border-rule px-4 text-paper transition hover:bg-paper hover:text-ink"
             >
               {item.label}
             </a>
           ))}
         </div>
-        <p className="text-xs text-zapier-gray">
-          © {siteConfig.name} {new Date().getFullYear()}. All rights reserved.
+        <p className="text-xs text-panel-dark-muted">
+          {/* The copyright is the company's, not the service's. fmv is what is
+              sold; wakeymoment is who is liable for it. */}
+          © {siteConfig.company} {new Date().getFullYear()}. All rights reserved.
+        </p>
+        <p className="font-mono text-xs text-panel-dark-muted">
+          fmv · launch-readiness review · rev. 2026-08
         </p>
       </Container>
     </footer>

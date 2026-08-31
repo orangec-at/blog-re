@@ -1,0 +1,116 @@
+---
+title: "How to take over and stabilize an AI-built codebase without losing momentum"
+date: "2026-08-28"
+summary: "You built an MVP with Claude Code, Cursor, or an outsourced contractor who used AI tools. Now what? A 3-step technical playbook for taking ownership, locking platform boundaries, and shipping features safely."
+domain: "fixmyvibe"
+layout: "narrow"
+draft: false
+seoTitle: "How to Take Over & Stabilize a Claude Code / Cursor Codebase"
+seoDescription: "A practical guide for founders inheriting or managing an AI-built codebase. Learn how to map boundaries, write plan-execute-verify specs, and stabilize technical debt."
+canonicalPath: "/posts/taking-over-a-claude-code-or-cursor-codebase"
+keywords:
+  - "Claude Code"
+  - "Cursor"
+  - "AI codebase takeover"
+  - "technical debt"
+  - "AI engineering partner"
+  - "FixMyVibe"
+tags:
+  - "Claude Code"
+  - "Cursor"
+  - "codebase takeover"
+  - "technical leadership"
+  - "founder ops"
+updated: "2026-08-28"
+author: "Jaeil Lee"
+ogImage: "/og/taking-over-a-claude-code-or-cursor-codebase.png"
+---
+
+A common scenario in 2026:
+
+You hired a freelance developer or an agency to build your MVP. They used **Claude Code, Cursor, or Lovable** to deliver 20 screens and a functional database in just three weeks.
+
+The contractor hands over the GitHub repository, collects their final milestone payment, and departs.
+
+Now you are staring at a codebase with 80 files, 15 database tables, and hundreds of AI-generated functions. You want to add your next feature or onboard your first 100 beta users, but:
+
+- Nobody on your team fully understands the entire architecture.
+- Making a small change in one component causes unexpected breaks in three other pages.
+- You have no automated tests, and you don't know what will happen when concurrent traffic hits.
+
+**How do you take ownership of an AI-generated codebase without grinding your momentum to a halt?**
+
+<ArticleIntro
+  eyebrow="Codebase Takeover"
+  thesis="Do not freeze feature development for a multi-month refactor. Stabilize platform boundaries first, then adopt a disciplined agentic engineering workflow."
+  points={[
+    "AI-built codebases are not inherently broken, but they lack documented boundaries, regression guardrails, and rollback paths.",
+    "The fastest path to stability is a 3-step sequence: Lock the Boundaries → Create Test Harnesses → Adopt Plan-Execute-Verify specs.",
+    "Treating AI tools as junior executors under a senior architectural framework allows you to ship 5x faster without compounding technical debt.",
+  ]}
+/>
+
+## 1. Step 1: Lock the Invisible Platform Boundaries
+
+Before you touch UI components or refactor messy CSS, secure the platform boundaries where catastrophic failures occur:
+
+### 1. Database Row-Level Security (RLS)
+Verify that every Supabase/Firebase table has strict RLS enabled and that tenant boundaries are tested with two separate user accounts. Never trust frontend filters.
+
+### 2. Environment Variables & Secret Hygiene
+Ensure production database keys (`SUPABASE_SERVICE_ROLE_KEY`, Stripe Secret Keys, OpenAI API Keys) are never committed to git or exposed to browser bundles (`NEXT_PUBLIC_`).
+
+### 3. Payment & Asynchronous Webhooks
+Audit Stripe and webhook endpoints for signature verification and database idempotency guards to prevent duplicate transactions on network retries.
+
+<MiniCaseStudy
+  title="Healthcare Platform Takeover: Stabilized in 1 Week"
+  problem="A non-technical founder inherited a Claude Code-built patient intake platform from a departing contractor. The founder was afraid to onboard medical clinics due to HIPAA compliance and RLS concerns."
+  stats={["0 lines of UI rewritten", "12 platform gates audited", "3 critical RLS policies patched in 48 hours"]}
+  outcome="We locked down database boundaries, added Sentry error tracking, and conducted a PITR disaster drill. The platform successfully launched its Closed Beta on schedule."
+/>
+
+## 2. Step 2: Establish the Plan → Execute → Verify Loop
+
+When working with AI coding agents (Claude Code, Cursor Composer, Hermes), the biggest cause of technical debt is **"Blind Prompting"**—asking the AI to write code without specifying constraints or verification steps.
+
+To keep your codebase clean, adopt the **Plan-Execute-Verify** engineering loop:
+
+<ActionTimeline
+  title="The 3-Phase Agentic Development Standard"
+  steps={[
+    {
+      label: "Phase 1",
+      title: "Plan (Spec First)",
+      body: "Before writing any code, draft a 1-page spec defining: 1) exact user flow, 2) DB schema changes, 3) non-goals (what NOT to touch), and 4) verification criteria.",
+    },
+    {
+      label: "Phase 2",
+      title: "Execute (Bounded Changes)",
+      body: "Instruct the AI tool to modify only the designated files. Enforce strict type checking and zero new runtime dependencies.",
+    },
+    {
+      label: "Phase 3",
+      title: "Verify (Automated & Manual Gates)",
+      body: "Run unit tests, execute dual-session permission checks, and test error/loading states before opening a Pull Request.",
+    },
+  ]}
+/>
+
+## 3. Step 3: Shift from 'Rebuild' to 'Targeted Remodeling Sprints'
+
+When technical debt accumulates, non-technical founders often feel forced into binary choices: *"Live with buggy code"* vs. *"Stop everything and rebuild."*
+
+There is a third, superior option: **Bounded Remodeling Sprints**.
+
+- **Sprint 1 (Launch Gate Audit - 1 Week)**: Identify and rank all structural risks into P0 (Must Fix Before Launch), P1 (Fix in Next Sprint), and P2 (What Can Wait).
+- **Sprint 2 (Remodeling Sprint - 2 Weeks)**: Focus 100% of engineering effort on patching P0/P1 risks (RLS, webhooks, error tracking) without touching working UI flows.
+- **Sprint 3 (Feature Velocity)**: Resume rapid product feature shipping on top of a locked-down, trustworthy foundation.
+
+<ArticleCTA
+  eyebrow="Technical Partner"
+  title="Need a senior engineer to audit or take over your AI codebase?"
+  body="We provide 1-week Launch Gate Audits ($1,200 fixed) and ongoing Virtual CTO support for founders building with Claude Code, Cursor, and Supabase. Keep your velocity without risking your launch."
+  primary={{ label: "View Sample Audit Report", href: "/sample-audit" }}
+  secondary={{ label: "Discuss Your Codebase", href: "/contact" }}
+/>

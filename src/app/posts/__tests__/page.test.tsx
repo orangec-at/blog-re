@@ -13,13 +13,6 @@ vi.mock("@/lib/mdx", () => ({
       domain: "fixmyvibe",
     },
     {
-      slug: "infra-log",
-      title: "Infra log",
-      summary: "Drawhatha recap",
-      date: "2026-04-12",
-      domain: "drawhatha",
-    },
-    {
       slug: "b2b-dynamic-onboarding",
       title: "B2B Dynamic Onboarding Workspace",
       summary: "A full-width onboarding form demo.",
@@ -27,28 +20,33 @@ vi.mock("@/lib/mdx", () => ({
       domain: "fixmyvibe",
     },
   ],
-  getPostDomains: () => ["drawhatha", "fixmyvibe"],
 }));
 
 describe("PostsPage", () => {
-  it("renders founder-facing positioning alongside domain filters and all posts", async () => {
-    render(await PostsPage({ searchParams: Promise.resolve({}) }));
+  it("lists every post with its date, under the label the nav uses", () => {
+    render(PostsPage());
 
-    expect(screen.getByRole("heading", { level: 1, name: /^technical insight for founder-led launches$/i })).toBeInTheDocument();
-    expect(
-      screen.getByText(/the thinking behind ai mvp rescues, architecture rewrites, and proof-building delivery/i),
-    ).toBeInTheDocument();
-    expect(screen.getByTestId("posts-filter")).toBeInTheDocument();
+    // "Proof" is what the header calls this page. The h1 says what the page
+    // holds rather than describing a category of writing.
+    expect(screen.getByRole("heading", { level: 1, name: /^What I have published$/i })).toBeInTheDocument();
+
     expect(screen.getByText("Fix demo")).toBeInTheDocument();
-    expect(screen.getByText("Infra log")).toBeInTheDocument();
     expect(screen.getByText("B2B Dynamic Onboarding Workspace")).toBeInTheDocument();
+    expect(screen.getByText("2026-04-13")).toBeInTheDocument();
   });
 
-  it("filters posts by the selected domain", async () => {
-    render(await PostsPage({ searchParams: Promise.resolve({ domain: "fixmyvibe" }) }));
+  it("ships no domain filter while every post carries the same domain", () => {
+    render(PostsPage());
 
-    expect(screen.getByText("Fix demo")).toBeInTheDocument();
-    expect(screen.getByText("B2B Dynamic Onboarding Workspace")).toBeInTheDocument();
-    expect(screen.queryByText("Infra log")).not.toBeInTheDocument();
+    // The filter offered "All" and one domain, so it filtered nothing. It comes
+    // back when a second domain does.
+    expect(screen.queryByTestId("posts-filter")).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /^All$/i })).not.toBeInTheDocument();
+  });
+
+  it("links each entry to its post", () => {
+    render(PostsPage());
+
+    expect(screen.getByRole("link", { name: "Fix demo" })).toHaveAttribute("href", "/posts/fix-demo");
   });
 });

@@ -1,0 +1,171 @@
+---
+title: "How Stripe webhooks silently break in AI-generated apps (and how to fix them)"
+date: "2026-08-28"
+summary: "Why AI-coded payment handlers often fail in production: raw body signature parsing in Next.js, missing idempotency guards, and duplicate subscription provisioning on network retries."
+domain: "fixmyvibe"
+layout: "narrow"
+draft: false
+seoTitle: "Stripe Webhook Idempotency & Security in AI-Built Apps"
+seoDescription: "Learn how to secure Stripe webhooks in Next.js and Supabase, prevent duplicate charges on retry, and implement atomic idempotency guards."
+canonicalPath: "/posts/stripe-webhook-pitfalls-in-ai-apps"
+keywords:
+  - "Stripe webhook"
+  - "idempotency"
+  - "AI MVP payment"
+  - "Next.js Stripe"
+  - "Supabase webhook"
+  - "FixMyVibe"
+tags:
+  - "Stripe"
+  - "payments"
+  - "webhooks"
+  - "idempotency"
+  - "Next.js"
+updated: "2026-08-28"
+author: "Jaeil Lee"
+ogImage: "/og/stripe-webhook-pitfalls-in-ai-apps.png"
+---
+
+You tested your Stripe Checkout integration in test mode using `4242...`. You completed the checkout, your webhook received `checkout.session.completed`, your database updated, and your test user received credits.
+
+It looks 100% complete.
+
+Then you launch to real users. Within 48 hours, you notice:
+1. Some customers receive double credits for a single charge.
+2. Other customers complain they paid, but their subscription is still locked.
+3. Your server error logs are filled with `Webhook signature verification failed`.
+
+**What went wrong?**
+
+AI coding tools (Cursor, Lovable, v0) write payment handlers that work under perfect local test conditions. But payment infrastructure is an **asynchronous distributed system** where network timeouts, retries, and out-of-order events are the norm.
+
+<ArticleIntro
+  eyebrow="Payment Launch Gate"
+  thesis="A payment integration is only as reliable as its webhook failure handling."
+  points={[
+    "Stripe operates on an 'at-least-once' delivery model: webhook events are guaranteed to be retried if your server takes >3 seconds or encounters network jitter.",
+    "Without atomic database idempotency, retried webhooks grant duplicate credits, upgrade accounts multiple times, or trigger duplicate emails.",
+    "Next.js App Router stream consumption frequently breaks Stripe signature verification if raw request bodies are parsed incorrectly.",
+  ]}
+/>
+
+## 1. The Duplicate Grant Problem: Why Webhook Idempotency is Mandatory
+
+When a customer pays on Stripe Checkout, Stripe sends an HTTP POST request to your webhook endpoint (`/api/webhooks/stripe`).
+
+If your database query takes 3.5 seconds, or if Vercel experiences a transient cold start, Stripe considers the request timed out. **Stripe will immediately queue and retry the exact same event multiple times over the next 72 hours.**
+
+Here is the typical AI-generated webhook handler:
+
+```typescript
+// VULNERABLE: Naive webhook handler
+export async function POST(req: Request) {
+  const event = await req.json();
+
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    // DANGEROUS: Executes unconditionally every time Stripe sends or retries this event!
+    await addCreditsToUser(session.customer, 100);
+  }
+
+  return NextResponse.json({ received: true });
+}
+```
+
+If Stripe delivers this event 3 times due to a slow database connection, **your customer receives 300 credits while paying for 100.**
+
+<ExpertInsight source="Stripe Engineering Standards">
+Webhook handlers must be idempotent: processing the same event ID twice must result in the exact same application state as processing it once.
+</ExpertInsight>
+
+## 2. The Solution: PostgreSQL Atomic Event Locking
+
+The standard, foolproof way to make Stripe webhooks idempotent is to record every processed `event.id` in a dedicated database table with a **Unique Constraint**.
+
+### Step 1: Create the Idempotency Table in Supabase
+```sql
+CREATE TABLE processed_webhook_events (
+  event_id TEXT PRIMARY KEY,
+  event_type TEXT NOT NULL,
+  processed_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Enable RLS so only your service role can touch this table
+ALTER TABLE processed_webhook_events ENABLE ROW LEVEL SECURITY;
+```
+
+### Step 2: Atomic Check-and-Insert in Next.js
+Before executing any business logic (granting credits, sending emails), perform an atomic insert:
+
+```typescript
+// SECURED: Idempotent webhook handler
+import { stripe } from '@/lib/stripe';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
+
+export async function POST(req: Request) {
+  const body = await req.text(); // Raw body for signature verification
+  const signature = req.headers.get('stripe-signature')!;
+
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch (err) {
+    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
+  }
+
+  // 1. Atomic Idempotency Check
+  const { error: lockError } = await supabaseAdmin
+    .from('processed_webhook_events')
+    .insert({
+      event_id: event.id,
+      event_type: event.type,
+    });
+
+  if (lockError && lockError.code === '23505') {
+    // Postgres Error 23505 = Unique Violation (already processed)
+    // Acknowledge Stripe with 200 OK so it stops retrying
+    return Response.json({ received: true, deduplicated: true });
+  }
+
+  // 2. Safe to execute business logic once and only once
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    await addCreditsToUser(session.customer, 100);
+  }
+
+  return Response.json({ received: true });
+}
+```
+
+## 3. The Next.js Raw Body Signature Trap
+
+Another classic failure mode in AI-generated Next.js 14/15 App Router apps is `req.json()` vs `req.text()`.
+
+Stripe signature verification computes an HMAC-SHA256 hash over the **exact binary bytes** of the incoming payload. If your code calls `await req.json()` before verification, JSON parsing normalizes whitespace, causing Stripe's signature check to fail with a 400 error.
+
+Always read `const body = await req.text();` first, verify the signature, and only then extract data.
+
+## 4. Pre-Launch Webhook Test Checklist
+
+Before taking real money, simulate real-world failure scenarios using the Stripe CLI:
+
+<CheckList
+  items={[
+    "Verify duplicate delivery: Trigger the exact same event ID twice via stripe trigger checkout.session.completed and confirm credits are granted only once.",
+    "Verify signature rejection: Send a POST request with an invalid signature header and verify the server returns 400 Bad Request.",
+    "Verify server-side price validation: Ensure the checkout session validates price IDs from server configuration, not from client-supplied amounts.",
+    "Verify customer portal synchronization: Test customer.subscription.deleted and customer.subscription.updated to ensure cancellations revoke access immediately.",
+  ]}
+/>
+
+<ArticleCTA
+  eyebrow="Payment Audit"
+  title="Worried about billing edge cases before launch?"
+  body="We verify Stripe/Paystack webhook handlers, idempotency tables, and signature boundaries as part of our 12-gate Launch Gate Audit. Get full confidence before your first transaction."
+  primary={{ label: "View Sample Audit", href: "/sample-audit" }}
+  secondary={{ label: "Get Your App Audited", href: "/contact" }}
+/>

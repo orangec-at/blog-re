@@ -62,7 +62,7 @@ export default function RootLayout({
 
   return (
     <html className={fontVariables} lang="en">
-      <body className="min-h-screen bg-cream text-zapier-charcoal">
+      <body className="min-h-screen bg-paper text-ink">
         <script
           type="application/ld+json"
           suppressHydrationWarning
@@ -70,7 +70,7 @@ export default function RootLayout({
         />
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-1 bg-cream py-12">{children}</main>
+          <main className="flex-1 bg-paper py-12">{children}</main>
           <Footer />
         </div>
       </body>

@@ -8,22 +8,28 @@ describe("Header", () => {
     render(<Header />);
 
     const header = screen.getByRole("banner");
-    expect(within(header).getByRole("link", { name: /wakeymoment/i })).toHaveAttribute("href", "/");
+    expect(within(header).getByRole("link", { name: /fmv/i })).toHaveAttribute("href", "/");
 
     const primaryCta = within(header).getByRole("link", { name: /^Start a review$/i });
     expect(primaryCta).toHaveAttribute("href", "/contact");
   });
 
-  it("ships no navigation while the inner pages carry no receipts", () => {
+  it("links the two pages that carry receipts, and no others", () => {
     render(<Header />);
 
-    const header = screen.getByRole("banner");
-    expect(within(header).queryByRole("navigation")).not.toBeInTheDocument();
+    const nav = within(screen.getByRole("banner")).getByRole("navigation", { name: /primary/i });
 
-    for (const label of ["Services", "Proof", "About", "Contact", "Posts", "Domains", "Resources"]) {
-      expect(within(header).queryByRole("link", { name: label })).not.toBeInTheDocument();
+    expect(within(nav).getByRole("link", { name: "Proof" })).toHaveAttribute("href", "/posts");
+    expect(within(nav).getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
+
+    // Three pages stay unlinked on purpose. /services and /resources are written
+    // in Korean and this buyer reads English; /domains is other work. A nav item
+    // is a promise that the page behind it answers the question the label asks.
+    for (const label of ["Services", "Resources", "Domains"]) {
+      expect(within(nav).queryByRole("link", { name: label })).not.toBeInTheDocument();
     }
 
-    expect(screen.queryByLabelText("Mobile primary navigation")).not.toBeInTheDocument();
+    // Contact is the CTA's destination; a second route to it would be noise.
+    expect(within(nav).queryByRole("link", { name: "Contact" })).not.toBeInTheDocument();
   });
 });

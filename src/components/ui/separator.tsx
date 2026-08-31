@@ -14,7 +14,7 @@ function Separator({
   return (
     <div
       aria-orientation={orientation}
-      className={cn(orientation === "horizontal" ? "h-px w-full" : "h-full w-px", "shrink-0 bg-zapier-sand", className)}
+      className={cn(orientation === "horizontal" ? "h-px w-full" : "h-full w-px", "shrink-0 bg-rule", className)}
       data-orientation={orientation}
       data-slot="separator"
       role={decorative ? "none" : "separator"}

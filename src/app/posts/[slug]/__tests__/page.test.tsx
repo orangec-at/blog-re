@@ -10,8 +10,8 @@ vi.mock("next/navigation", () => ({
   notFound: mockedNotFound,
 }));
 
-vi.mock("@/components/mdx/client-post-content", () => ({
-  ClientPostContent: ({
+vi.mock("@/components/mdx/server-post-content", () => ({
+  ServerPostContent: ({
     defaultDemoLayout,
   }: {
     code: string;
@@ -21,9 +21,14 @@ vi.mock("@/components/mdx/client-post-content", () => ({
 
 vi.mock("@/lib/mdx", () => ({
   getAllPosts: () => [
-    { slug: "hello-world" },
-    { slug: "ai-mvp-launch-checklist" },
-    { slug: "ai-mvp-technical-debt-audit-sample-report" },
+    { slug: "hello-world", title: "Hello World", date: "2026-05-20" },
+    { slug: "ai-mvp-launch-checklist", title: "AI MVP launch checklist", date: "2026-05-05" },
+    {
+      slug: "ai-mvp-technical-debt-audit-sample-report",
+      title: "AI MVP Technical Debt Audit — Sample Report",
+      date: "2026-05-04",
+    },
+    { slug: "remodeling-sprint-for-ai-built-apps", title: "What a Remodeling Sprint is", date: "2026-05-03" },
   ],
   getPostBySlug: (slug: string) => {
     if (slug === "hello-world") {
@@ -44,6 +49,7 @@ vi.mock("@/lib/mdx", () => ({
         summary: "AI MVP launch checklist",
         seoTitle: "AI MVP 출시 전 체크리스트: 고객 받기 전 7가지 점검",
         seoDescription: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
+        date: "2026-05-05",
         canonicalPath: "/posts/ai-mvp-launch-checklist",
         keywords: ["AI MVP", "launch readiness"],
         tags: ["technical debt", "AI MVP"],
@@ -54,13 +60,26 @@ vi.mock("@/lib/mdx", () => ({
       };
     }
 
+    if (slug === "remodeling-sprint-for-ai-built-apps") {
+      return {
+        slug,
+        title: "What a Remodeling Sprint is",
+        summary: "Turning a prototype into a product",
+        date: "2026-05-03",
+        domain: "fixmyvibe",
+        layout: "narrow",
+        body: { code: "compiled-code" },
+      };
+    }
+
     if (slug === "ai-mvp-technical-debt-audit-sample-report") {
       return {
         slug,
-        title: "AI MVP 기술 부채 진단 샘플 리포트에는 무엇이 들어가야 하나",
+        title: "What goes into a sample AI MVP technical debt audit report",
         summary: "FixMyVibe sample audit report walkthrough",
+        date: "2026-05-05",
         domain: "fixmyvibe",
-        layout: "narrow",
+        layout: "report",
         body: { code: "compiled-code" },
       };
     }
@@ -82,7 +101,7 @@ describe("PostPage", () => {
         description: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
         type: "article",
         url: absoluteUrl("/posts/ai-mvp-launch-checklist"),
-        siteName: "wakeymoment",
+        siteName: "fmv",
       },
       twitter: {
         card: "summary_large_image",
@@ -113,38 +132,77 @@ describe("PostPage", () => {
     expect(mockedNotFound).not.toHaveBeenCalled();
   });
 
-  it("adds a Lazyweb-inspired conversion rail to the AI MVP checklist article", async () => {
-    render(await PostPage({ params: Promise.resolve({ slug: "ai-mvp-launch-checklist" }) }));
+  it("gives the product articles the same shell as every other post", async () => {
+    // These two slugs used to get a landing page bolted on top of the article:
+    // an eyebrow, a meta row, a "best for" list, a table of contents, and a
+    // conversion rail rendered twice. Five chrome blocks before the first
+    // sentence, on the two posts a reader is most likely to have arrived to read.
+    for (const slug of ["ai-mvp-launch-checklist"]) {
+      const { unmount } = render(await PostPage({ params: Promise.resolve({ slug }) }));
 
-    expect(screen.getByTestId("post-conversion-rail")).toBeInTheDocument();
-    expect(screen.getByTestId("post-mobile-conversion-rail")).toBeInTheDocument();
-    expect(screen.getByRole("navigation", { name: "AI MVP checklist sections" })).toBeVisible();
-    expect(screen.getByRole("navigation", { name: "Mobile AI MVP checklist sections" })).toBeVisible();
-    expect(screen.getByRole("region", { name: "Post use-case summary" })).toBeVisible();
-    expect(screen.getByTestId("post-article-body")).toHaveClass("fmv-article-prose");
-    expect(screen.getByText("FixMyVibe use case · Launch-readiness checklist")).toBeVisible();
-    expect(screen.getByText("Best for")).toBeVisible();
-    expect(screen.getByText("7 launch gates")).toBeVisible();
-    expect(screen.getByText("Risk table")).toBeVisible();
-    expect(screen.getAllByRole("link", { name: "Auth & Session" })[0]).toHaveAttribute("href", "#auth-session");
-    expect(screen.getAllByText("진단 산출물").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByText("Risk table · System map · 2주 안정화").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByRole("link", { name: "진단 문의" })[0]).toHaveAttribute("href", "/contact");
+      expect(screen.getByTestId("post-narrow-layout")).toBeInTheDocument();
+      expect(screen.queryByText(/^Best for$/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/^On this guide$/i)).not.toBeInTheDocument();
+
+      // The article's own <ArticleCTA> sits at the end of the MDX, where a reader
+      // who finished is the one being asked. The rail asked before they started.
+      expect(screen.queryByText(/^What is in the sample$/i)).not.toBeInTheDocument();
+
+      unmount();
+    }
   });
 
-  it("adds a sample-report rail that previews deliverables and keeps the contact path visible", async () => {
-    render(await PostPage({ params: Promise.resolve({ slug: "ai-mvp-technical-debt-audit-sample-report" }) }));
+  it("typesets a post as a document, not as a bare column", async () => {
+    // A post was the one page in the system without document chrome: no locator
+    // in the margin, no closing stamp, and a reading column that agreed with
+    // nothing around it. The home page and the index both use this grid.
+    render(await PostPage({ params: Promise.resolve({ slug: "ai-mvp-launch-checklist" }) }));
 
-    expect(screen.getByTestId("post-conversion-rail")).toBeInTheDocument();
-    expect(screen.getByTestId("post-mobile-conversion-rail")).toBeInTheDocument();
-    expect(screen.getByRole("navigation", { name: "Sample audit report sections" })).toBeVisible();
-    expect(screen.getByRole("navigation", { name: "Mobile Sample audit report sections" })).toBeVisible();
-    expect(screen.getByText("FixMyVibe use case · Sample audit report")).toBeVisible();
-    expect(screen.getByText("Sample report")).toBeVisible();
-    expect(screen.getByText("Audit output")).toBeVisible();
-    expect(screen.getAllByRole("link", { name: "Executive Summary" })[0]).toHaveAttribute("href", "#executive-summary");
-    expect(screen.getAllByText("샘플 리포트 구성" ).length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByText("Executive summary · Risk table · Go / No-Go" ).length).toBeGreaterThanOrEqual(2);
-    expect(screen.getAllByRole("link", { name: "진단 문의" })[0]).toHaveAttribute("href", "/contact");
+    expect(screen.getByTestId("post-narrow-layout")).toHaveClass("lg:grid-cols-[6rem_minmax(0,1fr)]");
+    expect(screen.getByRole("link", { name: /← Proof/ })).toHaveAttribute("href", "/posts");
+    expect(screen.getByText("2026-05-05")).toHaveAttribute("datetime", "2026-05-05");
+    expect(screen.getByText(/End of document · ai-mvp-launch-checklist/)).toBeVisible();
+  });
+
+  it("points the reader at the next document instead of just stopping", async () => {
+    // getAllPosts is sorted newest first, so the post after this one in reading
+    // order is the next index, not the previous one.
+    render(await PostPage({ params: Promise.resolve({ slug: "ai-mvp-launch-checklist" }) }));
+
+    expect(
+      screen.getByRole("link", { name: /AI MVP Technical Debt Audit — Sample Report/ }),
+    ).toHaveAttribute("href", "/posts/ai-mvp-technical-debt-audit-sample-report");
+  });
+
+  it("sets the sample report as a sheet, because it is a deliverable", async () => {
+    // The one page on the site that renders an artifact rather than describing
+    // one. It gets a bordered sheet with a running head and foot, not the
+    // article shell, and the reading measure gives way to the sheet's own width
+    // so a seven-column risk table has room.
+    render(
+      await PostPage({
+        params: Promise.resolve({ slug: "ai-mvp-technical-debt-audit-sample-report" }),
+      }),
+    );
+
+    const sheet = screen.getByTestId("post-report-layout");
+    expect(sheet).toBeInTheDocument();
+    expect(sheet).toHaveClass("border", "border-rule");
+    expect(screen.queryByTestId("post-narrow-layout")).not.toBeInTheDocument();
+    expect(screen.getByText("FixMyVibe · Launch Gate Audit")).toBeVisible();
+    expect(screen.getByText("fmv · sample audit report")).toBeVisible();
+  });
+
+  it("falls back to the index when a post is the oldest one", async () => {
+    render(
+      await PostPage({
+        params: Promise.resolve({ slug: "remodeling-sprint-for-ai-built-apps" }),
+      }),
+    );
+
+    expect(screen.getByRole("link", { name: /Everything I have published/ })).toHaveAttribute(
+      "href",
+      "/posts",
+    );
   });
 });

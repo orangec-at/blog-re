@@ -1,0 +1,157 @@
+---
+title: "Why AI-built apps leak data: the invisible Supabase RLS boundary"
+date: "2026-08-28"
+summary: "Hiding buttons in React is not security. How AI coding tools accidentally leave Supabase PostgREST endpoints wide open, and how to verify multi-tenant isolation with two test accounts."
+domain: "fixmyvibe"
+layout: "narrow"
+draft: false
+seoTitle: "Why AI Apps Leak Data: Supabase RLS Multi-Tenant Security Guide"
+seoDescription: "Learn why AI-generated code often misses Row-Level Security (RLS), how to simulate dual-session cross-tenant attacks, and how to lock down your PostgreSQL database."
+canonicalPath: "/posts/why-ai-built-apps-leak-data"
+keywords:
+  - "Supabase RLS"
+  - "multi-tenant security"
+  - "AI code security"
+  - "PostgREST"
+  - "Lovable"
+  - "Cursor"
+  - "Claude Code"
+  - "FixMyVibe"
+tags:
+  - "Supabase"
+  - "security"
+  - "RLS"
+  - "multi-tenancy"
+updated: "2026-08-28"
+author: "Jaeil Lee"
+ogImage: "/og/why-ai-built-apps-leak-data.png"
+---
+
+When you prompt Claude Code, Cursor, or Lovable to build a SaaS dashboard, it writes clean React components that filter user data seamlessly:
+
+```tsx
+// Typical AI-generated frontend query
+const { data: myInvoices } = await supabase
+  .from('invoices')
+  .select('*')
+  .eq('tenant_id', currentTenant.id); // Looks safe in the UI
+```
+
+In your browser, everything works. User A only sees Organization A's invoices. User B only sees Organization B's invoices.
+
+You think your app is secure.
+
+**In reality, your entire database might be completely public to any signed-in user.**
+
+<ArticleIntro
+  eyebrow="The UI Illusion"
+  thesis="Frontend filtering is cosmetic. True multi-tenant data isolation happens inside the PostgreSQL database engine via Row-Level Security (RLS)."
+  points={[
+    "AI models prioritize making the UI look functional and often neglect backend database policies.",
+    "Supabase exposes a direct REST API (PostgREST) to the browser; any user with DevTools can bypass your React filters.",
+    "You can prove whether your app leaks data in 5 minutes by running a dual-session cross-tenant query test.",
+  ]}
+/>
+
+## 1. How the leak actually happens: The PostgREST Bypass
+
+When an application connects to Supabase from the browser, it uses the **public anon key** and communicates directly with PostgreSQL over HTTP.
+
+If an attacker logs in as **User A (Tenant #101)**, opens Chrome DevTools, and removes the `.eq('tenant_id', ...)` filter, what happens?
+
+```typescript
+// Attacker runs this in DevTools Console:
+const { data, error } = await supabase
+  .from('invoices')
+  .select('*'); // Request ALL invoices across all tenants
+```
+
+If Row-Level Security is disabled or improperly configured, PostgreSQL will happily return **every single invoice, customer email, and billing address in your database**.
+
+The React UI was filtering the data, but the database had no authorization rules.
+
+<ExpertInsight source="PostgreSQL Security Standards">
+A database should never trust the client to tell it what data it is allowed to see. The authorization rules must live inside the database policies, evaluated on every single SQL row.
+</ExpertInsight>
+
+## 2. The three common AI-generated RLS mistakes
+
+When reviewing AI-generated Supabase projects, we find three recurring failure modes:
+
+### Mistake 1: Enabling RLS without adding policies
+```sql
+-- The AI enables RLS...
+ALTER TABLE invoices ENABLE ROW LEVEL SECURITY;
+-- ...but forgets to add policies!
+-- Result: All queries return empty arrays, breaking the app.
+-- Then the founder or AI disables RLS to "make it work again."
+```
+
+### Mistake 2: The `USING (true)` trap
+To fix query errors, AI prompts often generate:
+```sql
+-- DANGEROUS: Grants full read access to anyone logged in
+CREATE POLICY "Allow authenticated read" ON invoices
+FOR SELECT TO authenticated
+USING (true); -- User A can read User B's rows!
+```
+
+### Mistake 3: Checking `auth.uid()` instead of `tenant_id`
+In multi-tenant B2B SaaS apps, a user belongs to an organization. A policy that only checks `auth.uid() = user_id` prevents teammates from seeing each other's work, while failing to isolate tenant boundaries.
+
+## 3. How to verify your app with a Dual-Session Test
+
+Never assume your database is secure just because the dashboard looks right. Perform this simple **Dual-Session Isolation Drill**:
+
+<ActionTimeline
+  title="5-Minute Cross-Tenant Verification Drill"
+  steps={[
+    {
+      label: "Step 1",
+      title: "Create Two Test Tenants",
+      body: "Register User A under 'Acme Corp' and User B under 'Beta Industries' in your staging app.",
+    },
+    {
+      label: "Step 2",
+      title: "Obtain User A's JWT Token",
+      body: "Log in as User A, open DevTools Application Tab, and copy the Supabase auth access token.",
+    },
+    {
+      label: "Step 3",
+      title: "Execute Direct Cross-Tenant Fetch",
+      body: "Using User A's session, issue a REST fetch targeting Tenant B's UUID. If the response returns rows, you have an active P0 data leak.",
+    },
+  ]}
+/>
+
+## 4. The Proper Fix: Enforcing Strict Tenant Isolation in RLS
+
+To secure multi-tenant tables properly, enforce tenant membership directly in the PostgreSQL RLS policy using JWT app metadata or junction tables:
+
+```sql
+-- 1. Enable RLS
+ALTER TABLE invoices ENABLE ROW LEVEL SECURITY;
+
+-- 2. Create strict tenant-isolated SELECT policy
+CREATE POLICY "Tenant isolation for invoices" ON invoices
+FOR SELECT TO authenticated
+USING (
+  tenant_id = (auth.jwt() -> 'app_metadata' ->> 'tenant_id')::uuid
+  OR
+  EXISTS (
+    SELECT 1 FROM tenant_members
+    WHERE tenant_members.tenant_id = invoices.tenant_id
+      AND tenant_members.user_id = auth.uid()
+  )
+);
+```
+
+With this policy in place, even if an attacker queries `supabase.from('invoices').select('*')`, the database engine automatically discards all rows belonging to other tenants before returning the response.
+
+<ArticleCTA
+  eyebrow="Launch Gate Audit"
+  title="Need your RLS and Auth audited before launch?"
+  body="We run comprehensive dual-session penetration drills across all your Supabase tables, storage buckets, and edge functions. 1-week turnaround, plain-English risk table, and exact SQL fix scripts."
+  primary={{ label: "Explore Sample Audit", href: "/sample-audit" }}
+  secondary={{ label: "Request a Review", href: "/contact" }}
+/>

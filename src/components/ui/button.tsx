@@ -5,17 +5,23 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 font-medium transition-[background-color,border-color,color,box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#533afd] focus-visible:ring-offset-2 focus-visible:ring-offset-cream active:translate-y-px touch-manipulation disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 font-medium transition-[background-color,border-color,color,box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper active:translate-y-px touch-manipulation disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         primary:
-          "min-h-11 rounded-[5px] border border-[#533afd] bg-[#533afd] text-white shadow-[0_24px_36px_-24px_rgba(50,50,93,0.35),0_14px_24px_-18px_rgba(0,0,0,0.16)] hover:border-[#4434d4] hover:bg-[#4434d4]",
+          "min-h-11 rounded-[5px] border border-ink bg-ink text-paper shadow-[0_24px_36px_-24px_rgba(50,50,93,0.35),0_14px_24px_-18px_rgba(0,0,0,0.16)] hover:border-ink-muted hover:bg-ink-muted hover:text-paper",
         secondary:
-          "min-h-11 rounded-[5px] border border-[#b9b9f9] bg-white text-[#533afd] shadow-[0_16px_32px_-24px_rgba(50,50,93,0.24)] hover:border-[#533afd] hover:bg-[#f4f7ff] hover:text-[#4434d4]",
+          "min-h-11 rounded-[5px] border border-ink bg-paper text-ink shadow-[0_16px_32px_-24px_rgba(50,50,93,0.24)] hover:bg-rule",
         ghost:
-          "min-h-11 rounded-[5px] border border-zapier-sand bg-white text-zapier-black shadow-[0_12px_28px_-24px_rgba(50,50,93,0.24)] hover:border-[#b9b9f9] hover:bg-offwhite",
-        text: "border-transparent bg-transparent px-0 py-0 text-[#533afd] underline decoration-[#b9b9f9] decoration-2 underline-offset-4 hover:text-[#4434d4] hover:no-underline",
+          "min-h-11 rounded-[5px] border border-ink-muted bg-paper text-ink shadow-[0_12px_28px_-24px_rgba(50,50,93,0.24)] hover:border-ink",
+        // Underlined with a border, not text-decoration. This build emits no
+        // .underline or .decoration-* utilities at all — a probe element given
+        // class="underline" computes to text-decoration-line: none — so every
+        // text-decoration utility in the codebase is inert. A border is the
+        // affordance that actually renders, and a text link needs one now that
+        // links are ink and otherwise identical to body text.
+        text: "border-x-0 border-t-0 border-b-2 border-rule bg-transparent px-0 pb-0.5 pt-0 text-ink hover:border-ink",
       },
       size: {
         sm: "px-3 py-3 text-sm",
@@ -77,7 +83,10 @@ function ActionContent({
 
 export function Button(props: ButtonProps) {
   const variant = props.variant ?? "primary";
-  const size = props.size ?? (variant === "secondary" ? "lg" : "md");
+  // Secondary used to default to "lg" while primary defaulted to "md", so a
+  // subordinate action rendered 16px taller than the action it was subordinate
+  // to. Both default to "md"; a caller that wants a bigger one asks for it.
+  const size = props.size ?? "md";
   const className = cn(buttonVariants({ variant, size: variant === "text" ? undefined : size }), props.className);
   const content = <ActionContent leadingIcon={props.leadingIcon} trailingIcon={props.trailingIcon}>{props.children}</ActionContent>;
 
@@ -167,7 +176,7 @@ export function PrimaryButton(props: PrimaryButtonProps) {
 }
 
 export function SecondaryButton(props: SecondaryButtonProps) {
-  return <Button {...props} size={props.size ?? "lg"} variant="secondary" />;
+  return <Button {...props} variant="secondary" />;
 }
 
 export function TextLink({ children, className, href, ...props }: TextLinkProps) {

@@ -24,7 +24,9 @@ export function buildOrganizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: siteConfig.name,
+    // The organization is the company, not the service. Search engines read this
+    // as the legal entity behind the site; fmv is a thing wakeymoment sells.
+    name: siteConfig.company,
     url: siteConfig.url,
   };
 }
@@ -48,7 +50,7 @@ export function buildBlogPostingJsonLd(input: BlogPostingJsonLdInput) {
     },
     publisher: {
       "@type": "Organization",
-      name: siteConfig.name,
+      name: siteConfig.company,
       url: siteConfig.url,
     },
   };

@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 // with no preview image. Generating the card at build time keeps it in sync with
 // the offer copy and leaves no binary asset to forget to update.
 
-export const alt = "Launch-readiness engineering for software built with AI.";
+export const alt = "Your developer says it’s done. You have no way to check.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -37,7 +37,7 @@ export default function OpengraphImage() {
             maxWidth: "900px",
           }}
         >
-          Launch-readiness engineering for software built with AI.
+          Your developer says it’s done. You have no way to check.
         </div>
 
         <div style={{ display: "flex", fontSize: 26, color: "#64748d" }}>

@@ -7,26 +7,56 @@ const root = process.cwd();
 const designPath = path.join(root, 'DESIGN.md');
 const inventoryPath = path.join(root, 'docs/design-system/ui-pattern-inventory.md');
 
+// The four marketing cards this table used to guard were only ever rendered by
+// src/components/home-redesign/, which the proposal-home redesign deleted. The
+// table went empty, then the proposal-home redesign registered its own five
+// reusable patterns below — the ones src/app/page.tsx now composes the home
+// page from.
 const requiredOwners = [
   {
-    name: 'ServicePackageCard',
-    owner: 'src/components/marketing/service-package-card.tsx',
-    usedBy: 'src/components/home-redesign/services-preview-grid.tsx',
+    name: 'ProposalSection',
+    owner: 'src/components/proposal/proposal-section.tsx',
+    usedBy: 'src/app/page.tsx',
   },
   {
-    name: 'ProofArtifactCard',
-    owner: 'src/components/marketing/proof-artifact-card.tsx',
-    usedBy: 'src/components/home-redesign/featured-insight-row.tsx',
+    name: 'SystemMapPanel',
+    owner: 'src/components/proposal/system-map-panel.tsx',
+    usedBy: 'src/app/page.tsx',
   },
   {
-    name: 'PainSignalCard',
-    owner: 'src/components/marketing/pain-signal-card.tsx',
-    usedBy: 'src/components/home-redesign/pain-point-grid.tsx',
+    name: 'GateList',
+    owner: 'src/components/proposal/gate-list.tsx',
+    usedBy: 'src/app/page.tsx',
   },
   {
-    name: 'ProofMetricCard',
-    owner: 'src/components/marketing/proof-metric-card.tsx',
-    usedBy: 'src/components/home-redesign/proof-stat-strip.tsx',
+    name: 'VerdictSheet',
+    owner: 'src/components/proposal/verdict-sheet.tsx',
+    usedBy: 'src/app/page.tsx',
+  },
+  {
+    name: 'ScopeTable',
+    owner: 'src/components/proposal/scope-table.tsx',
+    usedBy: 'src/app/page.tsx',
+  },
+  {
+    name: 'ReportMeta',
+    owner: 'src/components/content/report-blocks.tsx',
+    usedBy: 'content/posts/ai-mvp-technical-debt-audit-sample-report.mdx',
+  },
+  {
+    name: 'ReportSection',
+    owner: 'src/components/content/report-blocks.tsx',
+    usedBy: 'content/posts/ai-mvp-technical-debt-audit-sample-report.mdx',
+  },
+  {
+    name: 'ReportTable',
+    owner: 'src/components/content/report-blocks.tsx',
+    usedBy: 'content/posts/ai-mvp-technical-debt-audit-sample-report.mdx',
+  },
+  {
+    name: 'ReportList',
+    owner: 'src/components/content/report-blocks.tsx',
+    usedBy: 'content/posts/ai-mvp-technical-debt-audit-sample-report.mdx',
   },
 ];
 

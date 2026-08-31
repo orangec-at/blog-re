@@ -35,7 +35,7 @@ export function FormField({ children, className, error, htmlFor, label }: FormFi
 
   return (
     <div className={joinClasses("flex flex-col gap-2", className)}>
-      <label className="font-sans text-sm font-semibold text-zapier-black" htmlFor={htmlFor}>
+      <label className="font-sans text-sm font-semibold text-ink" htmlFor={htmlFor}>
         {label}
       </label>
       {control}

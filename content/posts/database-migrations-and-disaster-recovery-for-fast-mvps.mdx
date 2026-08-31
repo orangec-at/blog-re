@@ -1,0 +1,123 @@
+---
+title: "The pre-launch disaster drill: migrations, rollback scripts, and PITR for Supabase"
+date: "2026-08-28"
+summary: "Having automated cloud backups is not the same as disaster recovery. How to test Point-in-Time Recovery (PITR), write backward-compatible PostgreSQL migrations, and prepare rollback scripts before your beta launch."
+domain: "fixmyvibe"
+layout: "narrow"
+draft: false
+seoTitle: "Supabase Disaster Recovery & Migration Rollback Guide for Startups"
+seoDescription: "Learn how to conduct a 15-minute staging disaster recovery drill, test Point-in-Time Recovery (PITR), and create zero-downtime PostgreSQL rollback migrations in Supabase."
+canonicalPath: "/posts/database-migrations-and-disaster-recovery-for-fast-mvps"
+keywords:
+  - "Supabase PITR"
+  - "database migrations"
+  - "disaster recovery"
+  - "PostgreSQL rollback"
+  - "AI MVP launch"
+  - "FixMyVibe"
+tags:
+  - "Supabase"
+  - "database"
+  - "migrations"
+  - "disaster recovery"
+  - "ops"
+updated: "2026-08-28"
+author: "Jaeil Lee"
+ogImage: "/og/database-migrations-and-disaster-recovery-for-fast-mvps.png"
+---
+
+When founders prepare for a public beta or Closed Beta launch, they often check their Supabase dashboard, see that **"Daily Backups: Active"** is green, and assume their database is protected.
+
+This is a dangerous false sense of security.
+
+**A backup is just a file on a cloud server. Until you have actually restored a snapshot into a running environment and measured the time it takes, you do not have disaster recovery.**
+
+If a botched migration drops a critical table on launch morning, how many minutes will it take you to restore? Will you lose the transactions that occurred in the last two hours? Do you have a tested rollback migration ready?
+
+<ArticleIntro
+  eyebrow="Ops & Recovery Gate"
+  thesis="Disaster readiness is measured by your Recovery Time Objective (RTO) and Recovery Point Objective (RPO), not by a green dashboard toggle."
+  points={[
+    "Automated daily backups only protect against yesterday's failure—Point-in-Time Recovery (PITR) with WAL archiving is needed to recover data up to the exact minute of a crash.",
+    "Destructive migrations (`DROP COLUMN`, `ALTER COLUMN TYPE`) break active users if your code deployment and database migration are not backward-compatible.",
+    "Running a 15-minute disaster recovery drill on a staging branch before launch gives you the confidence to ship without fear.",
+  ]}
+/>
+
+## 1. What is PITR and why do daily backups fall short?
+
+Imagine this scenario:
+- 09:00 AM: Your beta goes live, and 50 users register and create workspace projects.
+- 01:30 PM: An unhandled migration script accidentally truncates the `workspace_members` table.
+- 01:35 PM: You realize the bug and attempt to restore from your automated backup.
+
+If you only have **daily backups**, your latest snapshot is from **00:00 AM midnight**. Restoring that snapshot wipes out all 50 users who registered this morning.
+
+### The Point-in-Time Recovery (PITR) Difference
+With **Point-in-Time Recovery (PITR)** enabled in PostgreSQL/Supabase:
+1. Periodic base snapshots are combined with continuous **Write-Ahead Logs (WAL)**.
+2. You can specify an exact timestamp—such as `01:29:59 PM`—and restore your entire database to the exact second before the destructive event occurred.
+
+<ExpertInsight source="PostgreSQL Production Engineering">
+Always verify that WAL archiving is active on production instances, and measure your Recovery Point Objective (RPO)—the maximum acceptable data loss window—before handling real user data.
+</ExpertInsight>
+
+## 2. Backward-Compatible Migrations: The Expand-and-Contract Pattern
+
+AI coding tools often generate destructive migrations directly. For example, if you rename `user_name` to `full_name`:
+
+```sql
+-- DANGEROUS: Destructive migration
+ALTER TABLE users RENAME COLUMN user_name TO full_name;
+```
+
+If your database migration runs at 10:00 AM, but your Vercel deployment takes 90 seconds to build and deploy, all running frontend instances will immediately throw `column "user_name" does not exist` errors for 90 seconds.
+
+### The Safe 3-Phase Migration Rule:
+1. **Expand**: Add the new column (`full_name`) as optional, while keeping `user_name`. Update your app to write to both columns.
+2. **Backfill**: Run a background SQL script to copy old data (`UPDATE users SET full_name = user_name WHERE full_name IS NULL;`).
+3. **Contract**: Once all app instances are reading `full_name`, drop the legacy column in a future milestone.
+
+## 3. The 15-Minute Pre-Launch Disaster Drill
+
+Before launching your Closed Beta, conduct this 3-step staging drill:
+
+<ActionTimeline
+  title="Staging Disaster Recovery Runbook"
+  steps={[
+    {
+      label: "Drill 1",
+      title: "Export Staging Snapshot",
+      body: "Generate a full schema + data dump via CLI (supabase db dump --data-only > staging_test.sql).",
+    },
+    {
+      label: "Drill 2",
+      title: "Simulate Table Corruption",
+      body: "Drop a non-critical test table in your staging database to simulate a failed migration.",
+    },
+    {
+      label: "Drill 3",
+      title: "Restore and Measure Time (RTO)",
+      body: "Restore the snapshot into a fresh branch and verify data integrity. Time how long the recovery took (Target: <10 minutes).",
+    },
+  ]}
+/>
+
+## 4. Disaster Readiness Checklist
+
+<CheckList
+  items={[
+    "Verify PITR (Point-in-Time Recovery) is enabled on your production database tier.",
+    "Ensure every SQL migration script in your repository has a corresponding tested rollback script (DOWN migration).",
+    "Confirm that staging and production database credentials (service_role keys) are isolated in separate environment variables.",
+    "Document a 1-page written runbook for database restores so any team member can execute it during an outage.",
+  ]}
+/>
+
+<ArticleCTA
+  eyebrow="Launch Gate Audit"
+  title="Ensure your database and operations are production-ready."
+  body="We test database migration safety, RLS isolation, and disaster recovery runbooks as part of our 1-week Launch Gate Audit ($1,200 fixed). Ship your Closed Beta with zero downtime anxiety."
+  primary={{ label: "View Sample Audit Report", href: "/sample-audit" }}
+  secondary={{ label: "Schedule an Audit", href: "/contact" }}
+/>

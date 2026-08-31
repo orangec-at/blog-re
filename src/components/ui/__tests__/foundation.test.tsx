@@ -23,17 +23,17 @@ describe("UI foundation primitives", () => {
 
     const eyebrow = screen.getByText("AI MVP rescue");
     expect(eyebrow.tagName).toBe("P");
-    expect(eyebrow).toHaveClass("uppercase", "text-zapier-gray");
+    expect(eyebrow).toHaveClass("uppercase", "text-ink-muted");
 
     const displayHeading = screen.getByRole("heading", { level: 2, name: "Fix the foundation first" });
-    expect(displayHeading).toHaveClass("font-display", "text-zapier-black");
+    expect(displayHeading).toHaveClass("font-display", "text-ink");
 
     const sectionHeading = screen.getByRole("heading", { level: 2, name: "What founders get next" });
-    expect(sectionHeading).toHaveClass("font-display", "text-zapier-black");
+    expect(sectionHeading).toHaveClass("font-display", "text-ink");
 
     const bodyText = screen.getByText("Clear architecture, calmer delivery, and a launch path.");
     expect(bodyText.tagName).toBe("SPAN");
-    expect(bodyText).toHaveClass("text-zapier-charcoal", "font-light");
+    expect(bodyText).toHaveClass("text-ink", "font-light");
   });
 
   it("renders CTA primitives as accessible links and buttons with clear emphasis", () => {
@@ -47,16 +47,16 @@ describe("UI foundation primitives", () => {
 
     const primaryLink = screen.getByRole("link", { name: "Book a rescue call" });
     expect(primaryLink).toHaveAttribute("href", "/contact");
-    expect(primaryLink).toHaveClass("bg-[#533afd]", "border-[#533afd]", "text-white");
+    expect(primaryLink).toHaveClass("bg-ink", "border-ink", "text-paper");
 
     const secondaryButton = screen.getByRole("button", { name: "Review the rescue plan" });
     expect(secondaryButton).toHaveAttribute("type", "button");
-    expect(secondaryButton).toHaveClass("bg-white", "border-[#b9b9f9]", "text-[#533afd]");
+    expect(secondaryButton).toHaveClass("bg-paper", "border-ink", "text-ink");
     expect(secondaryButton).toHaveClass("px-6", "py-5");
 
     const textLink = screen.getByRole("link", { name: "Explore services" });
     expect(textLink).toHaveAttribute("href", "/services");
-    expect(textLink).toHaveClass("text-[#533afd]");
+    expect(textLink).toHaveClass("text-ink");
   });
 
   it("renders informational and interactive chip atoms", () => {
@@ -113,8 +113,7 @@ describe("UI foundation primitives", () => {
 
     expect(screen.getByTestId("badge-default")).toHaveClass("rounded-base", "px-2.5", "py-1");
     expect(screen.getByTestId("badge-accent")).toHaveClass("rounded-base", "px-2.5", "py-1");
-    expect(screen.getByTestId("badge-label")).toHaveClass("p-0", "uppercase", "text-[#533afd]");
-    expect(screen.getByTestId("badge-label")).not.toHaveClass("text-zapier-orange");
+    expect(screen.getByTestId("badge-label")).toHaveClass("p-0", "uppercase", "text-ink");
     expect(screen.getByTestId("badge-muted")).toHaveClass("p-0", "uppercase");
   });
 
@@ -128,12 +127,12 @@ describe("UI foundation primitives", () => {
 
     const surface = screen.getByTestId("diagnosis-surface");
     expect(surface.tagName).toBe("DIV");
-    expect(surface).toHaveClass("bg-offwhite", "border", "border-zapier-sand");
+    expect(surface).toHaveClass("bg-paper", "border", "border-rule");
     expect(surface).toContainElement(screen.getByText("We start with a diagnosis, not a rewrite."));
 
     const pillTag = screen.getByText("Border-first");
     expect(pillTag.tagName).toBe("SPAN");
-    expect(pillTag).toHaveClass("rounded-pill", "border-zapier-sand", "bg-cream", "text-zapier-charcoal");
+    expect(pillTag).toHaveClass("rounded-pill", "border-rule", "bg-paper", "text-ink");
   });
 
   it("renders card and panel surface shells with their baseline slots and tones", () => {
@@ -154,7 +153,7 @@ describe("UI foundation primitives", () => {
 
     const card = screen.getByTestId("marketing-card");
     expect(card).toHaveAttribute("data-slot", "card");
-    expect(card).toHaveClass("rounded-lg", "border", "bg-cream");
+    expect(card).toHaveClass("rounded-lg", "border", "bg-paper");
     expect(screen.getByRole("heading", { level: 3, name: "Reusable marketing card" })).toHaveAttribute(
       "data-slot",
       "card-title",
@@ -163,6 +162,6 @@ describe("UI foundation primitives", () => {
 
     const panel = screen.getByTestId("legacy-panel");
     expect(panel.tagName).toBe("SECTION");
-    expect(panel).toHaveClass("rounded-3xl", "border", "bg-offwhite");
+    expect(panel).toHaveClass("rounded-3xl", "border", "bg-paper");
   });
 });

@@ -6,7 +6,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 // files were ever in the repo. Rendering the card from the post's own title keeps
 // it correct for posts that do not exist yet.
 
-export const alt = "wakeymoment";
+export const alt = "fmv";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -46,11 +46,11 @@ export default async function PostOpengraphImage({ params }: { params: Promise<{
             maxWidth: "1000px",
           }}
         >
-          {post?.title ?? "wakeymoment"}
+          {post?.title ?? "fmv"}
         </div>
 
         <div style={{ display: "flex", fontSize: 26, color: "#64748d" }}>
-          Launch-readiness engineering for software built with AI.
+          Your developer says it’s done. You have no way to check.
         </div>
       </div>
     ),

@@ -21,7 +21,10 @@ describe("metadata routes", () => {
   it("includes public static routes and excludes draft posts", () => {
     const urls = sitemap().map((entry) => entry.url);
 
-    for (const path of ["/", "/posts", "/services", "/resources", "/contact"]) {
+    // /services, /resources, /domains and /design-system were deleted rather
+    // than left unlinked: two were written in Korean for a buyer who reads
+    // English, one showcased other work, and the last was an internal catalog.
+    for (const path of ["/", "/about", "/posts", "/contact"]) {
       expect(urls).toContain(absoluteUrl(path));
     }
 

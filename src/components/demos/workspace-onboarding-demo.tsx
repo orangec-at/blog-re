@@ -157,8 +157,8 @@ function FieldError({ message }: { message?: string }) {
 function SummaryItem({ label, value }: { label: string; value: string }) {
   return (
     <div className="space-y-1">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zapier-gray">{label}</p>
-      <p className="text-sm text-zapier-charcoal">{value || "Not set yet"}</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-muted">{label}</p>
+      <p className="text-sm text-ink">{value || "Not set yet"}</p>
     </div>
   );
 }
@@ -202,16 +202,16 @@ export function WorkspaceOnboardingDemo() {
     return (
       <section
         data-testid="workspace-onboarding-demo-success"
-        className="grid gap-6 rounded-[32px] border border-zapier-sand bg-cream p-6 shadow-sm lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)] lg:p-8"
+        className="grid gap-6 rounded-[32px] border border-rule bg-paper p-6 shadow-sm lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)] lg:p-8"
       >
         <div className="space-y-4">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zapier-gray">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ink-muted">
             Review state
           </p>
-          <h2 className="text-3xl font-semibold text-zapier-black sm:text-4xl">
+          <h2 className="text-3xl font-semibold text-ink sm:text-4xl">
             Launch-ready workspace plan
           </h2>
-          <p className="max-w-2xl text-base text-zapier-charcoal">
+          <p className="max-w-2xl text-base text-ink">
             The form has validated the onboarding data and translated it into a rollout summary for
             the product team.
           </p>
@@ -228,11 +228,11 @@ export function WorkspaceOnboardingDemo() {
           </div>
         </div>
 
-        <aside className="space-y-4 rounded-3xl border border-zapier-sand bg-offwhite p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zapier-gray">
+        <aside className="space-y-4 rounded-3xl border border-rule bg-paper p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-muted">
             Handoff notes
           </p>
-          <ul className="space-y-3 text-sm text-zapier-charcoal">
+          <ul className="space-y-3 text-sm text-ink">
             <li>• Validation rules are encoded with Zod before any API integration.</li>
             <li>• Conditional fields stay hidden until the user context makes them relevant.</li>
             <li>• The summary can feed a real review or provisioning step later.</li>
@@ -245,17 +245,17 @@ export function WorkspaceOnboardingDemo() {
   return (
     <section
       data-testid="workspace-onboarding-demo"
-      className="grid gap-6 rounded-[32px] border border-zapier-sand bg-cream p-6 shadow-sm lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)] lg:p-8"
+      className="grid gap-6 rounded-[32px] border border-rule bg-paper p-6 shadow-sm lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)] lg:p-8"
     >
       <form className="space-y-8" onSubmit={handleSubmit((data) => setSubmitted(data))}>
         <div className="space-y-3">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zapier-gray">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ink-muted">
             Product scenario
           </p>
-          <h2 className="text-3xl font-semibold text-zapier-black sm:text-4xl">
+          <h2 className="text-3xl font-semibold text-ink sm:text-4xl">
             Workspace onboarding
           </h2>
-          <p className="max-w-2xl text-base text-zapier-charcoal">
+          <p className="max-w-2xl text-base text-ink">
             A B2B onboarding flow for product teams that need conditional inputs, validation, and a
             clear implementation summary before launch.
           </p>
@@ -263,27 +263,27 @@ export function WorkspaceOnboardingDemo() {
 
         <section className="space-y-4">
           <div>
-            <h3 className="text-xl font-semibold text-zapier-black">Company profile</h3>
-            <p className="text-sm text-zapier-charcoal">
+            <h3 className="text-xl font-semibold text-ink">Company profile</h3>
+            <p className="text-sm text-ink">
               Capture the core context that shapes onboarding recommendations.
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
-            <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+            <label className="space-y-2 text-sm font-medium text-ink">
               <span>Company name</span>
               <input
                 {...register("companyName")}
-                className="w-full rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3"
+                className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
                 placeholder="Acme RevOps"
               />
               <FieldError message={errors.companyName?.message} />
             </label>
 
-            <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+            <label className="space-y-2 text-sm font-medium text-ink">
               <span>Industry</span>
               <select
                 {...register("industry")}
-                className="w-full rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3"
+                className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
               >
                 <option value="">Select an industry</option>
                 {industryOptions.map((option) => (
@@ -295,11 +295,11 @@ export function WorkspaceOnboardingDemo() {
               <FieldError message={errors.industry?.message} />
             </label>
 
-            <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+            <label className="space-y-2 text-sm font-medium text-ink">
               <span>Team size</span>
               <select
                 {...register("teamSize")}
-                className="w-full rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3"
+                className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
               >
                 <option value="">Select team size</option>
                 {teamSizeOptions.map((option) => (
@@ -315,18 +315,18 @@ export function WorkspaceOnboardingDemo() {
 
         <section className="space-y-4">
           <div>
-            <h3 className="text-xl font-semibold text-zapier-black">Workspace setup</h3>
-            <p className="text-sm text-zapier-charcoal">
+            <h3 className="text-xl font-semibold text-ink">Workspace setup</h3>
+            <p className="text-sm text-ink">
               Choose the primary rollout scenario and the teams that will own it.
             </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+            <label className="space-y-2 text-sm font-medium text-ink">
               <span>Primary use case</span>
               <select
                 {...register("useCase")}
-                className="w-full rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3"
+                className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
               >
                 <option value="">Select a use case</option>
                 {useCaseOptions.map((option) => (
@@ -338,11 +338,11 @@ export function WorkspaceOnboardingDemo() {
               <FieldError message={errors.useCase?.message} />
             </label>
 
-            <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+            <label className="space-y-2 text-sm font-medium text-ink">
               <span>Invited seats</span>
               <input
                 {...register("seats")}
-                className="w-full rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3"
+                className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
                 inputMode="numeric"
                 placeholder="24"
               />
@@ -351,12 +351,12 @@ export function WorkspaceOnboardingDemo() {
           </div>
 
           <fieldset className="space-y-3">
-            <legend className="text-sm font-medium text-zapier-charcoal">Departments</legend>
+            <legend className="text-sm font-medium text-ink">Departments</legend>
             <div className="flex flex-wrap gap-3">
               {departmentOptions.map((option) => (
                 <label
                   key={option.value}
-                  className="inline-flex items-center gap-2 rounded-full border border-zapier-sand bg-offwhite px-4 py-2 text-sm"
+                  className="inline-flex items-center gap-2 rounded-full border border-rule bg-paper px-4 py-2 text-sm"
                 >
                   <input type="checkbox" value={option.value} {...register("departments")} />
                   <span>{option.label}</span>
@@ -366,11 +366,11 @@ export function WorkspaceOnboardingDemo() {
           </fieldset>
 
           {values.useCase === "customer-portal" ? (
-            <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+            <label className="space-y-2 text-sm font-medium text-ink">
               <span>Customer support model</span>
               <input
                 {...register("customerSupportModel")}
-                className="w-full rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3"
+                className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
                 placeholder="Dedicated onboarding + support pod"
               />
               <FieldError message={errors.customerSupportModel?.message} />
@@ -378,11 +378,11 @@ export function WorkspaceOnboardingDemo() {
           ) : null}
 
           {values.useCase === "internal-ops" ? (
-            <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+            <label className="space-y-2 text-sm font-medium text-ink">
               <span>Internal process owner</span>
               <input
                 {...register("internalProcessOwner")}
-                className="w-full rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3"
+                className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
                 placeholder="Ops enablement lead"
               />
               <FieldError message={errors.internalProcessOwner?.message} />
@@ -392,19 +392,19 @@ export function WorkspaceOnboardingDemo() {
 
         <section className="space-y-4">
           <div>
-            <h3 className="text-xl font-semibold text-zapier-black">Integrations</h3>
-            <p className="text-sm text-zapier-charcoal">
+            <h3 className="text-xl font-semibold text-ink">Integrations</h3>
+            <p className="text-sm text-ink">
               Select the systems this onboarding flow has to coordinate with.
             </p>
           </div>
 
           <fieldset className="space-y-3">
-            <legend className="text-sm font-medium text-zapier-charcoal">Connected tools</legend>
+            <legend className="text-sm font-medium text-ink">Connected tools</legend>
             <div className="flex flex-wrap gap-3">
               {integrationOptions.map((option) => (
                 <label
                   key={option.value}
-                  className="inline-flex items-center gap-2 rounded-full border border-zapier-sand bg-offwhite px-4 py-2 text-sm"
+                  className="inline-flex items-center gap-2 rounded-full border border-rule bg-paper px-4 py-2 text-sm"
                 >
                   <input type="checkbox" value={option.value} {...register("integrations")} />
                   <span>{option.label}</span>
@@ -414,11 +414,11 @@ export function WorkspaceOnboardingDemo() {
           </fieldset>
 
           {selectedIntegrations.includes("slack") ? (
-            <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+            <label className="space-y-2 text-sm font-medium text-ink">
               <span>Slack workspace URL</span>
               <input
                 {...register("slackWorkspace")}
-                className="w-full rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3"
+                className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
                 placeholder="https://acme.slack.com"
               />
               <FieldError message={errors.slackWorkspace?.message} />
@@ -426,11 +426,11 @@ export function WorkspaceOnboardingDemo() {
           ) : null}
 
           {selectedIntegrations.includes("hubspot") ? (
-            <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+            <label className="space-y-2 text-sm font-medium text-ink">
               <span>HubSpot portal ID</span>
               <input
                 {...register("hubspotPortalId")}
-                className="w-full rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3"
+                className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
                 placeholder="123456"
               />
               <FieldError message={errors.hubspotPortalId?.message} />
@@ -438,11 +438,11 @@ export function WorkspaceOnboardingDemo() {
           ) : null}
 
           {selectedIntegrations.includes("salesforce") ? (
-            <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+            <label className="space-y-2 text-sm font-medium text-ink">
               <span>Salesforce org ID</span>
               <input
                 {...register("salesforceOrg")}
-                className="w-full rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3"
+                className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
                 placeholder="00Dxx0000001ABC"
               />
               <FieldError message={errors.salesforceOrg?.message} />
@@ -452,26 +452,26 @@ export function WorkspaceOnboardingDemo() {
 
         <section className="space-y-4">
           <div>
-            <h3 className="text-xl font-semibold text-zapier-black">Compliance</h3>
-            <p className="text-sm text-zapier-charcoal">
+            <h3 className="text-xl font-semibold text-ink">Compliance</h3>
+            <p className="text-sm text-ink">
               Reveal governance details only when the rollout requires them.
             </p>
           </div>
 
-          <label className="inline-flex items-center gap-3 rounded-2xl border border-zapier-sand bg-offwhite px-4 py-3 text-sm font-medium text-zapier-charcoal">
+          <label className="inline-flex items-center gap-3 rounded-2xl border border-rule bg-paper px-4 py-3 text-sm font-medium text-ink">
             <input type="checkbox" {...register("needsCompliance")} />
             <span>Security and compliance review required</span>
           </label>
 
           {values.needsCompliance ? (
-            <div className="space-y-4 rounded-3xl border border-zapier-sand bg-offwhite p-4">
+            <div className="space-y-4 rounded-3xl border border-rule bg-paper p-4">
               <fieldset aria-label="Frameworks in scope" className="space-y-3">
-                <legend className="text-sm font-medium text-zapier-charcoal">Frameworks in scope</legend>
+                <legend className="text-sm font-medium text-ink">Frameworks in scope</legend>
                 <div className="flex flex-wrap gap-3">
                   {complianceOptions.map((option) => (
                     <label
                       key={option.value}
-                      className="inline-flex items-center gap-2 rounded-full border border-zapier-sand bg-cream px-4 py-2 text-sm"
+                      className="inline-flex items-center gap-2 rounded-full border border-rule bg-paper px-4 py-2 text-sm"
                     >
                       <input type="checkbox" value={option.value} {...register("complianceFrameworks")} />
                       <span>{option.label}</span>
@@ -481,11 +481,11 @@ export function WorkspaceOnboardingDemo() {
                 <FieldError message={errors.complianceFrameworks?.message} />
               </fieldset>
 
-              <label className="space-y-2 text-sm font-medium text-zapier-charcoal">
+              <label className="space-y-2 text-sm font-medium text-ink">
                 <span>Security contact</span>
                 <input
                   {...register("securityContact")}
-                  className="w-full rounded-2xl border border-zapier-sand bg-cream px-4 py-3"
+                  className="w-full rounded-2xl border border-rule bg-paper px-4 py-3"
                   placeholder="security@acmerevops.com"
                 />
                 <FieldError message={errors.securityContact?.message} />
@@ -497,23 +497,23 @@ export function WorkspaceOnboardingDemo() {
         <div className="flex flex-wrap gap-3">
           <button
             type="submit"
-            className="rounded-full bg-zapier-orange px-5 py-3 text-sm font-semibold text-cream"
+            className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-paper"
           >
             Review onboarding plan
           </button>
-          <p className="text-sm text-zapier-charcoal">
+          <p className="text-sm text-ink">
             Frontend-only demo: this submits to a review state, not a backend.
           </p>
         </div>
       </form>
 
-      <aside className="space-y-5 rounded-[28px] border border-zapier-sand bg-offwhite p-5">
+      <aside className="space-y-5 rounded-[28px] border border-rule bg-paper p-5">
         <div className="space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zapier-gray">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-muted">
             Live summary
           </p>
-          <h3 className="text-2xl font-semibold text-zapier-black">Implementation snapshot</h3>
-          <p className="text-sm text-zapier-charcoal">
+          <h3 className="text-2xl font-semibold text-ink">Implementation snapshot</h3>
+          <p className="text-sm text-ink">
             This panel updates as the form changes so stakeholders can review scope before shipping.
           </p>
         </div>

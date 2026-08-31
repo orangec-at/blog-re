@@ -10,7 +10,7 @@ type WhenToContactUsProps = {
 
 export function WhenToContactUs({ data }: WhenToContactUsProps) {
   return (
-    <section className="bg-offwhite py-16 sm:py-20" data-testid="contact-guidance">
+    <section className="bg-paper py-16 sm:py-20" data-testid="contact-guidance">
       <Container variant="wide" className="space-y-8">
         <SectionHeading>{data.title}</SectionHeading>
 

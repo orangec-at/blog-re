@@ -42,8 +42,8 @@ const chipSizeClasses: Record<ChipSize, string> = {
 };
 
 const chipToneClasses: Record<ChipTone, string> = {
-  neutral: "border-zapier-sand bg-cream text-zapier-charcoal",
-  accent: "border-zapier-orange/30 bg-[#fff4ec] text-zapier-black",
+  neutral: "border-rule bg-paper text-ink",
+  accent: "border-ink bg-transparent text-ink",
   inverse: "border-white/15 bg-white/5 text-[#fff7f2]",
 };
 
@@ -74,14 +74,14 @@ export function InteractiveChip({
   ...props
 }: InteractiveChipProps) {
   const sharedClassName = joinClasses(
-    "inline-flex items-center justify-center gap-2 rounded-pill border font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zapier-black focus-visible:ring-offset-2 focus-visible:ring-offset-cream touch-manipulation",
+    "inline-flex items-center justify-center gap-2 rounded-pill border font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper touch-manipulation",
     chipSizeClasses[size],
     selected
       ? tone === "inverse"
         ? "border-white/25 bg-white/15 text-[#fffaf6]"
-        : "border-zapier-black bg-zapier-black text-cream"
+        : "border-ink bg-ink text-paper"
       : chipToneClasses[tone],
-    !selected && tone !== "inverse" && "hover:border-zapier-black hover:text-zapier-black",
+    !selected && tone !== "inverse" && "hover:border-ink hover:text-ink",
     !selected && tone === "inverse" && "hover:border-white/30 hover:bg-white/10",
     className,
   );
@@ -98,7 +98,7 @@ export function InteractiveChip({
               ? "bg-white/15 text-inherit"
               : tone === "inverse"
                 ? "bg-white/10 text-[#fffaf6]"
-                : "bg-zapier-light-sand text-zapier-black",
+                : "bg-paper text-ink",
           )}
         >
           {count}

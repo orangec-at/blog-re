@@ -1,13 +1,13 @@
 ---
-title: "AI MVP 기술 부채 진단 샘플 리포트에는 무엇이 들어가야 하나"
+title: "AI MVP Technical Debt Audit — Sample Report"
 date: "2026-05-05"
-summary: "FixMyVibe가 막연한 코드 불안을 system map, risk table, Go / No-Go recommendation, 2주 stabilization plan으로 바꾸는 샘플 리포트 구조."
+summary: "The full report a founder receives, written against a synthetic product: launch readiness, system map, a ten-row risk table, and a Go / No-Go recommendation."
 domain: "fixmyvibe"
-layout: "narrow"
-updated: "2026-05-20"
+layout: "report"
+updated: "2026-08-27"
 author: "Jaeil Lee"
-seoTitle: "AI MVP 기술 부채 진단 샘플 리포트"
-seoDescription: "FixMyVibe Technical Debt Audit이 system map, risk table, Go / No-Go recommendation으로 출시 리스크를 정리하는 방식을 보여주는 synthetic sample."
+seoTitle: "Sample AI MVP Technical Debt Audit Report"
+seoDescription: "A synthetic sample showing how a FixMyVibe Technical Debt Audit organizes launch risk into a system map, risk table, and Go / No-Go recommendation."
 canonicalPath: "/posts/ai-mvp-technical-debt-audit-sample-report"
 keywords:
   - "AI MVP"
@@ -21,176 +21,476 @@ tags:
 ogImage: "/og/ai-mvp-technical-debt-audit-sample-report.png"
 ---
 
-Founder에게 필요한 것은 “코드가 지저분합니다”라는 막연한 리뷰가 아닙니다. 필요한 것은 의사결정 산출물입니다.
+This is the report itself, not a description of one. It is written against a
+synthetic product so it can be published in full; every section below is what
+arrives after a real audit, in the order it arrives.
 
-- 무엇이 먼저 깨질 수 있는가
-- 왜 비즈니스 리스크인가
-- 무엇을 먼저 고쳐야 하는가
-- 지금 공개 출시해도 되는가, 아니면 private pilot / stabilization이 먼저인가
-
-<ArticleIntro
-  eyebrow="Sample audit report"
-  thesis="좋은 진단 리포트는 불안을 문장으로 설명하지 않고, 출시 결정을 내릴 수 있는 산출물로 바꿉니다."
-  points={[
-    "이 글은 실제 고객 리포트가 아니라 synthetic sample입니다.",
-    "목표는 FixMyVibe 진단 후 어떤 산출물을 받게 되는지 미리 보여주는 것입니다.",
-    "정식 보안 인증이나 법률/컴플라이언스 자문이 아니라, 출시 전 기술 리스크 triage입니다.",
-  ]}
+<ReportMeta
+  product="Synthetic Example — AI Scheduling MVP"
+  auditType="Pre-launch technical debt review"
+  auditDate="Sample — no audit date"
+  preparedBy="FixMyVibe"
+  status="Sample / not for client delivery"
+  notice="Synthetic sample. Not a real client report, not a security certification, not legal or privacy compliance advice, and not a guaranteed launch approval."
 />
 
-<ExpertInsight source="Report principle">
-  샘플 리포트의 목적은 모든 문제를 나열하는 것이 아니라, founder가 오늘 멈춰야 할 것과 계속 진행해도 되는 것을 구분하게 만드는 것입니다.
-</ExpertInsight>
+<ReportSection number="01" title="Executive summary">
 
-<RiskSection
-  id="executive-summary"
-  index={1}
-  title="Executive summary: 첫 페이지에서 결론을 말하는가"
-  body="리포트는 founder가 바로 이해할 수 있는 한 줄 판단으로 시작해야 합니다. 안전한지, 위험한지, 무엇을 먼저 고쳐야 하는지 첫 화면에서 보여줘야 합니다."
-  checks={[
-    "public launch 가능 여부가 한 줄로 정리되어 있는가",
-    "Top 3 risks가 P0/P1 중심으로 정리되어 있는가",
-    "다음 결정이 Go / Conditional Go / No-Go 중 하나로 표현되는가",
-    "과장된 공포 대신 실행 가능한 판단 언어를 쓰는가",
-  ]}
-  question="이 요약만 읽어도 founder가 다음 2주 동안 무엇을 해야 하는지 알 수 있는가?"
-  noGo="위험 항목은 많은데 launch decision이 없으면 좋은 리포트가 아니라 긴 코드 리뷰에 가깝습니다."
-/>
+**One-line assessment.** The MVP demonstrates the intended product flow, but it
+is not yet ready for production users because authentication boundaries, data
+validation, error handling, and deployment visibility are underdefined.
 
-<MiniCaseStudy
-  title="Synthetic example: AI Scheduling MVP"
-  problem="데모에서는 예약 링크 생성까지 잘 보였지만, calendar token scope, public booking link, failed provider state가 분리되어 있지 않았습니다."
-  outcome="리포트는 public launch No-Go, private pilot 가능, 2주 stabilization 우선순위를 제안했습니다."
-  stats={["3 P0/P1 risks", "1 critical user flow", "2-week stabilization"]}
-/>
-
-<RiskSection
-  id="system-map"
-  index={2}
-  title="System map: 제품 흐름과 신뢰 경계를 그리는가"
-  body="코드 전체를 완벽하게 다이어그램화하는 것이 목표가 아닙니다. Browser, app route, auth/session, database, third-party provider 사이에서 신뢰가 깨질 수 있는 경계를 찾는 것이 핵심입니다."
-  checks={[
-    "product-critical flow가 한 문장으로 정의되어 있는가",
-    "browser → API/server action → DB 흐름이 보이는가",
-    "auth/session과 private data 사이의 boundary가 표시되는가",
-    "third-party token, webhook, runtime log 같은 외부 경계가 빠지지 않았는가",
-  ]}
-  question="어느 경계에서 잘못된 사용자가 private data에 닿을 수 있는지 설명할 수 있는가?"
-  noGo="시스템 맵 없이 리스크만 나열하면 수정 우선순위가 감으로 결정됩니다."
-/>
-
-```text
-Browser UI
-  → App routes / server actions
-  → Auth & session boundary
-  → Database / ownership queries
-  → Calendar provider / email provider
-  → Runtime logs / error monitoring
-```
-
-<RiskSection
-  id="risk-table"
-  index={3}
-  title="Risk table: 막연한 불안을 우선순위로 바꾸는가"
-  body="좋은 리포트는 ‘문제가 많다’에서 멈추지 않습니다. area, severity, likelihood, impact, suggested fix로 쪼개서 P0/P1을 먼저 보이게 합니다."
-  checks={[
-    "P0/P1/P2/P3 severity scale이 정의되어 있는가",
-    "각 리스크에 evidence 또는 확인 경로가 있는가",
-    "founder가 미룰 수 있는 것과 미루면 안 되는 것이 분리되는가",
-    "fix가 추상적 조언이 아니라 다음 PR/작업으로 바뀔 수 있는가",
-  ]}
-  question="이 표를 보고 오늘 바로 backlog를 다시 정렬할 수 있는가?"
-  noGo="모든 항목이 ‘중요’로 표시되면 실제로는 아무것도 중요하지 않은 리포트가 됩니다."
-/>
-
-<GoNoGoTable
+<ReportTable
+  caption="Current launch readiness"
+  headers={["Area", "Status", "Notes"]}
+  verdictColumns={[1]}
   rows={[
-    { signal: "Ownership check가 server-side에서 증명되지 않음", decision: "P0 / No-Go" },
-    { signal: "Secret 노출 경로가 확인되지 않음", decision: "P0 / No-Go" },
-    { signal: "Provider failure가 silent fail", decision: "P1 / Fix before paid users" },
-    { signal: "Rollback/smoke test가 문서화되지 않음", decision: "P1 / Stabilize" },
-    { signal: "AI-generated duplicate components", decision: "P2 / Remodel later" },
+    ["Core user flow", "Yellow", "Demo path works, edge cases unclear"],
+    ["Authentication/session", "Red", "Role/session assumptions need review"],
+    ["Data integrity", "Yellow", "Validation and ownership checks need tightening"],
+    ["Security/privacy", "Red", "Secret exposure and access boundaries must be checked"],
+    ["Maintainability", "Yellow", "AI-generated duplication and unclear module boundaries"],
+    ["UX reliability", "Yellow", "Loading/error/empty states incomplete"],
+    ["Deployment/release", "Red", "No clear rollback/monitoring path documented"],
   ]}
 />
 
-<RiskSection
-  id="security-data"
-  index={4}
-  title="Security & data review: formal audit이 아닌 practical launch triage인가"
-  body="FixMyVibe 진단은 정식 penetration test나 보안 인증이 아닙니다. 대신 AI MVP가 공개 트래픽을 받기 전에 확인해야 할 실전 리스크를 빠르게 좁힙니다."
-  checks={[
-    "secrets가 repo, client bundle, logs에 노출되지 않는가",
-    "private DB query가 user/team/workspace로 제한되는가",
-    "public link가 public-safe field만 반환하는가",
-    "third-party OAuth token 저장/갱신/폐기 흐름이 설명되는가",
-    "error log가 개인정보를 노출하지 않는가",
-  ]}
-  question="실제 사용자 데이터가 들어왔을 때 가장 먼저 생길 수 있는 trust failure는 무엇인가?"
-  noGo="정식 보안 인증이 아니라고 해서 secret/data boundary 확인을 생략하면 안 됩니다."
-/>
-
-<ExpertInsight source="Founder-facing translation">
-  “보안 문제 가능성 있음”보다 “User A가 User B의 예약 정보를 볼 수 있는 경로가 아직 증명되지 않음”이 founder에게 훨씬 유용합니다.
-</ExpertInsight>
-
-<RiskSection
-  id="stabilization-plan"
-  index={5}
-  title="2주 / 4주 plan: 리포트가 실행 계획으로 끝나는가"
-  body="가장 좋은 진단은 문제 목록으로 끝나지 않습니다. 2주는 launch-blocking risk containment, 4주는 구조 개선과 handoff로 나눠야 합니다."
-  checks={[
-    "2주 계획은 P0/P1 containment만 다루는가",
-    "4주 계획은 module boundary, tests, handoff를 다루는가",
-    "새 기능 추가와 안정화 작업이 분리되어 있는가",
-    "각 주차에 검증 명령, smoke test, preview 확인이 포함되는가",
-  ]}
-  question="이 계획으로 founder가 ‘이번 주에 뭘 멈추고 뭘 고칠지’ 결정할 수 있는가?"
-  noGo="리포트가 ‘리팩토링 필요’로 끝나면 실행 가능성이 낮습니다."
-/>
-
-<ActionTimeline
-  title="샘플 stabilization timeline"
-  steps={[
-    { label: "Week 1", title: "Contain P0/P1 risk", body: "auth/data ownership, secret boundary, core flow failure state를 먼저 막습니다." },
-    { label: "Week 2", title: "Preview and smoke test", body: "production build, preview URL, 핵심 route smoke test, rollback note를 확인합니다." },
-    { label: "Week 3", title: "Remodel critical modules", body: "중복 generated code와 UI 내부 business logic을 product-critical module로 분리합니다." },
-    { label: "Week 4", title: "Handoff and pilot readiness", body: "architecture note, verification commands, pilot QA checklist를 정리합니다." },
+<ReportList
+  caption="Top 3 risks"
+  ordered
+  items={[
+    "User data exposure risk — access-control assumptions are not proven.",
+    "Fragile core flow — happy-path demo works, but failure states are missing.",
+    "Maintenance risk — AI-generated code appears functional but hard to extend safely.",
   ]}
 />
 
-<RiskSection
-  id="go-no-go"
-  index={6}
-  title="Go / No-Go recommendation: 출시 언어를 제공하는가"
-  body="Founder는 완벽한 코드를 기다릴 수 없습니다. 대신 어떤 조건에서 limited go가 가능하고, 어떤 조건에서는 public launch를 멈춰야 하는지 명확한 언어가 필요합니다."
-  checks={[
-    "No-Go for public launch as-is",
-    "Conditional Go for private pilot",
-    "Limited production with documented risks",
-    "Move into Remodeling Sprint",
-    "Pause and rebuild smaller core",
+**Recommended decision. No-Go for public launch as-is.** Proceed with a bounded
+2-week stabilization plan focused on auth/data boundaries, core flow
+reliability, and deployment visibility.
+
+</ReportSection>
+
+<ReportSection number="02" title="Product and system context">
+
+**Product summary.** An AI scheduling assistant that lets small teams connect
+calendars, generate meeting options, and send booking links.
+
+<ReportList
+  caption="Primary user flow"
+  ordered
+  items={[
+    "User signs up or logs in.",
+    "User connects calendar.",
+    "User creates availability rule.",
+    "User generates booking link.",
+    "Invitee books a slot.",
+    "Confirmation is stored and emailed.",
   ]}
-  question="이 리포트가 founder에게 ‘왜 지금 출시하면 안 되는지’ 또는 ‘어떤 조건이면 가능한지’를 설명해 주는가?"
-  noGo="추천이 모호하면 founder는 다시 감으로 결정하게 됩니다."
 />
 
-## 실제 리포트를 받을 때 필요한 입력물
+<ReportList
+  caption="Business-critical assumptions"
+  items={[
+    "Calendar data is private and user-specific.",
+    "Booking links must not expose other users' schedules.",
+    "Failed calendar API calls must be visible and recoverable.",
+    "Users should understand whether a booking is confirmed or pending.",
+  ]}
+/>
+
+<ReportList
+  caption="Audit boundary — included"
+  items={[
+    "Repo/code structure review",
+    "Architecture and data-flow mapping",
+    "Auth/data/security risk triage",
+    "Maintainability and reliability review",
+    "2-week and 4-week improvement plan",
+  ]}
+/>
+
+<ReportList
+  caption="Audit boundary — excluded"
+  items={[
+    "Full code refactor",
+    "Production deployment",
+    "Formal penetration test",
+    "Legal/privacy compliance guarantee",
+    "Final launch certification",
+  ]}
+/>
+
+</ReportSection>
+
+<ReportSection number="03" title="System map">
+
+<ReportList
+  caption="High-level architecture"
+  ordered
+  items={[
+    "Browser UI",
+    "Frontend app / route handlers",
+    "Auth/session layer",
+    "API routes / server actions",
+    "Database",
+    "Calendar provider / email provider / analytics",
+  ]}
+/>
+
+<ReportList
+  caption="Data flow to verify"
+  ordered
+  items={[
+    "User identity",
+    "Session token",
+    "User-owned workspace/team",
+    "Calendar connection",
+    "Availability rules",
+    "Public booking link",
+    "Booking record",
+    "Notification email",
+  ]}
+/>
+
+The risk is not inside any one of those boxes. It is at the joins between them,
+which is the part nobody who built the app can see from the inside.
+
+<ReportTable
+  caption="Key boundaries"
+  headers={["Boundary", "Why it matters", "Audit question"]}
+  rows={[
+    ["Auth → user data", "Prevents cross-user access", "Can user A access user B records?"],
+    ["Public link → private calendar", "Protects sensitive availability", "Does public link leak private data?"],
+    ["API route → DB query", "Prevents unsafe reads/writes", "Are ownership checks enforced server-side?"],
+    ["Third-party token → storage", "Prevents provider account compromise", "Are tokens stored and scoped safely?"],
+    ["Deployment → runtime logs", "Supports debugging", "Can failures be observed after launch?"],
+  ]}
+/>
+
+</ReportSection>
+
+<ReportSection number="04" title="Risk table">
+
+<ReportList
+  caption="Severity scale"
+  items={[
+    "P0 — launch-blocking / serious security or data risk",
+    "P1 — must fix before paid users or public traffic",
+    "P2 — should fix during stabilization",
+    "P3 — cleanup / polish",
+  ]}
+/>
+
+<ReportTable
+  caption="Findings"
+  headers={["ID", "Area", "Risk", "Severity", "Likelihood", "Impact", "Suggested fix"]}
+  verdictColumns={[3]}
+  rows={[
+    ["R-001", "Auth/Data", "Server-side ownership checks are unclear", "P0", "Medium", "High", "Add explicit user/team ownership guard for every private query"],
+    ["R-002", "Secrets", "Environment/secret handling not documented", "P0", "Medium", "High", "Verify no secrets in repo; document secret loading and rotation path"],
+    ["R-003", "Calendar tokens", "Token storage/encryption assumptions unclear", "P1", "Medium", "High", "Review provider token scope, storage, refresh, and revoke flow"],
+    ["R-004", "Error handling", "Calendar API failures may silently fail", "P1", "High", "Medium", "Add visible error states and retry/fallback behavior"],
+    ["R-005", "Data validation", "Booking form accepts weak/missing validation", "P1", "Medium", "Medium", "Validate server-side and client-side; normalize time zones"],
+    ["R-006", "UX reliability", "Loading/empty states incomplete", "P2", "High", "Medium", "Define loading/error/empty/success states for core flow"],
+    ["R-007", "Maintainability", "AI-generated duplication across route/components", "P2", "Medium", "Medium", "Extract reusable modules after core risk fixes"],
+    ["R-008", "Deployment", "No rollback/checklist documented", "P1", "Medium", "High", "Add deployment checklist, smoke test, and rollback note"],
+    ["R-009", "Observability", "No error monitoring/logging plan", "P2", "Medium", "Medium", "Add minimal runtime error visibility before launch"],
+    ["R-010", "Tests", "Build/check path not documented or unstable", "P2", "Medium", "Medium", "Define verification commands and run before release"],
+  ]}
+/>
+
+</ReportSection>
+
+<ReportSection number="05" title="Security and data risk review">
+
+<ReportList
+  caption="Key questions"
+  ordered
+  items={[
+    "Are secrets committed to the repository?",
+    "Are API keys exposed to the client bundle?",
+    "Is every private DB query scoped by the authenticated user/team?",
+    "Are third-party OAuth tokens stored safely?",
+    "Can public booking links access private data?",
+    "Are webhooks verified before processing?",
+    "Are errors logged without leaking personal data?",
+  ]}
+/>
+
+<ReportTable
+  caption="Findings"
+  headers={["Finding", "Evidence", "Risk", "Recommendation"]}
+  rows={[
+    ["Ownership guard missing in private data query", "server/bookings.ts query not scoped by user ID", "Cross-user data access", "Add user/team guard at server boundary"],
+    ["Calendar token lifecycle unclear", "Token refresh/revoke flow not documented", "Account access risk", "Document token storage and revocation path"],
+    ["Public route exposes too much metadata", "Booking link response includes internal fields", "Privacy leak", "Return only public-safe fields"],
+  ]}
+/>
+
+This audit is a technical risk triage, not a formal penetration test or
+compliance certification.
+
+</ReportSection>
+
+<ReportSection number="06" title="Maintainability review">
+
+<ReportList
+  caption="What to look for"
+  items={[
+    "Unclear folder boundaries",
+    "Duplicated AI-generated components",
+    "Mixed business logic in UI components",
+    "Inconsistent naming",
+    "No clear API/data layer",
+    "Hidden assumptions in prompts or generated code",
+    "No single source for product-critical constants",
+    "Difficult onboarding for future developers",
+  ]}
+/>
+
+<ReportTable
+  caption="Maintainability scorecard"
+  headers={["Area", "Score", "Notes"]}
+  rows={[
+    ["Folder/module structure", "2/5", "Functional but boundaries unclear"],
+    ["Component reuse", "2/5", "Repeated UI and flow logic"],
+    ["API/data separation", "2/5", "Business logic leaks into handlers/components"],
+    ["Naming/readability", "3/5", "Understandable but inconsistent"],
+    ["Future developer handoff", "2/5", "Missing architecture notes and verification path"],
+  ]}
+/>
+
+<ReportList
+  caption="Suggested improvements"
+  ordered
+  items={[
+    "Create a small domain/booking or equivalent module for booking rules.",
+    "Move server-only data access behind explicit functions.",
+    "Extract repeated form/error/loading patterns.",
+    "Add a short architecture note before large refactor.",
+    "Avoid broad rewrites until P0/P1 risks are fixed.",
+  ]}
+/>
+
+</ReportSection>
+
+<ReportSection number="07" title="UX reliability review">
+
+<ReportTable
+  caption="Core UX failure modes"
+  headers={["Flow step", "Failure mode", "Current risk", "Recommended UX state"]}
+  rows={[
+    ["Sign up/login", "Session expires or auth fails", "User gets stuck", "Clear retry/login state"],
+    ["Connect calendar", "Provider rejects permission", "Silent failure", "Explain permission/retry path"],
+    ["Create availability", "Time zone mismatch", "Incorrect schedule", "Confirm detected time zone"],
+    ["Booking link", "Link invalid/expired", "Invitee confusion", "Friendly invalid-link page"],
+    ["Booking confirmation", "Email/API failure", "User thinks booking succeeded", "Pending/failure state + retry"],
+  ]}
+/>
+
+<ReportList
+  caption="UX reliability checklist"
+  items={[
+    "Loading state exists for every async step.",
+    "Error state gives the user a next action.",
+    "Empty state explains what to do first.",
+    "Success state confirms what happened.",
+    "Time zone and date handling are explicit.",
+    "Destructive actions ask for confirmation.",
+    "Public pages never expose private internal fields.",
+  ]}
+/>
+
+</ReportSection>
+
+<ReportSection number="08" title="Launch readiness">
+
+<ReportTable
+  caption="Go / No-Go matrix"
+  headers={["Requirement", "Status", "Launch decision"]}
+  verdictColumns={[1, 2]}
+  rows={[
+    ["No known secret exposure", "Unknown", "No-Go until verified"],
+    ["Auth ownership guards", "Weak/unknown", "No-Go"],
+    ["Core flow happy path", "Works in demo", "Conditional"],
+    ["Core flow failure states", "Incomplete", "No-Go for paid users"],
+    ["Build/check command passes", "Unknown", "No-Go until verified"],
+    ["Rollback path documented", "Missing", "No-Go"],
+    ["Monitoring/error visibility", "Missing", "Conditional for private beta only"],
+  ]}
+/>
+
+Recommended stage: private internal demo → limited pilot after P0/P1 fixes →
+public launch only after verification.
+
+<ReportList
+  caption="Do not launch publicly until"
+  ordered
+  items={[
+    "Ownership checks are verified.",
+    "Secrets and environment handling are reviewed.",
+    "The core flow has visible failure states.",
+    "Build/check commands pass.",
+    "Rollback/smoke test notes exist.",
+  ]}
+/>
+
+</ReportSection>
+
+<ReportSection number="09" title="Quick wins">
+
+<ReportList
+  caption="1–3 day improvements"
+  ordered
+  items={[
+    "Add a launch checklist with check/build/smoke test/rollback steps.",
+    "Review all private DB queries for user/team ownership guards.",
+    "Add explicit error states for calendar connection and booking creation.",
+    "Add server-side validation for booking creation.",
+    "Create a short architecture map in repo docs.",
+    "Remove or quarantine obvious unused AI-generated files/components.",
+    "Add a privacy-safe logging rule: no tokens, no private event details in logs.",
+  ]}
+/>
+
+<ReportTable
+  caption="Quick win prioritization"
+  headers={["Priority", "Fix", "Why first"]}
+  rows={[
+    ["1", "Ownership guards", "Prevents severe data exposure"],
+    ["2", "Secret/client exposure review", "Prevents accidental credential leakage"],
+    ["3", "Core flow failure states", "Prevents user confusion during pilot"],
+    ["4", "Verification commands", "Makes future work safer"],
+    ["5", "Architecture note", "Speeds up future remodeling"],
+  ]}
+/>
+
+</ReportSection>
+
+<ReportSection number="10" title="Two-week stabilization plan">
+
+**Week 1 — risk containment.** Goal: make the MVP safe enough for a controlled
+pilot.
+
+<ReportList
+  caption="Week 1 tasks"
+  ordered
+  items={[
+    "Verify secrets and environment boundaries.",
+    "Add or confirm server-side ownership guards.",
+    "Define core flow smoke test.",
+    "Add server-side validation to booking/contact/payment-like actions.",
+    "Add visible error/loading/empty states for the core flow.",
+    "Run and document build/check commands.",
+  ]}
+/>
+
+<ReportList
+  caption="Week 1 evidence"
+  items={[
+    "Changed files list",
+    "Before/after screenshots or QA notes",
+    "Passing build/check result",
+    "Updated risk table",
+  ]}
+/>
+
+**Week 2 — launch readiness.** Goal: prepare for limited pilot or founder demo
+with fewer hidden risks.
+
+<ReportList
+  caption="Week 2 tasks"
+  ordered
+  items={[
+    "Add rollback/deploy checklist.",
+    "Improve logging/monitoring visibility.",
+    "Clean duplicated AI-generated code in the core flow.",
+    "Write a short architecture handoff.",
+    "Perform manual QA on core user flow.",
+    "Re-run technical debt risk table and mark remaining risks.",
+  ]}
+/>
+
+<ReportList
+  caption="Week 2 evidence"
+  items={["Launch checklist", "QA notes", "Architecture note", "Updated Go/No-Go matrix"]}
+/>
+
+</ReportSection>
+
+<ReportSection number="11" title="Four-week remodeling plan">
+
+<ReportList
+  caption="Week 1–2"
+  items={[
+    "Stabilize auth/data boundaries.",
+    "Harden the primary user flow.",
+    "Improve error/loading/empty states.",
+    "Document verification and deployment workflow.",
+  ]}
+/>
+
+<ReportList
+  caption="Week 3"
+  items={[
+    "Refactor duplicated modules/components.",
+    "Clarify domain boundaries.",
+    "Add focused tests around critical logic where appropriate.",
+    "Improve developer handoff docs.",
+  ]}
+/>
+
+<ReportList
+  caption="Week 4"
+  items={[
+    "Prepare limited production/pilot release checklist.",
+    "Run manual QA and screenshot review.",
+    "Create founder-facing technical summary.",
+    "Decide whether next step is another Remodeling Sprint or ongoing Retainer.",
+  ]}
+/>
+
+</ReportSection>
+
+<ReportSection number="12" title="Go / No-Go recommendation">
+
+**No-Go for public launch. Conditional Go for private pilot** only after P0
+risks are verified and P1 issues are bounded.
+
+<ReportTable
+  caption="Decision options"
+  headers={["Decision", "When it applies"]}
+  verdictColumns={[0]}
+  rows={[
+    ["No-Go", "P0 security/data risks are unresolved."],
+    ["Conditional", "Core flow works, P0 risks are handled, and remaining risks are documented."],
+    ["Go", "Auth/data, build/check, rollback, and UX reliability gates are all verified."],
+  ]}
+/>
+
+Your MVP is not "bad." It is doing what AI-built prototypes often do: it proves
+the idea faster than it proves the system. The next step is not to rebuild
+everything. The next step is to contain the highest-risk failure points before
+real users, real data, and real customer trust are involved.
+
+</ReportSection>
+
+## What you need to provide for a real report
 
 <CheckList
   items={[
-    "repo 또는 코드 접근 범위",
-    "가장 중요한 user flow 1개",
-    "현재 배포/preview URL",
-    "사용 중인 auth/database/provider 목록",
-    "최근에 불안했던 버그나 edge case",
-    "출시 목표: public launch / private pilot / investor demo",
+    "Repository access, read-only is enough.",
+    "A deployed URL, or a way to run the app.",
+    "Which single user flow matters most to the business.",
+    "What decision is waiting on this — a milestone payment, a launch date, a hire.",
   ]}
 />
 
 <ArticleCTA
-  eyebrow="FixMyVibe sample report"
-  title="샘플 구조를 실제 MVP 리포트로 바꾸고 싶다면"
-  body="FixMyVibe는 AI MVP의 system map, risk table, auth/data/security review, UX reliability review, Go / No-Go recommendation, 2주 / 4주 stabilization plan을 founder가 읽을 수 있는 산출물로 정리합니다."
-  primary={{ href: "/contact", label: "기술 부채 진단 문의하기" }}
-  secondary={{ href: "/posts/ai-mvp-launch-checklist", label: "출시 전 체크리스트 보기" }}
+  eyebrow="FixMyVibe"
+  title="Get this report for your own app"
+  body="A Launch Gate Audit produces the document above against your codebase instead of a synthetic one: launch readiness, system map, risk table, and a Go / No-Go you can act on. One week, fixed price. It is not a formal security certification or a launch guarantee."
+  primary={{ href: "/contact", label: "Start a review" }}
+  secondary={{ href: "/posts/ai-mvp-launch-checklist", label: "See the pre-launch checklist" }}
 />

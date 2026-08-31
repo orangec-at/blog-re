@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/config/site";
 import { getAllPosts } from "@/lib/mdx";
 
-const staticRoutes = ["/", "/about", "/services", "/resources", "/posts", "/domains", "/contact"];
+const staticRoutes = ["/", "/about", "/posts", "/contact", "/sample-audit"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries = staticRoutes.map((route) => ({

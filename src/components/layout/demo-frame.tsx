@@ -41,7 +41,7 @@ export function DemoMeta({ stack = [], links = [], className = "" }: DemoMetaPro
   return (
     <BorderedSurface
       data-testid="demo-meta"
-      className={`flex flex-col gap-4 rounded-2xl bg-offwhite/90 p-4 ${className}`.trim()}
+      className={`flex flex-col gap-4 rounded-2xl bg-paper/90 p-4 ${className}`.trim()}
       tone="offwhite"
     >
       {stack.length > 0 ? (
@@ -65,7 +65,7 @@ export function DemoMeta({ stack = [], links = [], className = "" }: DemoMetaPro
               <a
                 key={`${link.label}-${link.href}`}
                 href={link.href}
-                className="inline-flex items-center rounded-full border border-zapier-sand px-3 py-1 text-sm font-semibold text-zapier-orange transition hover:border-zapier-orange"
+                className="inline-flex items-center rounded-full border border-rule px-3 py-1 text-sm font-semibold text-ink transition hover:border-ink"
               >
                 {link.label}
               </a>

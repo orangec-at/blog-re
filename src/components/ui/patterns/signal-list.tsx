@@ -22,14 +22,14 @@ export function SignalList({
   const headingClass =
     tone === "inverse"
       ? "font-sans text-[2rem] font-semibold leading-tight tracking-[-0.02em] text-[#fffaf6]"
-      : "font-sans text-2xl font-semibold tracking-[-0.02em] text-zapier-black";
+      : "font-sans text-2xl font-semibold tracking-[-0.02em] text-ink";
 
   const bodyClass =
     tone === "inverse"
       ? "min-w-0 text-base font-medium leading-7 text-[#fff4ed]"
-      : "min-w-0 text-sm leading-6 text-zapier-charcoal sm:text-base";
+      : "min-w-0 text-sm leading-6 text-ink sm:text-base";
 
-  const markerClass = tone === "inverse" ? "bg-[#ff9a62]" : "bg-zapier-black";
+  const markerClass = tone === "inverse" ? "bg-[#ff9a62]" : "bg-ink";
 
   const HeadingTag = headingLevel === 2 ? "h2" : "h3";
 

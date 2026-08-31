@@ -65,7 +65,7 @@ describe("UI molecules", () => {
     );
 
     const card = screen.getByRole("article");
-    expect(card).toHaveClass("rounded-lg", "border", "bg-cream");
+    expect(card).toHaveClass("rounded-lg", "border", "bg-paper");
     expect(screen.getByText("Legacy")).toHaveClass("rounded-pill");
     expect(screen.getByRole("heading", { level: 3, name: "Reusable feature shell" })).toBeInTheDocument();
     expect(screen.getByText("Legacy feature grid copy stays inside the reusable molecule.")).toBeInTheDocument();
