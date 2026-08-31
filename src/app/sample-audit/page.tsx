@@ -190,7 +190,7 @@ export default function SampleAuditPage() {
               </span>
             </div>
             <span className="font-mono text-xs text-ink-muted">
-              Scope: 12-Gate Launch Readiness Review
+              Scope: Launch Readiness Review
             </span>
           </div>
 
@@ -259,7 +259,7 @@ export default function SampleAuditPage() {
         {/* DOMAIN FILTER TABS */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <h2 className="font-display text-2xl text-ink font-normal">
-            12-Gate Diagnostic Matrix
+            Diagnostic Matrix
           </h2>
 
           <div className="flex flex-wrap gap-1 p-1 bg-rule/40 rounded-[5px] text-xs font-mono">
@@ -450,7 +450,7 @@ export default function SampleAuditPage() {
             Want this exact review before your launch?
           </h3>
           <p className="text-base text-ink-muted max-w-xl mb-6">
-            Launch Gate Audit is <strong className="text-ink">$1,200 fixed (1 week)</strong>. I verify the twelve gates myself and you receive a prioritized risk table and a two-week action plan.
+            Launch Gate Audit is <strong className="text-ink">$1,200 fixed (1 week)</strong>. I verify every gate myself and you receive a prioritized risk table and a two-week action plan.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <PrimaryButton href="/contact">

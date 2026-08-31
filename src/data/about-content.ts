@@ -45,7 +45,7 @@ export const about = {
   links: [
     { label: "The method, in public", href: "https://github.com/orangec-at/vibe-hardening" },
     { label: "What I have published", href: "/posts" },
-    { label: "The sample report", href: "/posts/ai-mvp-technical-debt-audit-sample-report" },
+    { label: "The sample report", href: "/sample-audit" },
   ],
 
   ctaLabel: "Get an independent review",

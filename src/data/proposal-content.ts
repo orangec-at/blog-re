@@ -9,7 +9,7 @@ export const hero = {
   subheadline:
     "An independent review of your AI-built or outsourced app — before the next milestone payment, the first customers, or the ad spend. Plain English. Three pages. One decision.",
   primaryCta: { label: "Start a review", href: "/contact" },
-  secondaryCta: { label: "Read a sample report", href: "/posts/ai-mvp-technical-debt-audit-sample-report" },
+  secondaryCta: { label: "Read a sample report", href: "/sample-audit" },
 } as const;
 
 // business/fixmyvibe/ai-mvp-platform-launch-gate.md § Platform Gates.
