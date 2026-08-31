@@ -22,13 +22,13 @@ describe("Sample Audit Page", () => {
     ).toBeVisible();
   });
 
-  it("renders the 12-gate diagnostic matrix with domain filtering", () => {
+  it("renders the diagnostic matrix with domain filtering", () => {
     render(<SampleAuditPage />);
 
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /12-Gate Diagnostic Matrix/i,
+        name: /^Diagnostic Matrix$/i,
       }),
     ).toBeVisible();
 
@@ -51,5 +51,18 @@ describe("Sample Audit Page", () => {
 
     const ctaLink = screen.getByRole("link", { name: /Start a Launch Gate Review/i });
     expect(ctaLink).toHaveAttribute("href", "/contact");
+  });
+
+  it("never states a gate count", () => {
+    // The same rule the home page is held to. The pricing canon sells twelve
+    // gates, the gate document defines seven, and two of those are alternatives.
+    // The page that shows a client what the audit produces cannot be the one
+    // place an unverified number survives.
+    const { container } = render(<SampleAuditPage />);
+    const html = container.innerHTML.toLowerCase();
+
+    for (const word of ["twelve", "seven", "12-gate", "12 gate", "7-gate", "7 gate"]) {
+      expect(html).not.toContain(word);
+    }
   });
 });
