@@ -29,7 +29,7 @@ describe("Home Page", () => {
     const browse = screen.getByRole("link", { name: /^Read a sample report$/i });
 
     expect(commission).toHaveAttribute("href", "/contact");
-    expect(browse).toHaveAttribute("href", "/posts/ai-mvp-technical-debt-audit-sample-report");
+    expect(browse).toHaveAttribute("href", "/sample-audit");
     // The link is underlined with a border rather than text-decoration: this
     // build emits no .underline utility at all, so a text-decoration assertion
     // would pass on a class that renders nothing.
