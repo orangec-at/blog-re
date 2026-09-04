@@ -25,7 +25,7 @@ export function buildOrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     // The organization is the company, not the service. Search engines read this
-    // as the legal entity behind the site; fmv is a thing wakeymoment sells.
+    // as the legal entity behind the site; vibeguard is a thing wakeymoment sells.
     name: siteConfig.company,
     url: siteConfig.url,
   };

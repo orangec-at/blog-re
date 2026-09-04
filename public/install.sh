@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# VibeGuard One-Line Installer
+# vibeguard One-Line Installer
 #
 # [주의] 이 스크립트는 아직 공개 배포되지 않는다. 홈페이지 어디에서도 링크하지
 # 않으며, MCP 게이트웨이는 MCP_API_TOKENS 에 등록된 토큰만 받는다. 공개하기
@@ -9,7 +9,7 @@
 # 
 # [설명]
 # 사용자의 로컬 환경(Claude Code, Cursor, Codex, Pi 에이전트 등)을 자동 감지하여:
-# 1. VibeGuard Agent Skill (/vibeguard)을 로컬 스킬 디렉토리에 설치합니다.
+# 1. vibeguard Agent Skill (/vibeguard)을 로컬 스킬 디렉토리에 설치합니다.
 # 2. 원격 MCP Server (https://wakeymoment.vercel.app/api/mcp) 설정을 구성합니다.
 #
 # [사용법]
@@ -26,28 +26,28 @@ if [ -z "${TOKEN}" ]; then
   exit 1
 fi
 
-echo "🛡️  Installing VibeGuard for your AI Coding Agents..."
+echo "🛡️  Installing vibeguard for your AI Coding Agents..."
 
-# 1. 로컬 VibeGuard 디렉토리 생성 및 토큰 저장
+# 1. 로컬 vibeguard 디렉토리 생성 및 토큰 저장
 mkdir -p "${VIBEGUARD_HOME}/skills"
 echo "${TOKEN}" > "${VIBEGUARD_HOME}/token"
 
-# 2. VibeGuard SKILL.md 파일 생성
+# 2. vibeguard SKILL.md 파일 생성
 cat << 'EOF' > "${VIBEGUARD_HOME}/skills/SKILL.md"
 ---
 name: vibeguard
-description: Use VibeGuard to audit Supabase database migrations for RLS security, probe live endpoints for leaks, and generate bulletproof security policies.
+description: Use vibeguard to audit Supabase database migrations for RLS security, probe live endpoints for leaks, and generate bulletproof security policies.
 allowed-tools:
   - audit_sql_migrations
   - audit_supabase_endpoints
   - generate_secure_rls
 ---
 
-# VibeGuard Security Guard
+# vibeguard Security Guard
 
-Use VibeGuard MCP tools to ensure all Supabase tables, migrations, and live endpoints are hardened before deployment.
+Use vibeguard MCP tools to ensure all Supabase tables, migrations, and live endpoints are hardened before deployment.
 
-## When to Use VibeGuard
+## When to Use vibeguard
 1. **Schema / Migration Writing**: Whenever writing or modifying PostgreSQL/Supabase tables, call `audit_sql_migrations` to check for missing RLS, permissive `USING (true)` policies, or exposed secrets.
 2. **Pre-deployment Check ("Ship Ready")**: When the user asks "is my app secure?", "check database security", or "ready to ship?", run `audit_sql_migrations` or `audit_supabase_endpoints`.
 3. **RLS Policy Creation**: When asked to create permissions or tenant isolation, call `generate_secure_rls` to obtain battle-tested RLS SQL.
@@ -88,12 +88,12 @@ mkdir -p "${HOME}/.agents/skills/vibeguard"
 cp "${VIBEGUARD_HOME}/skills/SKILL.md" "${HOME}/.agents/skills/vibeguard/SKILL.md"
 INSTALLED_TARGETS+=("Pi / Open Agents")
 
-echo "✅ VibeGuard skills installed for: ${INSTALLED_TARGETS[*]}"
+echo "✅ vibeguard skills installed for: ${INSTALLED_TARGETS[*]}"
 
 # 4. MCP 서버 설정 안내 출력
 echo ""
 echo "=================================================================="
-echo "🎉 VibeGuard MCP Server Configuration"
+echo "🎉 vibeguard MCP Server Configuration"
 echo "=================================================================="
 echo "Add this to your claude_desktop_config.json, Cursor, or ~/.claude.json:"
 echo ""
@@ -112,5 +112,5 @@ cat << EOF
 EOF
 echo ""
 echo "=================================================================="
-echo "🛡️  VibeGuard is ready. Type '/vibeguard' in your AI agent to test!"
+echo "🛡️  vibeguard is ready. Type '/vibeguard' in your AI agent to test!"
 echo "=================================================================="

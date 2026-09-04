@@ -92,7 +92,7 @@ export function InstantAuditor() {
         <div className="inline-flex items-center gap-2">
           <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
           <span className="font-mono text-xs uppercase tracking-wider text-ink-muted">
-            VibeGuard Live Security Inspector
+            vibeguard live security inspector
           </span>
         </div>
         <h3 className="font-display text-2xl text-ink font-semibold tracking-tight">

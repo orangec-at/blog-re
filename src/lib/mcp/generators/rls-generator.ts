@@ -10,7 +10,7 @@ export function generateRlsSql(options: RlsGeneratorOptions): string {
   } = options;
 
   const header = [
-    `-- Standard RLS policy for '${tableName}' — fmv launch gate audit`,
+    `-- Standard RLS policy for '${tableName}' — vibeguard launch gate audit`,
     `-- Pattern: ${pattern}`,
     "",
     `-- 1. Enable RLS`,

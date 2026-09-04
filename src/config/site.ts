@@ -5,14 +5,14 @@
 const productionDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 const siteUrl = productionDomain ? `https://${productionDomain}` : "https://wakeymoment.vercel.app";
 
-// Two names, and they are not interchangeable. fmv is the service this site
+// Two names, and they are not interchangeable. vibeguard is the service this site
 // sells; wakeymoment is the company that runs it. The service leads everywhere a
 // visitor is deciding whether to buy, and the company appears where ownership is
 // the point: the copyright line and the about page.
 export const siteConfig = {
-  name: "fmv",
+  name: "vibeguard",
   company: "wakeymoment",
-  title: "fmv — an independent review of your AI-built app",
+  title: "vibeguard — an independent review of your AI-built app",
   description:
     "An independent review of your AI-built or outsourced app, before the next milestone payment. Plain English. Three pages. One decision.",
   url: siteUrl,

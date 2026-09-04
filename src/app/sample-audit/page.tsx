@@ -186,7 +186,7 @@ export default function SampleAuditPage() {
                 AUDIT ARTIFACT
               </span>
               <span className="font-mono text-xs text-ink-muted">
-                DOC-ID: FMV-2026-SA09-SYNTHETIC
+                DOC-ID: VG-2026-SA09-SYNTHETIC
               </span>
             </div>
             <span className="font-mono text-xs text-ink-muted">

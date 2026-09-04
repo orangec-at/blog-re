@@ -101,7 +101,7 @@ describe("PostPage", () => {
         description: "AI 코딩 도구로 만든 MVP를 공개하기 전 launch-readiness 체크리스트.",
         type: "article",
         url: absoluteUrl("/posts/ai-mvp-launch-checklist"),
-        siteName: "fmv",
+        siteName: "vibeguard",
       },
       twitter: {
         card: "summary_large_image",
@@ -126,7 +126,7 @@ describe("PostPage", () => {
 
     expect(screen.getByText("Hello World")).toBeInTheDocument();
     expect(screen.getByTestId("post-full-layout")).toBeInTheDocument();
-    expect(screen.getByTestId("post-article-body")).toHaveClass("fmv-article-prose");
+    expect(screen.getByTestId("post-article-body")).toHaveClass("vibeguard-article-prose");
     expect(screen.getByTestId("post-full-body")).toBeInTheDocument();
     expect(screen.getByTestId("mdx-renderer")).toHaveAttribute("data-layout", "full");
     expect(mockedNotFound).not.toHaveBeenCalled();
@@ -190,7 +190,7 @@ describe("PostPage", () => {
     expect(sheet).toHaveClass("border", "border-rule");
     expect(screen.queryByTestId("post-narrow-layout")).not.toBeInTheDocument();
     expect(screen.getByText("FixMyVibe · Launch Gate Audit")).toBeVisible();
-    expect(screen.getByText("fmv · sample audit report")).toBeVisible();
+    expect(screen.getByText("vibeguard · sample audit report")).toBeVisible();
   });
 
   it("falls back to the index when a post is the oldest one", async () => {

@@ -51,12 +51,12 @@ describe("UI patterns", () => {
         ctaLabel="Start with Diagnosis"
         outcome="A prioritized rescue plan that tells founders what to fix now versus later."
         summary="A fast first pass for teams that know the MVP is unstable but do not yet know the rescue scope."
-        title="FMV Diagnosis"
+        title="vibeguard diagnosis"
         whyItFits="Founders who need a clearer technical picture before committing to bigger repair work."
       />,
     );
 
-    expect(screen.getByRole("heading", { level: 3, name: "FMV Diagnosis" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "vibeguard diagnosis" })).toBeInTheDocument();
     expect(screen.getByText("Why it fits")).toBeInTheDocument();
     expect(screen.getByText("What you leave with")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Start with Diagnosis" })).toHaveAttribute("href", "/contact");

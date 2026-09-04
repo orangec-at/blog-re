@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(
     {
       status: "online",
-      name: "fmv launch gate MCP gateway",
+      name: "vibeguard launch gate MCP gateway",
       version: "0.2.0",
       docs: absoluteUrl("/contact"),
       toolsCount: VIBEGUARD_TOOLS.length,
