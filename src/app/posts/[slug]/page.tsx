@@ -105,13 +105,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
             <div
               data-testid="post-article-body"
-              className="fmv-article-prose prose prose-neutral max-w-none px-6 py-10 prose-a:text-ink sm:px-12 sm:py-14"
+              className="vibeguard-article-prose prose prose-neutral max-w-none px-6 py-10 prose-a:text-ink sm:px-12 sm:py-14"
             >
               <ServerPostContent code={post.body.code} defaultDemoLayout="narrow" />
             </div>
 
             <footer className="flex flex-wrap items-baseline justify-between gap-3 border-t border-rule px-6 py-5 font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted sm:px-12">
-              <span>fmv · sample audit report</span>
+              <span>vibeguard · sample audit report</span>
               <span>{post.slug}</span>
             </footer>
           </article>
@@ -146,7 +146,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </FullWidth>
 
         <Container variant="narrow" className="space-y-8 py-12">
-          <article data-testid="post-article-body" className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-ink">
+          <article data-testid="post-article-body" className="vibeguard-article-prose prose prose-neutral max-w-none prose-a:text-ink">
             <div data-testid="post-full-body">
               <ServerPostContent code={post.body.code} defaultDemoLayout={post.layout} />
             </div>
@@ -209,7 +209,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
           <article
             data-testid="post-article-body"
-            className="fmv-article-prose prose prose-neutral max-w-none prose-a:text-ink"
+            className="vibeguard-article-prose prose prose-neutral max-w-none prose-a:text-ink"
           >
             <ServerPostContent code={post.body.code} defaultDemoLayout={post.layout} />
           </article>

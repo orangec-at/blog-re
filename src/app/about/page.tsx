@@ -8,7 +8,7 @@ import { about } from "@/data/about-content";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "fmv is the review service and wakeymoment is the company behind it. One engineer: six years of engineering, an app shipped to the App Store, front-end lead on a public-sector platform.",
+    "vibeguard is the review service and wakeymoment is the company behind it. One engineer: six years of engineering, an app shipped to the App Store, front-end lead on a public-sector platform.",
   alternates: { canonical: "/about" },
 };
 

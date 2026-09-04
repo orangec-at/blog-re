@@ -50,10 +50,14 @@ export function Header() {
             </g>
             <circle cx="55" cy="45" r="5" fill="#d7402b" />
           </svg>
-          {/* At 320px the 2xl wordmark and the CTA total 304px inside a 288px
-              container, so flex-wrap drops the button onto its own row. */}
+          {/* The name went from three characters to nine on 2026-09-04, which
+              cost the mark 50px: measured at 320px it is 122px wide against 72
+              before, and 143 against 83 at 640. Both still sit on one row with
+              the CTA — 237px of content inside a 288px container — and neither
+              width overflows. The container keeps flex-wrap so the button drops
+              to its own row rather than overflowing if the name grows again. */}
           <span className="text-xl font-semibold tracking-[-0.04em] sm:text-2xl">
-            fmv<span className="text-[#d7402b]">.</span>
+            vibeguard<span className="text-[#d7402b]">.</span>
           </span>
         </Link>
 

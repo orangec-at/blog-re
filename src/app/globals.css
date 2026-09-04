@@ -122,7 +122,7 @@ button {
    ran the full column — the page had four different right edges and nothing
    lined up with anything. The column is the measure now and every child
    inherits it, so prose, checklists, and tables share both edges. */
-.fmv-article-prose {
+.vibeguard-article-prose {
   max-width: var(--article-measure);
   color: var(--article-text);
   font-size: 1.125rem;
@@ -130,20 +130,20 @@ button {
   letter-spacing: -0.006em;
 }
 
-.fmv-article-prose > p:not(.not-prose) {
+.vibeguard-article-prose > p:not(.not-prose) {
   margin-block: 1.35rem;
   color: var(--article-text);
 }
 
-.fmv-article-prose > p:not(.not-prose):first-of-type {
+.vibeguard-article-prose > p:not(.not-prose):first-of-type {
   margin-top: 0;
 }
 
-.fmv-article-prose > p:not(.not-prose) + p:not(.not-prose) {
+.vibeguard-article-prose > p:not(.not-prose) + p:not(.not-prose) {
   margin-top: 1.35rem;
 }
 
-.fmv-article-prose > :where(h2, h3):not(.not-prose) {
+.vibeguard-article-prose > :where(h2, h3):not(.not-prose) {
   color: var(--color-ink);
   font-family: var(--font-display);
   font-weight: 680;
@@ -151,7 +151,7 @@ button {
   text-wrap: balance;
 }
 
-.fmv-article-prose > h2:not(.not-prose) {
+.vibeguard-article-prose > h2:not(.not-prose) {
   margin-top: 3.6rem;
   margin-bottom: 1rem;
   padding-top: 1.15rem;
@@ -160,7 +160,7 @@ button {
   line-height: 1.08;
 }
 
-.fmv-article-prose > h3:not(.not-prose) {
+.vibeguard-article-prose > h3:not(.not-prose) {
   margin-top: 2.5rem;
   margin-bottom: 0.8rem;
   font-size: clamp(1.35rem, 1.18rem + 0.72vw, 1.8rem);
@@ -170,7 +170,7 @@ button {
 /* A list is a list, not a card. The cream fill and 22px radius belonged to an
    editorial palette this system no longer carries; a rule above and below sets
    the block apart without inventing a surface. */
-.fmv-article-prose > :where(ul, ol):not(.not-prose) {
+.vibeguard-article-prose > :where(ul, ol):not(.not-prose) {
   margin-block: 1.6rem;
   padding: 1.1rem 0;
   border-top: 1px solid var(--color-rule);
@@ -178,21 +178,21 @@ button {
   color: var(--article-text);
 }
 
-.fmv-article-prose > :where(ul, ol):not(.not-prose) li {
+.vibeguard-article-prose > :where(ul, ol):not(.not-prose) li {
   margin-left: 1.25rem;
   padding-left: 0.25rem;
 }
 
-.fmv-article-prose > :where(ul, ol):not(.not-prose) li + li {
+.vibeguard-article-prose > :where(ul, ol):not(.not-prose) li + li {
   margin-top: 0.45rem;
 }
 
-.fmv-article-prose :where(strong, b) {
+.vibeguard-article-prose :where(strong, b) {
   color: var(--color-ink);
   font-weight: 700;
 }
 
-.fmv-article-prose :where(code):not(pre code) {
+.vibeguard-article-prose :where(code):not(pre code) {
   border: 1px solid rgba(32, 21, 21, 0.1);
   border-radius: 0.3rem;
   background: color-mix(in srgb, var(--color-rule) 45%, transparent);
@@ -212,7 +212,7 @@ button {
    underlined. On ArticleCTA's dark panel that is ink on panel-dark, the same
    value twice, and the secondary action's label vanished into its background.
    DESIGN.md: text on the panel is paper, panel-dark-muted, or p0 — never ink. */
-.fmv-article-prose :where(a:not(.not-prose *)) {
+.vibeguard-article-prose :where(a:not(.not-prose *)) {
   color: var(--color-ink);
   font-weight: 650;
   text-decoration: underline;
@@ -221,17 +221,17 @@ button {
   text-underline-offset: 0.18em;
 }
 
-.fmv-article-prose :where(a:not(.not-prose *):hover) {
+.vibeguard-article-prose :where(a:not(.not-prose *):hover) {
   text-decoration-color: currentColor;
 }
 
 @media (max-width: 640px) {
-  .fmv-article-prose {
+  .vibeguard-article-prose {
     font-size: 1rem;
     line-height: 1.78;
   }
 
-  .fmv-article-prose > h2:not(.not-prose) {
+  .vibeguard-article-prose > h2:not(.not-prose) {
     margin-top: 3rem;
   }
 }

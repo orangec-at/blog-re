@@ -25,12 +25,12 @@ export function Footer() {
           ))}
         </div>
         <p className="text-xs text-panel-dark-muted">
-          {/* The copyright is the company's, not the service's. fmv is what is
+          {/* The copyright is the company's, not the service's. vibeguard is what is
               sold; wakeymoment is who is liable for it. */}
           © {siteConfig.company} {new Date().getFullYear()}. All rights reserved.
         </p>
         <p className="font-mono text-xs text-panel-dark-muted">
-          fmv · launch-readiness review · rev. 2026-08
+          vibeguard · launch-readiness review · rev. 2026-09
         </p>
       </Container>
     </footer>

@@ -8,13 +8,13 @@
 export const about = {
   eyebrow: "About",
 
-  // wakeymoment is the company, fmv is the service. The service leads wherever
+  // wakeymoment is the company, vibeguard is the service. The service leads wherever
   // a visitor is deciding whether to buy; this page is where the company is
   // allowed to be the subject, because the question here is who is behind it.
   headline: "One engineer, reading your stack from the outside",
 
   lede:
-    "fmv is the review service. wakeymoment is the company behind it, and I am the person who does the work — there is no team to hand your codebase to, and no account manager between you and the reading.",
+    "vibeguard is the review service. wakeymoment is the company behind it, and I am the person who does the work — there is no team to hand your codebase to, and no account manager between you and the reading.",
 
   // src/data/proposal-content.ts § whyMe. The same three grounds the home page
   // stands on, stated once rather than twice in different words.

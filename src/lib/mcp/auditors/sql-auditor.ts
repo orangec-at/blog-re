@@ -49,7 +49,7 @@ export function auditSql(sql: string): SqlAuditResult {
 
   // 4. Generate Remediation Patch
   const header = [
-    "-- Auto-generated remediation patch — fmv launch gate audit",
+    "-- Auto-generated remediation patch — vibeguard launch gate audit",
     `-- Generated on: ${new Date().toISOString()}`,
     "",
   ].join("\n");

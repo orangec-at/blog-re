@@ -5,7 +5,7 @@ import { validateBearerToken } from "../auth/token";
 import { dispatchMcpRequest } from "../protocol/dispatcher";
 import { assertAuditableUrl, UnauditableUrlError } from "../auditors/endpoint-auditor";
 
-describe("VibeGuard MCP Security Engine", () => {
+describe("vibeguard MCP Security Engine", () => {
   it("should detect missing RLS and generate fix migration", () => {
     const sql = `
       CREATE TABLE public.accounts (
@@ -169,7 +169,7 @@ describe("endpoint auditor host guard", () => {
   });
 });
 
-describe("VibeGuard MCP JSON-RPC Dispatcher", () => {
+describe("vibeguard MCP JSON-RPC Dispatcher", () => {
   it("should handle initialize handshake", async () => {
     const auth = {
       token: "vg_live_test",

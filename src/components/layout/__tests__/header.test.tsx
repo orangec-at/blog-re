@@ -8,7 +8,7 @@ describe("Header", () => {
     render(<Header />);
 
     const header = screen.getByRole("banner");
-    expect(within(header).getByRole("link", { name: /fmv/i })).toHaveAttribute("href", "/");
+    expect(within(header).getByRole("link", { name: /vibeguard/i })).toHaveAttribute("href", "/");
 
     const primaryCta = within(header).getByRole("link", { name: /^Start a review$/i });
     expect(primaryCta).toHaveAttribute("href", "/contact");

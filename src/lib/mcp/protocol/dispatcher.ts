@@ -25,7 +25,7 @@ export const VIBEGUARD_TOOLS = [
   {
     name: "audit_sql_migrations",
     description:
-      "Analyze Supabase / Postgres SQL migration code for security vulnerabilities (VibeGuard): missing RLS, permissive 'USING(true)' policies, unsecure SECURITY DEFINER functions, and hardcoded secrets. Returns severity score (A-F) and an automated remediation patch SQL.",
+      "Analyze Supabase / Postgres SQL migration code for security vulnerabilities (vibeguard): missing RLS, permissive 'USING(true)' policies, unsecure SECURITY DEFINER functions, and hardcoded secrets. Returns severity score (A-F) and an automated remediation patch SQL.",
     inputSchema: {
       type: "object",
       properties: {
@@ -40,7 +40,7 @@ export const VIBEGUARD_TOOLS = [
   {
     name: "audit_supabase_endpoints",
     description:
-      "Probe live Supabase REST API endpoints using an Anon Key (VibeGuard) to detect tables publicly exposed without RLS, data leaks (e.g. exposed emails/tokens), and permission bypasses.",
+      "Probe live Supabase REST API endpoints using an Anon Key (vibeguard) to detect tables publicly exposed without RLS, data leaks (e.g. exposed emails/tokens), and permission bypasses.",
     inputSchema: {
       type: "object",
       properties: {
@@ -65,7 +65,7 @@ export const VIBEGUARD_TOOLS = [
   {
     name: "generate_secure_rls",
     description:
-      "Generate industry-standard, production-ready Supabase RLS (Row Level Security) policies (VibeGuard) for common application architecture patterns.",
+      "Generate industry-standard, production-ready Supabase RLS (Row Level Security) policies (vibeguard) for common application architecture patterns.",
     inputSchema: {
       type: "object",
       properties: {
