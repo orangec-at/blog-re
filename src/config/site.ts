@@ -3,7 +3,7 @@
 // the domain here is what pointed every canonical, og:image and sitemap entry at a
 // project that had been deleted. The fallback only applies off Vercel.
 const productionDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-const siteUrl = productionDomain ? `https://${productionDomain}` : "https://wakeymoment.vercel.app";
+const siteUrl = productionDomain ? `https://${productionDomain}` : "https://vibeguard.run";
 
 // Two names, and they are not interchangeable. vibeguard is the service this site
 // sells; wakeymoment is the company that runs it. The service leads everywhere a
