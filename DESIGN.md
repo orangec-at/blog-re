@@ -118,7 +118,7 @@ Owner: `src/components/proposal/scope-table.tsx`. Used by: `src/app/page.tsx`.
 
 ### Report components
 
-The sample audit report (now served at `/sample-audit` from `src/app/sample-audit/page.tsx`; the old `content/posts/ai-mvp-technical-debt-audit-sample-report.mdx` redirects there and no longer exists — that page does not yet use the components below)
+The sample audit report (now served at `/sample-audit` from `src/app/sample-audit/page.tsx`; the old `content/posts/ai-mvp-technical-debt-audit-sample-report.mdx` redirects there and no longer exists)
 is the one page on the site that renders a deliverable rather than describing one, so it
 has its own furniture. Owner for all four: `src/components/content/report-blocks.tsx`.
 
@@ -140,6 +140,8 @@ has its own furniture. Owner for all four: `src/components/content/report-blocks
 - Only cells in `verdictColumns` may carry colour, and only from the closed vocabulary declared in the component. Every other cell is `ink`.
 - Severity, readiness status, and launch decision are verdicts and take `p0`/`p1`/`ok`. Evidence state (`Unknown`, `Missing`) is not a finding and takes `deferred`.
 - Rules, never a card shell or a zebra fill. The table scrolls inside its own box so a seven-column risk table cannot push the reading column sideways.
+
+**`ReportLabel`** — the mono caption that heads a run of prose inside a section (Diagnosis, Business impact). Same type as the other captions; it is the owner so pages do not restyle it.
 
 **`ReportList`** — a named list inside a section: checks, tasks, evidence.
 

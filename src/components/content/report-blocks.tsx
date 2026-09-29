@@ -25,6 +25,8 @@ const VERDICT_CLASS: Record<string, string> = {
   Conditional: "text-p1",
   "Conditional for private beta only": "text-p1",
   Go: "text-ok",
+  // a gate checked and found clean
+  PASS: "text-ok",
   // evidence state — not a finding, so it is deferred rather than a severity
   Unknown: "text-deferred",
   Missing: "text-deferred",
@@ -33,7 +35,7 @@ const VERDICT_CLASS: Record<string, string> = {
   Incomplete: "text-p1",
 };
 
-function verdictClass(value: string) {
+export function verdictClass(value: string) {
   return VERDICT_CLASS[value.trim()] ?? "";
 }
 
@@ -179,6 +181,11 @@ export function ReportTable({ caption, headers, rows, verdictColumns = [] }: Rep
       </div>
     </div>
   );
+}
+
+/** The mono caption every report block opens with, for a label that heads prose. */
+export function ReportLabel({ children }: { children: ReactNode }) {
+  return <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">{children}</p>;
 }
 
 type ReportListProps = {
