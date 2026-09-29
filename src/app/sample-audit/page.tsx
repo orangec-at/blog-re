@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { ReportList, ReportMeta, ReportSection, ReportTable } from "@/components/content/report-blocks";
+import {
+  ReportLabel,
+  ReportList,
+  ReportMeta,
+  ReportSection,
+  ReportTable,
+  verdictClass,
+} from "@/components/content/report-blocks";
 import { Container } from "@/components/layout/container";
 import { PrimaryButton } from "@/components/ui/button";
 import { verdict } from "@/data/proposal-content";
@@ -23,6 +30,8 @@ interface Finding {
   summary: string;
   impact: string;
   attackProof?: string;
+  /** What kind of evidence attackProof is — a replay is not an access check. */
+  proofLabel?: string;
   vulnerableCode?: string;
   fixedCode?: string;
   fixTime: string;
@@ -35,13 +44,14 @@ const FINDINGS: Finding[] = [
     status: "P0",
     title: "Cross-Tenant Row Leak via Direct REST API",
     summary:
-      "The Next.js UI filters courses and student records by tenant_id, but the PostgreSQL RLS policy on academy_records only checks auth.uid() IS NOT NULL without validating tenant membership.",
+      "The Next.js UI filters courses and student records by tenant_id, but the PostgreSQL RLS policy on academy_records uses USING (true), so any signed-in user can read every row — tenant membership is never checked.",
     impact: "Any authenticated student from Academy A can read billing, grades, and contact records of Academy B by issuing a direct fetch to the Supabase PostgREST endpoint.",
-    attackProof: `// Attacker Session (User A, Academy #102)
+    proofLabel: "Two-session access check",
+    attackProof: `// Session A (User A, Academy #102)
 const { data } = await supabase
   .from('academy_records')
   .select('*')
-  .eq('tenant_id', 999); // Target: Academy #999
+  .eq('tenant_id', 999); // Academy B (#999)
 
 // Result: 200 OK — 48 private student dossiers returned.`,
     vulnerableCode: `-- VULNERABLE: Only checks if user is logged in
@@ -64,6 +74,7 @@ USING (
     summary:
       "The checkout.session.completed webhook processes student enrollment and subscription credits without recording processed event IDs in an idempotency table.",
     impact: "When Stripe automatically retries webhook delivery upon network jitter, duplicate course credits and duplicate welcome emails are triggered.",
+    proofLabel: "Webhook replay",
     attackProof: `// Simulated Stripe Webhook Retry (Same Event ID: evt_3N9x...)
 POST /api/webhooks/stripe (Delivery #1) -> 200 OK (Credits granted: +100)
 POST /api/webhooks/stripe (Delivery #2) -> 200 OK (Credits granted: +100)
@@ -94,11 +105,15 @@ await grantCredits(session.customer, session.amount_total);`,
     summary:
       "Automated backups are enabled in Supabase settings, but WAL archiving and point-in-time branch restoration have never been tested against a staging database.",
     impact: "In the event of a botched migration or malicious table drop during Beta, estimated Recovery Time Objective (RTO) is undefined and data loss risk is high.",
+    proofLabel: "Observation",
     attackProof: "Observation: Staging environment has no automated restore script. Recovery runbook missing.",
     vulnerableCode: `# Current State: Default cloud dashboard toggle with no verified restore drill`,
-    fixedCode: `# Tested Recovery Procedure:
-supabase db dump --data-only > backup_test.sql
-# Verified restore to isolated branch in 4 mins 12 secs with 0 data loss`,
+    // The drill has not run, so the patch is the runbook, not a result: the RTO
+    // is what step 3 measures.
+    fixedCode: `# Recovery drill, on a staging branch:
+# 1. Restore to a point in time before a test migration
+# 2. Time the restore; compare row counts with the source
+# 3. Record the measured RTO in the runbook`,
     fixTime: "2.5 hours",
   },
   {
@@ -169,12 +184,20 @@ supabase db dump --data-only > backup_test.sql
 const open = FINDINGS.filter((f) => f.status !== "PASS");
 const passed = FINDINGS.filter((f) => f.status === "PASS");
 const p0Count = FINDINGS.filter((f) => f.status === "P0").length;
+const p1Count = FINDINGS.filter((f) => f.status === "P1").length;
+
+// The home page promises these headings (verdict.sections, from the founder
+// summary canon), so the sample fills them in, in that order.
+const founderSummary = [
+  "Run the two-day patch sprint, then open the closed beta as soon as RLS is verified.",
+  `The ${p0Count} P0s in section 05. Nothing else changes the launch decision.`,
+  "The P1s go into the next sprint. A full GraphQL migration, microservice decomposition and secondary audit logging can wait until past $10k MRR — do not spend budget on them today.",
+  "The frontend UX and database schema show disciplined product thinking. The defects are the boundary oversights typical of fast AI-assisted prototyping, not fundamental design flaws.",
+  "Auth and RLS, schema and migrations, payments, and ops and recovery — the areas in section 02. Not a penetration test and not a compliance certification.",
+  "Sections 02 and 03 of this report, for the person who will fix them.",
+];
 
 const codeClass = "overflow-x-auto border px-4 py-3 font-mono text-xs leading-5 text-ink";
-
-function Label({ children }: { children: React.ReactNode }) {
-  return <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">{children}</p>;
-}
 
 export default function SampleAuditPage() {
   return (
@@ -192,7 +215,7 @@ export default function SampleAuditPage() {
 
         <ReportMeta
           product="EduPremium SaaS — multi-tenant B2B academy platform (React, TanStack, Supabase, Stripe)"
-          auditType="Launch Gate Audit — one week, 3–5 hours of review"
+          auditType="Launch Gate Audit — one week"
           auditDate="2026-09"
           preparedBy="vibeguard (Jaeil Lee)"
           status="Sample"
@@ -200,7 +223,7 @@ export default function SampleAuditPage() {
         />
 
         <ReportSection number="01" title="Verdict">
-          <p className="text-xl font-semibold text-p0">No-Go for public launch as-is.</p>
+          <p className={`text-xl font-semibold ${verdictClass("No-Go")}`}>No-Go for public launch as-is.</p>
           <p>
             The core workflow is well-architected, but {p0Count} P0 isolation, billing and recovery defects must be
             fixed before public onboarding. Do not rebuild the codebase: all {p0Count} can be closed in a 48-hour
@@ -211,7 +234,7 @@ export default function SampleAuditPage() {
         <ReportSection number="02" title="Findings">
           <ReportTable
             caption="Every finding, by severity"
-            headers={["ID", "Severity", "Finding", "Area", "Fix"]}
+            headers={["ID", "Status", "Finding", "Area", "Fix"]}
             rows={FINDINGS.map((f) => [f.id, f.status, f.title, f.gate, f.status === "PASS" ? "—" : f.fixTime])}
             verdictColumns={[1]}
           />
@@ -222,22 +245,22 @@ export default function SampleAuditPage() {
             <section key={f.id} aria-labelledby={`finding-${f.id}`} className="border-t border-rule pt-5">
               <h3 id={`finding-${f.id}`} className="text-lg font-semibold leading-snug text-ink">
                 <span className="font-mono text-sm font-normal text-ink-muted">{f.id}</span>{" "}
-                <span className={f.status === "P0" ? "text-p0" : "text-p1"}>{f.status}</span> · {f.title}
+                <span className={verdictClass(f.status)}>{f.status}</span> · {f.title}
               </h3>
 
               <div className="mt-4 flex flex-col gap-4">
                 <div>
-                  <Label>Diagnosis</Label>
+                  <ReportLabel>Diagnosis</ReportLabel>
                   <p className="mt-1">{f.summary}</p>
                 </div>
                 <div>
-                  <Label>Business impact</Label>
+                  <ReportLabel>Business impact</ReportLabel>
                   <p className="mt-1">{f.impact}</p>
                 </div>
 
                 {f.attackProof ? (
                   <div>
-                    <Label>Verification (two-session access check)</Label>
+                    <ReportLabel>Verification — {f.proofLabel}</ReportLabel>
                     <pre className={`mt-2 border-rule ${codeClass}`}>
                       <code>{f.attackProof}</code>
                     </pre>
@@ -246,17 +269,18 @@ export default function SampleAuditPage() {
 
                 {f.vulnerableCode && f.fixedCode ? (
                   <div className="grid min-w-0 gap-4 lg:grid-cols-2">
-                    {/* The two verdict colours this report can honestly claim:
-                        the code as found is the P0, the patch is the pass. */}
+                    {/* Only the code as found carries a verdict: it is the P0.
+                        The patch is unapplied and the finding still open, so it
+                        takes a rule, not ok. */}
                     <div className="min-w-0">
-                      <Label>Before</Label>
+                      <ReportLabel>Before</ReportLabel>
                       <pre className={`mt-2 border-p0 ${codeClass}`}>
                         <code>{f.vulnerableCode}</code>
                       </pre>
                     </div>
                     <div className="min-w-0">
-                      <Label>After</Label>
-                      <pre className={`mt-2 border-ok ${codeClass}`}>
+                      <ReportLabel>After</ReportLabel>
+                      <pre className={`mt-2 border-rule ${codeClass}`}>
                         <code>{f.fixedCode}</code>
                       </pre>
                     </div>
@@ -272,7 +296,10 @@ export default function SampleAuditPage() {
         </ReportSection>
 
         <ReportSection number="05" title="48-hour P0 plan">
-          <p>These three patches move the verdict from No-Go to Go for a closed beta.</p>
+          <p>
+            These {p0Count} patches move the verdict from No-Go to Go for a closed beta. The {p1Count} P1 findings go
+            into the next sprint.
+          </p>
           <ReportList
             ordered
             items={[
@@ -283,27 +310,13 @@ export default function SampleAuditPage() {
           />
         </ReportSection>
 
-        <ReportSection number="06" title="Founder summary">
-          <div>
-            <Label>What your code says</Label>
-            <p className="mt-1">
-              The frontend UX and database schema show disciplined product thinking. The defects are the boundary
-              oversights typical of fast AI-assisted prototyping, not fundamental design flaws.
-            </p>
-          </div>
-          <div>
-            <Label>What can wait</Label>
-            <p className="mt-1">
-              A full GraphQL migration, microservice decomposition and secondary audit logging can wait until past
-              $10k MRR. Do not spend budget on them today.
-            </p>
-          </div>
-          <div>
-            <Label>Recommendation</Label>
-            <p className="mt-1 font-semibold">
-              Run the two-day patch sprint, then open the closed beta as soon as RLS is verified.
-            </p>
-          </div>
+        <ReportSection number="06" title={verdict.title}>
+          {verdict.sections.map((section, i) => (
+            <div key={section.heading}>
+              <ReportLabel>{section.heading}</ReportLabel>
+              <p className={`mt-1 ${i === 0 ? "font-semibold" : ""}`}>{founderSummary[i]}</p>
+            </div>
+          ))}
         </ReportSection>
 
         <footer className="mt-16 border-t border-rule pt-10">
@@ -312,7 +325,7 @@ export default function SampleAuditPage() {
           </h2>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink">
             The Launch Gate Audit is $1,200 fixed and takes a week. I verify every gate myself, and you receive a
-            prioritized risk table and a two-week action plan.
+            prioritized risk table, quick wins for the blockers, and a 7, 14 or 30-day next-sprint plan.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-6">
             <PrimaryButton href="/contact">Start a Launch Gate Audit</PrimaryButton>
