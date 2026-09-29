@@ -10,14 +10,14 @@ describe("Sample Audit Page", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /Pre-Launch Technical Debt Audit — Sample Report/i,
+        name: /Launch Gate Audit — Sample Report/i,
       }),
     ).toBeVisible();
 
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /Overall Verdict: ⚠️ NO-GO for Public Launch As-Is/i,
+        name: /Overall Verdict: NO-GO for Public Launch As-Is/i,
       }),
     ).toBeVisible();
   });
@@ -49,7 +49,7 @@ describe("Sample Audit Page", () => {
     expect(screen.getByText(/48-Hour P0 Remediation Plan/i)).toBeVisible();
     expect(screen.getByText(/Apply Tenant Isolation RLS Policies/i)).toBeVisible();
 
-    const ctaLink = screen.getByRole("link", { name: /Start a Launch Gate Review/i });
+    const ctaLink = screen.getByRole("link", { name: /Start a Launch Gate Audit/i });
     expect(ctaLink).toHaveAttribute("href", "/contact");
   });
 

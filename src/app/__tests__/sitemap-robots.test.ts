@@ -3,12 +3,12 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("@/lib/mdx", () => ({
   getAllPosts: () => [
     {
-      slug: "ai-mvp-technical-debt-audit-sample-report",
+      slug: "launch-gate-audit-sample-report",
       title: "Sample Report",
       date: "2026-05-05",
       updated: "2026-05-20",
       summary: "Synthetic sample report",
-      url: "/posts/ai-mvp-technical-debt-audit-sample-report",
+      url: "/posts/launch-gate-audit-sample-report",
     },
   ],
 }));
@@ -28,7 +28,7 @@ describe("metadata routes", () => {
       expect(urls).toContain(absoluteUrl(path));
     }
 
-    expect(urls).toContain(absoluteUrl("/posts/ai-mvp-technical-debt-audit-sample-report"));
+    expect(urls).toContain(absoluteUrl("/posts/launch-gate-audit-sample-report"));
     expect(urls).not.toContain(absoluteUrl("/posts/ai-mvp-launch-checklist"));
   });
 

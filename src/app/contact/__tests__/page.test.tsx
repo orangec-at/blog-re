@@ -15,10 +15,10 @@ describe("ContactPage", () => {
       }),
     ).toBeVisible();
 
-    expect(screen.getByText(/^when to contact us$/i)).toBeVisible();
+    expect(screen.getByRole("heading", { level: 2, name: /^When to write$/i })).toBeVisible();
     expect(document.querySelector("form")).toBeInTheDocument();
     expect(screen.getByLabelText(/^work email$/i)).toBeVisible();
-    expect(screen.getByRole("button", { name: /^Start with Technical Debt Audit$/i })).toBeVisible();
-    expect(screen.getByText(/^If you're not sure, start with Technical Debt Audit\.$/i)).toBeVisible();
+    expect(screen.getByRole("button", { name: /^Start with the Launch Gate Audit$/i })).toBeVisible();
+    expect(screen.getByText(/^If you're not sure, start with the Launch Gate Audit\.$/i)).toBeVisible();
   });
 });

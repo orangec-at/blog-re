@@ -190,12 +190,12 @@ export default function SampleAuditPage() {
               </span>
             </div>
             <span className="font-mono text-xs text-ink-muted">
-              Scope: Launch Readiness Review
+              Scope: Launch Gate Audit
             </span>
           </div>
 
           <h1 className="font-display text-3xl sm:text-4xl text-ink font-normal tracking-[-0.03em] mb-3">
-            Pre-Launch Technical Debt Audit — Sample Report
+            Launch Gate Audit — Sample Report
           </h1>
           <p className="text-base text-ink-muted max-w-3xl leading-relaxed">
             Prepared for <strong className="text-ink">EduPremium SaaS</strong> (Multi-Tenant B2B Academy Platform · React, TanStack, Supabase, Stripe). 
@@ -217,18 +217,18 @@ export default function SampleAuditPage() {
             </div>
             <div>
               <span className="text-ink-muted block">DELIVERED BY</span>
-              <span className="text-ink font-semibold">FixMyVibe (Jaeil Lee)</span>
+              <span className="text-ink font-semibold">vibeguard (Jaeil Lee)</span>
             </div>
           </div>
         </div>
 
         {/* OVERALL VERDICT SECTION */}
-        <div className="border border-p0/40 bg-p0/[0.03] rounded-[6px] p-6 sm:p-8 mb-12">
+        <div className="border-y border-rule border-l-2 border-l-p0 pl-6 py-6 sm:pl-8 sm:py-8 mb-12">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
             <div className="flex items-center gap-3">
-              <span className="inline-block w-3 h-3 rounded-full bg-p0 animate-pulse" />
+              <span aria-hidden="true" className="inline-block w-3 h-3 rounded-full bg-p0" />
               <h2 className="font-display text-2xl text-ink font-semibold">
-                Overall Verdict: ⚠️ NO-GO for Public Launch As-Is
+                Overall Verdict: NO-GO for Public Launch As-Is
               </h2>
             </div>
             <span className="font-mono text-xs px-3 py-1 bg-p0 text-paper font-semibold rounded-[3px]">
@@ -240,16 +240,16 @@ export default function SampleAuditPage() {
             Do not rebuild the codebase. All three P0s can be resolved in a <strong>48-hour stabilization pass (~6 engineering hours)</strong> without touching existing UI components.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-p0/20 font-mono text-xs">
-            <div className="p-3 bg-paper rounded border border-rule">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-rule font-mono text-xs">
+            <div className="pt-3 border-t border-rule md:border-t-0 md:pt-0">
               <span className="text-p0 font-bold block mb-1">P0 #1: RLS Leaks Cross-Tenant Data</span>
               <span className="text-ink-muted">UI hides buttons, but direct REST queries expose records across academies.</span>
             </div>
-            <div className="p-3 bg-paper rounded border border-rule">
+            <div className="pt-3 border-t border-rule md:border-t-0 md:pt-0">
               <span className="text-p0 font-bold block mb-1">P0 #2: Stripe Webhook Replay Risk</span>
               <span className="text-ink-muted">No idempotency table; network retry grants duplicate course credits.</span>
             </div>
-            <div className="p-3 bg-paper rounded border border-rule">
+            <div className="pt-3 border-t border-rule md:border-t-0 md:pt-0">
               <span className="text-p0 font-bold block mb-1">P0 #3: Untested PITR Disaster Recovery</span>
               <span className="text-ink-muted">No verified restore script if a migration corrupts production data.</span>
             </div>
@@ -335,9 +335,9 @@ export default function SampleAuditPage() {
                     {f.attackProof && (
                       <div>
                         <h4 className="font-mono text-xs font-bold text-ink-muted uppercase mb-1">
-                          Verification Test Proof (Attacker Simulation)
+                          Verification Test Proof (Two-Session Access Check)
                         </h4>
-                        <pre className="p-3 bg-panel-dark text-panel-dark-muted font-mono text-xs rounded overflow-x-auto">
+                        <pre className="p-3 bg-paper border border-rule text-ink font-mono text-xs rounded overflow-x-auto">
                           <code>{f.attackProof}</code>
                         </pre>
                       </div>
@@ -349,7 +349,7 @@ export default function SampleAuditPage() {
                           <h4 className="font-mono text-xs font-bold text-p0 uppercase mb-1">
                             Before (Vulnerable / Defective)
                           </h4>
-                          <pre className="p-3 bg-p0/10 border border-p0/30 text-ink font-mono text-xs rounded overflow-x-auto">
+                          <pre className="p-3 bg-paper border border-p0/40 text-ink font-mono text-xs rounded overflow-x-auto">
                             <code>{f.vulnerableCode}</code>
                           </pre>
                         </div>
@@ -357,7 +357,7 @@ export default function SampleAuditPage() {
                           <h4 className="font-mono text-xs font-bold text-ok uppercase mb-1">
                             After (Secured Patch — Ready to Apply)
                           </h4>
-                          <pre className="p-3 bg-ok/10 border border-ok/30 text-ink font-mono text-xs rounded overflow-x-auto">
+                          <pre className="p-3 bg-paper border border-ok/40 text-ink font-mono text-xs rounded overflow-x-auto">
                             <code>{f.fixedCode}</code>
                           </pre>
                         </div>
@@ -454,7 +454,7 @@ export default function SampleAuditPage() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <PrimaryButton href="/contact">
-              Start a Launch Gate Review
+              Start a Launch Gate Audit
             </PrimaryButton>
             <Link
               href="/"

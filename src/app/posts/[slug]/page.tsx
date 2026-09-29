@@ -95,7 +95,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           >
             <header className="border-b border-rule px-6 py-10 sm:px-12 sm:py-14">
               <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                FixMyVibe · Launch Gate Audit
+                vibeguard · Launch Gate Audit
               </p>
               <h1 className="mt-5 font-display text-3xl font-normal leading-tight tracking-[-0.03em] text-ink sm:text-4xl">
                 {post.title}

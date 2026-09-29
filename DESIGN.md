@@ -1,7 +1,7 @@
 ---
 version: alpha
-name: FixMyVibe Proposal
-description: Design system for the wakeymoment FixMyVibe technical debt audit proposal site.
+name: vibeguard Proposal
+description: Design system for the vibeguard launch gate audit proposal site, run by wakeymoment.
 colors:
   paper: "#fdfcfa"
   ink: "#16130f"
@@ -118,7 +118,7 @@ Owner: `src/components/proposal/scope-table.tsx`. Used by: `src/app/page.tsx`.
 
 ### Report components
 
-The sample audit report (`content/posts/ai-mvp-technical-debt-audit-sample-report.mdx`)
+The sample audit report (now served at `/sample-audit` from `src/app/sample-audit/page.tsx`; the old `content/posts/ai-mvp-technical-debt-audit-sample-report.mdx` redirects there and no longer exists — that page does not yet use the components below)
 is the one page on the site that renders a deliverable rather than describing one, so it
 has its own furniture. Owner for all four: `src/components/content/report-blocks.tsx`.
 

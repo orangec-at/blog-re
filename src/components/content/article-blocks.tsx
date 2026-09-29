@@ -106,9 +106,11 @@ export function LaunchQuestion({ children }: ChildrenProps) {
 
 export function NoGoSignal({ children }: ChildrenProps) {
   return (
-    <aside className="not-prose my-6 rounded-lg bg-panel-dark p-5 text-paper">
+    // panel-dark belongs to the system map alone (DESIGN.md). A No-Go is a P0
+    // verdict, so it takes the p0 rule on paper instead of a dark card.
+    <aside className="not-prose my-6 border-l-2 border-p0 py-1 pl-5">
       <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-p0">No-Go signal</p>
-      <p className="mt-3 text-base leading-7 text-paper/86">{children}</p>
+      <p className="mt-3 text-base leading-7 text-ink">{children}</p>
     </aside>
   );
 }
@@ -147,7 +149,13 @@ export function MiniCaseStudy({ outcome, problem, stats, title }: MiniCaseStudyP
   return (
     <section className="not-prose my-10 border-y border-rule">
       <div className="border-b border-rule py-5">
-        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-ink-muted">Mini case study</p>
+        {/* Every case on the site so far is illustrative — /about says there are no
+            testimonials until the first paid audit. The notice is unconditional and
+            p1, the colour VerdictSheet and ReportMeta use for the same job. Add a
+            prop for it the day a real engagement can be published. */}
+        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-p1">
+          Illustrative case — not a client engagement
+        </p>
         <h3 className="mt-2 text-2xl font-semibold leading-tight tracking-[-0.045em] text-ink sm:text-3xl">
           {title}
         </h3>
@@ -261,26 +269,29 @@ export function GoNoGoTable({ rows }: GoNoGoTableProps) {
 
 export function ArticleCTA({ body, eyebrow = "Next step", primary, secondary, title }: ArticleCTAProps) {
   return (
-    <aside className="not-prose my-10 rounded-lg bg-panel-dark text-paper">
-      <div className="border-b border-panel-dark-muted/25 p-6 sm:p-8">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-panel-dark-muted">
+    // Rules on paper, the same furniture as DiagnosticArtifactCard. It used to be
+    // a dark card, which DESIGN.md rules out by name: panel-dark is "not a CTA
+    // background".
+    <aside className="not-prose my-10 border-y border-rule">
+      <div className="border-b border-rule py-6">
+        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted">
           {eyebrow}
         </p>
-        <h2 className="mt-5 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.045em] text-paper sm:text-4xl">
+        <h2 className="mt-4 max-w-2xl font-display text-3xl font-normal leading-tight tracking-[-0.03em] text-ink sm:text-4xl">
           {title}
         </h2>
-        <p className="mt-4 max-w-2xl text-base leading-7 text-panel-dark-muted">{body}</p>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-ink">{body}</p>
       </div>
-      <div className="flex flex-col gap-3 p-6 sm:flex-row sm:flex-wrap">
+      <div className="flex flex-col gap-3 py-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
         <a
-          className="inline-flex min-h-11 items-center justify-center rounded-[5px] bg-paper px-4 py-2 text-sm font-semibold text-ink transition hover:bg-panel-dark-muted"
+          className="inline-flex min-h-11 items-center justify-center rounded-[5px] border border-ink bg-ink px-4 py-2 text-sm font-semibold text-paper transition hover:border-ink-muted hover:bg-ink-muted"
           href={primary.href}
         >
           {primary.label}
         </a>
         {secondary ? (
           <a
-            className="inline-flex min-h-11 items-center justify-center rounded-[5px] border border-panel-dark-muted/40 px-4 py-2 text-sm font-semibold text-paper transition hover:border-paper"
+            className="inline-flex min-h-11 items-center text-sm font-semibold text-ink underline decoration-rule underline-offset-4 transition hover:decoration-ink"
             href={secondary.href}
           >
             {secondary.label}

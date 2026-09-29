@@ -7,11 +7,11 @@ import { z } from "zod";
  */
 
 export const inquirySchema = z.object({
-  workEmail: z.email("Enter an email address we can reply to.").max(320),
+  workEmail: z.email("Enter an email address I can reply to.").max(320),
   launchBlocker: z
     .string()
     .trim()
-    .min(10, "Tell us a little more — one sentence about what feels risky is enough.")
+    .min(10, "Tell me a little more — one sentence about what feels risky is enough.")
     .max(5000, "Please keep this under 5000 characters."),
   // Honeypot: a real person never sees this field, so anything in it is a bot.
   company: z.string().max(0).optional().or(z.literal("")),
@@ -40,7 +40,7 @@ export type InquiryConfig = {
 export type SendMail = (mail: InquiryMail) => Promise<{ error?: unknown }>;
 
 const FALLBACK_ERROR =
-  "We could not send that just now. Please try again in a minute — nothing was saved on our side.";
+  "I could not send that just now. Please try again in a minute — nothing was saved on my side.";
 
 export function buildInquiryMail(input: InquiryInput, config: InquiryConfig): InquiryMail | null {
   if (!config.to) {

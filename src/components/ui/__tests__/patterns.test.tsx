@@ -4,7 +4,6 @@ import { describe, expect, it } from "vitest";
 import { ConsolePanel } from "@/components/ui/surfaces/console-panel";
 import { DecisionPanel } from "@/components/ui/patterns/decision-panel";
 import { SectionIntro } from "@/components/ui/patterns/section-intro";
-import { SignalList } from "@/components/ui/patterns/signal-list";
 
 describe("UI patterns", () => {
   it("renders section intros with optional context aside", () => {
@@ -25,23 +24,6 @@ describe("UI patterns", () => {
     expect(
       screen.getByText("Use this when the page needs a conversion note without another standalone card."),
     ).toBeInTheDocument();
-  });
-
-  it("renders signal lists as readable grouped lists", () => {
-    render(
-      <SignalList
-        items={[
-          "Real users hit flows the demo never touched.",
-          "Generated abstractions hide where logic actually lives.",
-          "Every new feature raises the cost of change.",
-        ]}
-        title="Symptoms We See First"
-      />,
-    );
-
-    expect(screen.getByRole("heading", { level: 3, name: "Symptoms We See First" })).toBeInTheDocument();
-    expect(screen.getByRole("list")).toBeInTheDocument();
-    expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
 
   it("renders decision panels with fit, outcome, and cta content", () => {

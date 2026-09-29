@@ -11,26 +11,28 @@ const links = [
 
 export function Footer() {
   return (
-    <footer className="bg-ink text-paper">
+    // Paper with a hairline, not a dark band: panel-dark is reserved for the system
+    // map and DESIGN.md names page chrome as something it is not.
+    <footer className="border-t border-rule bg-paper text-ink">
       <Container className="flex flex-col gap-6 py-10">
         <div className="flex flex-wrap gap-4 text-sm">
           {links.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="inline-flex min-h-11 items-center rounded-full border border-rule px-4 text-paper transition hover:bg-paper hover:text-ink"
+              className="inline-flex min-h-11 items-center rounded-full border border-rule px-4 text-ink transition hover:border-ink"
             >
               {item.label}
             </a>
           ))}
         </div>
-        <p className="text-xs text-panel-dark-muted">
+        <p className="text-xs text-ink-muted">
           {/* The copyright is the company's, not the service's. vibeguard is what is
               sold; wakeymoment is who is liable for it. */}
           © {siteConfig.company} {new Date().getFullYear()}. All rights reserved.
         </p>
-        <p className="font-mono text-xs text-panel-dark-muted">
-          vibeguard · launch-readiness review · rev. 2026-09
+        <p className="font-mono text-xs text-ink-muted">
+          vibeguard · launch gate audit · rev. 2026-09
         </p>
       </Container>
     </footer>

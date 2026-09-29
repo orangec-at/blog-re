@@ -40,7 +40,7 @@ export function FormField({ children, className, error, htmlFor, label }: FormFi
       </label>
       {control}
       {error ? (
-        <BodyText className="text-sm text-[#b45309] sm:text-sm" id={errorId} role="alert">
+        <BodyText className="text-sm text-p0 sm:text-sm" id={errorId} role="alert">
           {error}
         </BodyText>
       ) : null}
