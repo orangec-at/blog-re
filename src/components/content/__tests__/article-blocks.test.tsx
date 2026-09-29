@@ -37,7 +37,7 @@ describe("content article blocks", () => {
         title="진단 리포트 구성"
         description="Founder가 받게 되는 산출물을 먼저 보여줍니다."
         items={["Executive summary", "Risk table", "2주 plan"]}
-        cta={{ href: "/posts/ai-mvp-technical-debt-audit-sample-report", label: "샘플 리포트 읽기" }}
+        cta={{ href: "/sample-audit", label: "샘플 리포트 읽기" }}
       />,
     );
 
@@ -46,7 +46,7 @@ describe("content article blocks", () => {
     expect(screen.getByText("Risk table")).toBeVisible();
     expect(screen.getByRole("link", { name: "샘플 리포트 읽기" })).toHaveAttribute(
       "href",
-      "/posts/ai-mvp-technical-debt-audit-sample-report",
+      "/sample-audit",
     );
   });
 });

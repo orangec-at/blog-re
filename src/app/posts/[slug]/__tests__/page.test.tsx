@@ -24,8 +24,8 @@ vi.mock("@/lib/mdx", () => ({
     { slug: "hello-world", title: "Hello World", date: "2026-05-20" },
     { slug: "ai-mvp-launch-checklist", title: "AI MVP launch checklist", date: "2026-05-05" },
     {
-      slug: "ai-mvp-technical-debt-audit-sample-report",
-      title: "AI MVP Technical Debt Audit — Sample Report",
+      slug: "launch-gate-audit-sample-report",
+      title: "Launch Gate Audit — Sample Report",
       date: "2026-05-04",
     },
     { slug: "remodeling-sprint-for-ai-built-apps", title: "What a Remodeling Sprint is", date: "2026-05-03" },
@@ -72,11 +72,11 @@ vi.mock("@/lib/mdx", () => ({
       };
     }
 
-    if (slug === "ai-mvp-technical-debt-audit-sample-report") {
+    if (slug === "launch-gate-audit-sample-report") {
       return {
         slug,
-        title: "What goes into a sample AI MVP technical debt audit report",
-        summary: "FixMyVibe sample audit report walkthrough",
+        title: "What goes into a sample Launch Gate Audit report",
+        summary: "vibeguard sample audit report walkthrough",
         date: "2026-05-05",
         domain: "fixmyvibe",
         layout: "report",
@@ -170,8 +170,8 @@ describe("PostPage", () => {
     render(await PostPage({ params: Promise.resolve({ slug: "ai-mvp-launch-checklist" }) }));
 
     expect(
-      screen.getByRole("link", { name: /AI MVP Technical Debt Audit — Sample Report/ }),
-    ).toHaveAttribute("href", "/posts/ai-mvp-technical-debt-audit-sample-report");
+      screen.getByRole("link", { name: /Launch Gate Audit — Sample Report/ }),
+    ).toHaveAttribute("href", "/posts/launch-gate-audit-sample-report");
   });
 
   it("sets the sample report as a sheet, because it is a deliverable", async () => {
@@ -181,7 +181,7 @@ describe("PostPage", () => {
     // so a seven-column risk table has room.
     render(
       await PostPage({
-        params: Promise.resolve({ slug: "ai-mvp-technical-debt-audit-sample-report" }),
+        params: Promise.resolve({ slug: "launch-gate-audit-sample-report" }),
       }),
     );
 
@@ -189,7 +189,7 @@ describe("PostPage", () => {
     expect(sheet).toBeInTheDocument();
     expect(sheet).toHaveClass("border", "border-rule");
     expect(screen.queryByTestId("post-narrow-layout")).not.toBeInTheDocument();
-    expect(screen.getByText("FixMyVibe · Launch Gate Audit")).toBeVisible();
+    expect(screen.getByText("vibeguard · Launch Gate Audit")).toBeVisible();
     expect(screen.getByText("vibeguard · sample audit report")).toBeVisible();
   });
 

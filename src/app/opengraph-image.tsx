@@ -18,12 +18,14 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#fbfcff",
+          backgroundColor: "#fdfcfa",
           padding: "80px",
         }}
       >
-        <div style={{ display: "flex", fontSize: 34, fontWeight: 600, color: "#061b31" }}>
-          wakey<span style={{ color: "#533afd" }}>moment</span>
+        {/* The service leads where a visitor is deciding (site.ts), and colour is a
+            verdict (DESIGN.md) — so the wordmark is vibeguard, in ink, no accent. */}
+        <div style={{ display: "flex", fontSize: 34, fontWeight: 600, color: "#16130f" }}>
+          vibeguard
         </div>
 
         <div
@@ -33,15 +35,15 @@ export default function OpengraphImage() {
             fontWeight: 600,
             lineHeight: 1.15,
             letterSpacing: "-0.03em",
-            color: "#061b31",
+            color: "#16130f",
             maxWidth: "900px",
           }}
         >
           Your developer says it’s done. You have no way to check.
         </div>
 
-        <div style={{ display: "flex", fontSize: 26, color: "#64748d" }}>
-          Launch Readiness Review · Technical Debt Audit · Founder Tech Partner
+        <div style={{ display: "flex", fontSize: 26, color: "#5c564e" }}>
+          Launch Gate Audit · Remodeling Sprint · Founder Tech Partner
         </div>
       </div>
     ),

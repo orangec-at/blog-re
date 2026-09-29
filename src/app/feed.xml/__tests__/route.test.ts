@@ -3,11 +3,11 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("@/lib/mdx", () => ({
   getAllPosts: () => [
     {
-      slug: "ai-mvp-technical-debt-audit-sample-report",
+      slug: "launch-gate-audit-sample-report",
       title: "Sample Report",
       date: "2026-05-05",
       summary: "Synthetic sample report",
-      url: "/posts/ai-mvp-technical-debt-audit-sample-report",
+      url: "/posts/launch-gate-audit-sample-report",
     },
   ],
 }));
@@ -21,7 +21,7 @@ describe("feed.xml", () => {
 
     expect(response.headers.get("content-type")).toContain("application/rss+xml");
     expect(text).toContain('<rss version="2.0">');
-    expect(text).toContain("ai-mvp-technical-debt-audit-sample-report");
+    expect(text).toContain("launch-gate-audit-sample-report");
     expect(text).not.toContain("ai-mvp-launch-checklist");
   });
 });

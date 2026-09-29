@@ -53,7 +53,7 @@ vi.mock("next-contentlayer/hooks", () => ({
             />
           ) : null}
           {ExpertInsight ? (
-            <ExpertInsight source="FixMyVibe field note">
+            <ExpertInsight source="vibeguard field note">
               출시 전 진단은 기능 수보다 failure boundary를 먼저 본다.
             </ExpertInsight>
           ) : null}
@@ -88,7 +88,7 @@ vi.mock("next-contentlayer/hooks", () => ({
               title="기술 부채 진단으로 작게 시작하세요"
               body="샘플 리포트와 문의 CTA를 한 블록으로 묶어 글의 끝을 명확하게 만든다."
               primary={{ href: "/contact", label: "기술 부채 진단 문의하기" }}
-              secondary={{ href: "/posts/ai-mvp-technical-debt-audit-sample-report", label: "샘플 진단 리포트 보기" }}
+              secondary={{ href: "/sample-audit", label: "샘플 진단 리포트 보기" }}
             />
           ) : null}
           {DiagnosticArtifactCard ? (
@@ -96,7 +96,7 @@ vi.mock("next-contentlayer/hooks", () => ({
               title="진단 산출물 미리보기"
               description="리포트가 어떤 산출물로 구성되는지 보여준다."
               items={["Executive summary", "Risk table", "2주 plan"]}
-              cta={{ href: "/posts/ai-mvp-technical-debt-audit-sample-report", label: "샘플 산출물 보기" }}
+              cta={{ href: "/sample-audit", label: "샘플 산출물 보기" }}
             />
           ) : null}
         </>
@@ -132,7 +132,7 @@ describe("ServerPostContent", () => {
     expect(screen.getByText((content) => content.replace(/\s+/g, " ").trim() === "Check 01")).toBeVisible();
     expect(screen.getByRole("heading", { name: "Auth / session 경계가 명확한가" })).toBeVisible();
     expect(screen.getByText("Can user A read user B data?")).toBeVisible();
-    expect(screen.getByText("FixMyVibe field note")).toBeVisible();
+    expect(screen.getByText("vibeguard field note")).toBeVisible();
     expect(screen.getByText("Private beta 전에 발견한 권한 누수")).toBeVisible();
     expect(screen.getByText("48h stabilization")).toBeVisible();
     expect(screen.getByText("2주 stabilization timeline")).toBeVisible();
@@ -141,12 +141,12 @@ describe("ServerPostContent", () => {
     expect(screen.getByRole("link", { name: "기술 부채 진단 문의하기" })).toHaveAttribute("href", "/contact");
     expect(screen.getByRole("link", { name: "샘플 진단 리포트 보기" })).toHaveAttribute(
       "href",
-      "/posts/ai-mvp-technical-debt-audit-sample-report",
+      "/sample-audit",
     );
     expect(screen.getByRole("heading", { name: "진단 산출물 미리보기" })).toBeVisible();
     expect(screen.getByRole("link", { name: "샘플 산출물 보기" })).toHaveAttribute(
       "href",
-      "/posts/ai-mvp-technical-debt-audit-sample-report",
+      "/sample-audit",
     );
   });
 });

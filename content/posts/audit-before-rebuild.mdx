@@ -15,7 +15,7 @@ keywords:
   - "Lovable"
   - "Cursor"
   - "Claude Code"
-  - "FixMyVibe"
+  - "vibeguard"
 tags:
   - "founder decision"
   - "technical debt"
@@ -58,13 +58,13 @@ The goal of an MVP is not to win an architectural beauty contest. Its goal is to
 
 Messy component styling won't kill your startup. An unconfigured Row-Level Security (RLS) policy that leaks customer invoices to competitors will.
 
-<ExpertInsight source="FixMyVibe Diagnostic Principles">
+<ExpertInsight source="vibeguard diagnostic principles">
 Rewriting an entire application because of a few structural oversights is like demolishing a house because the front door lock is missing. You just need to install the lock.
 </ExpertInsight>
 
 ## 2. The three boundaries where AI code actually breaks
 
-When we audit AI-coded and outsourced web applications, the issues are rarely in the core business logic. AI models write perfectly adequate React components and SQL queries. 
+When I audit AI-coded and outsourced web applications, the issues are rarely in the core business logic. AI models write perfectly adequate React components and SQL queries. 
 
 Where they fail consistently is at the **platform boundaries**—the invisible plumbing between services:
 
@@ -81,7 +81,7 @@ AI tools will happily alter database tables, but rarely generate backward-compat
   title="B2B Academy SaaS: $15k Rewrite vs. 6-Hour Patch"
   problem="A founder was told by an agency that their Lovable-built multi-tenant LMS had to be rewritten from scratch due to 'critical security flaws'."
   stats={["$15,000 agency quote rejected", "1-week Launch Gate Audit completed", "6 hours of targeted SQL/Webhook fixes"]}
-  outcome="The audit revealed that 95% of the codebase was sound. We identified two missing RLS policies and one Stripe webhook retry bug. The founder patched them in two days and launched on schedule."
+  outcome="The audit revealed that 95% of the codebase was sound. It identified two missing RLS policies and one Stripe webhook retry bug. The founder patched them in two days and launched on schedule."
 />
 
 ## 3. The 4-Way Decision Matrix
@@ -122,7 +122,7 @@ If they cannot answer with line numbers and test cases, they are selling you bil
 <ArticleCTA
   eyebrow="Launch Gate Audit"
   title="Verify before you commit to a rewrite."
-  body="We perform an independent 12-gate technical review of your AI-built app in 1 week. You get a prioritized P0–P3 risk table, exact code patches, and a definitive Go / No-Go verdict for $1,200 fixed."
+  body="I review your AI-built app gate by gate in 1 week. You get a prioritized P0–P3 risk table, exact code patches, and a definitive Go / No-Go verdict for $1,200 fixed."
   primary={{ label: "View Sample Audit Report", href: "/sample-audit" }}
   secondary={{ label: "Start a Review", href: "/contact" }}
 />

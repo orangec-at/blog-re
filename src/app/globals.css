@@ -209,9 +209,8 @@ button {
 /* Scoped out of .not-prose subtrees. This rule is a descendant selector with
    no guard, and at 0,1,0 it ties with a Tailwind colour utility and wins on
    source order — so every anchor inside an MDX block got repainted ink and
-   underlined. On ArticleCTA's dark panel that is ink on panel-dark, the same
-   value twice, and the secondary action's label vanished into its background.
-   DESIGN.md: text on the panel is paper, panel-dark-muted, or p0 — never ink. */
+   underlined, overriding the colour and decoration each MDX block sets for
+   itself. */
 .vibeguard-article-prose :where(a:not(.not-prose *)) {
   color: var(--color-ink);
   font-weight: 650;
