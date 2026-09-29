@@ -25,6 +25,8 @@ const VERDICT_CLASS: Record<string, string> = {
   Conditional: "text-p1",
   "Conditional for private beta only": "text-p1",
   Go: "text-ok",
+  // a gate checked and found clean
+  PASS: "text-ok",
   // evidence state — not a finding, so it is deferred rather than a severity
   Unknown: "text-deferred",
   Missing: "text-deferred",

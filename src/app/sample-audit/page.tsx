@@ -1,16 +1,23 @@
-"use client";
-
-import React, { useState } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+import { ReportList, ReportMeta, ReportSection, ReportTable } from "@/components/content/report-blocks";
 import { Container } from "@/components/layout/container";
 import { PrimaryButton } from "@/components/ui/button";
+import { verdict } from "@/data/proposal-content";
+
+export const metadata: Metadata = {
+  title: "Sample report",
+  description:
+    "A sample Launch Gate Audit, written against a fictional product: the verdict, every finding with its severity, the evidence behind each P0, and the 48-hour plan.",
+  alternates: { canonical: "/sample-audit" },
+};
 
 type GateStatus = "P0" | "P1" | "PASS";
 
 interface Finding {
   id: string;
   gate: string;
-  domain: string;
   status: GateStatus;
   title: string;
   summary: string;
@@ -25,7 +32,6 @@ const FINDINGS: Finding[] = [
   {
     id: "RLS-01",
     gate: "Data Isolation",
-    domain: "Auth & RLS",
     status: "P0",
     title: "Cross-Tenant Row Leak via Direct REST API",
     summary:
@@ -53,7 +59,6 @@ USING (
   {
     id: "PAY-01",
     gate: "Stripe & Billing",
-    domain: "Payments",
     status: "P0",
     title: "Webhook Handler Lacks Idempotency Guard",
     summary:
@@ -84,7 +89,6 @@ await grantCredits(session.customer, session.amount_total);`,
   {
     id: "OPS-01",
     gate: "Disaster Recovery",
-    domain: "Ops & Recovery",
     status: "P0",
     title: "Point-in-Time Recovery (PITR) Never Drill-Tested",
     summary:
@@ -100,7 +104,6 @@ supabase db dump --data-only > backup_test.sql
   {
     id: "SEC-02",
     gate: "Privilege Escalation",
-    domain: "Auth & RLS",
     status: "P1",
     title: "SECURITY DEFINER Function Lacks search_path Hardening",
     summary:
@@ -111,7 +114,6 @@ supabase db dump --data-only > backup_test.sql
   {
     id: "MIG-01",
     gate: "Migrations",
-    domain: "Schema & Migrations",
     status: "P1",
     title: "Destructive Schema Migration Without Tested Rollback Script",
     summary:
@@ -122,7 +124,6 @@ supabase db dump --data-only > backup_test.sql
   {
     id: "MON-01",
     gate: "Monitoring",
-    domain: "Ops & Recovery",
     status: "P1",
     title: "Edge Functions Lack Runtime Exception Capture",
     summary:
@@ -133,7 +134,6 @@ supabase db dump --data-only > backup_test.sql
   {
     id: "AUTH-01",
     gate: "Password & Tokens",
-    domain: "Auth & RLS",
     status: "PASS",
     title: "JWT Token Refresh & Password Hashing",
     summary: "Bcrypt hash rounds and Supabase JWT refresh rotation interval are correctly configured.",
@@ -143,7 +143,6 @@ supabase db dump --data-only > backup_test.sql
   {
     id: "DB-01",
     gate: "Foreign Keys",
-    domain: "Schema & Migrations",
     status: "PASS",
     title: "Foreign Key Cascades & Strict Typing",
     summary: "All relational constraints, UUID validation, and deletion cascades are strictly modeled.",
@@ -153,7 +152,6 @@ supabase db dump --data-only > backup_test.sql
   {
     id: "PAY-02",
     gate: "Price Validation",
-    domain: "Payments",
     status: "PASS",
     title: "Server-Side Price ID Enforcement",
     summary: "Stripe Price IDs are mapped on the server; client cannot submit arbitrary billing amounts.",
@@ -162,309 +160,168 @@ supabase db dump --data-only > backup_test.sql
   },
 ];
 
-const DOMAINS = ["All", "Auth & RLS", "Schema & Migrations", "Payments", "Ops & Recovery"];
+// Typeset as the deliverable it shows, on the Report components DESIGN.md owns
+// for this page. It used to be a filterable accordion in card shells, with rule
+// fills and a shadow: a dashboard, where the site's one claim is that the audit
+// is a document a founder reads start to finish. Nothing is hidden behind a
+// click now, and nothing on the page needs the client.
+// FINDINGS is already in severity order, P0 first; every list below keeps it.
+const open = FINDINGS.filter((f) => f.status !== "PASS");
+const passed = FINDINGS.filter((f) => f.status === "PASS");
+const p0Count = FINDINGS.filter((f) => f.status === "P0").length;
+
+const codeClass = "overflow-x-auto border px-4 py-3 font-mono text-xs leading-5 text-ink";
+
+function Label({ children }: { children: React.ReactNode }) {
+  return <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">{children}</p>;
+}
 
 export default function SampleAuditPage() {
-  const [selectedDomain, setSelectedDomain] = useState("All");
-  const [expandedId, setExpandedId] = useState<string | null>("RLS-01");
-
-  const filteredFindings =
-    selectedDomain === "All"
-      ? FINDINGS
-      : FINDINGS.filter((f) => f.domain === selectedDomain);
-
-  const p0Count = FINDINGS.filter((f) => f.status === "P0").length;
-
   return (
-    <div className="py-10 sm:py-16 bg-paper text-ink">
-      <Container variant="wide">
-        {/* Document Stamp Header */}
-        <div className="border-b border-rule pb-8 mb-10">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs uppercase tracking-wider px-2.5 py-1 rounded-[3px] bg-ink text-paper font-semibold">
-                AUDIT ARTIFACT
-              </span>
-              <span className="font-mono text-xs text-ink-muted">
-                DOC-ID: VG-2026-SA09-SYNTHETIC
-              </span>
-            </div>
-            <span className="font-mono text-xs text-ink-muted">
-              Scope: Launch Gate Audit
-            </span>
-          </div>
-
-          <h1 className="font-display text-3xl sm:text-4xl text-ink font-normal tracking-[-0.03em] mb-3">
+    <Container variant="wide" className="py-12 sm:py-16">
+      <article className="mx-auto w-full max-w-[56rem]">
+        <header>
+          <p className="font-mono text-xs text-ink-muted">DOC-ID: VG-2026-SA09-SYNTHETIC</p>
+          <h1 className="mt-4 font-display text-3xl font-normal leading-tight tracking-[-0.03em] text-ink sm:text-4xl">
             Launch Gate Audit — Sample Report
           </h1>
-          <p className="text-base text-ink-muted max-w-3xl leading-relaxed">
-            Prepared for <strong className="text-ink">EduPremium SaaS</strong> (Multi-Tenant B2B Academy Platform · React, TanStack, Supabase, Stripe). 
-            This artifact demonstrates the exact diagnostic deliverable a founder receives before risking live users or ad spend.
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink">
+            The deliverable a founder receives before risking live users or ad spend, shown in full.
           </p>
+        </header>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-rule font-mono text-xs">
-            <div>
-              <span className="text-ink-muted block">AUDIT WINDOW</span>
-              <span className="text-ink font-semibold">1 Week (3–5h review)</span>
-            </div>
-            <div>
-              <span className="text-ink-muted block">CRITICAL RISKS (P0)</span>
-              <span className="text-p0 font-semibold">{p0Count} Blockers</span>
-            </div>
-            <div>
-              <span className="text-ink-muted block">FIX TIME TO LAUNCH</span>
-              <span className="text-ink font-semibold">~6.0 Hours (2 Days)</span>
-            </div>
-            <div>
-              <span className="text-ink-muted block">DELIVERED BY</span>
-              <span className="text-ink font-semibold">vibeguard (Jaeil Lee)</span>
-            </div>
-          </div>
-        </div>
+        <ReportMeta
+          product="EduPremium SaaS — multi-tenant B2B academy platform (React, TanStack, Supabase, Stripe)"
+          auditType="Launch Gate Audit — one week, 3–5 hours of review"
+          auditDate="2026-09"
+          preparedBy="vibeguard (Jaeil Lee)"
+          status="Sample"
+          notice={verdict.sampleNotice}
+        />
 
-        {/* OVERALL VERDICT SECTION */}
-        <div className="border-y border-rule border-l-2 border-l-p0 pl-6 py-6 sm:pl-8 sm:py-8 mb-12">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-            <div className="flex items-center gap-3">
-              <span aria-hidden="true" className="inline-block w-3 h-3 rounded-full bg-p0" />
-              <h2 className="font-display text-2xl text-ink font-semibold">
-                Overall Verdict: NO-GO for Public Launch As-Is
-              </h2>
-            </div>
-            <span className="font-mono text-xs px-3 py-1 bg-p0 text-paper font-semibold rounded-[3px]">
-              ACTION REQUIRED
-            </span>
-          </div>
-          <p className="text-base leading-relaxed text-ink mb-6">
-            <strong>The core workflow is well-architected, but three P0 isolation and billing vulnerabilities must be patched prior to public onboarding.</strong>{" "}
-            Do not rebuild the codebase. All three P0s can be resolved in a <strong>48-hour stabilization pass (~6 engineering hours)</strong> without touching existing UI components.
+        <ReportSection number="01" title="Verdict">
+          <p className="text-xl font-semibold text-p0">No-Go for public launch as-is.</p>
+          <p>
+            The core workflow is well-architected, but {p0Count} P0 isolation, billing and recovery defects must be
+            fixed before public onboarding. Do not rebuild the codebase: all {p0Count} can be closed in a 48-hour
+            stabilization pass, about six engineering hours, without touching the existing UI.
           </p>
+        </ReportSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-rule font-mono text-xs">
-            <div className="pt-3 border-t border-rule md:border-t-0 md:pt-0">
-              <span className="text-p0 font-bold block mb-1">P0 #1: RLS Leaks Cross-Tenant Data</span>
-              <span className="text-ink-muted">UI hides buttons, but direct REST queries expose records across academies.</span>
-            </div>
-            <div className="pt-3 border-t border-rule md:border-t-0 md:pt-0">
-              <span className="text-p0 font-bold block mb-1">P0 #2: Stripe Webhook Replay Risk</span>
-              <span className="text-ink-muted">No idempotency table; network retry grants duplicate course credits.</span>
-            </div>
-            <div className="pt-3 border-t border-rule md:border-t-0 md:pt-0">
-              <span className="text-p0 font-bold block mb-1">P0 #3: Untested PITR Disaster Recovery</span>
-              <span className="text-ink-muted">No verified restore script if a migration corrupts production data.</span>
-            </div>
-          </div>
-        </div>
+        <ReportSection number="02" title="Findings">
+          <ReportTable
+            caption="Every finding, by severity"
+            headers={["ID", "Severity", "Finding", "Area", "Fix"]}
+            rows={FINDINGS.map((f) => [f.id, f.status, f.title, f.gate, f.status === "PASS" ? "—" : f.fixTime])}
+            verdictColumns={[1]}
+          />
+        </ReportSection>
 
-        {/* DOMAIN FILTER TABS */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-          <h2 className="font-display text-2xl text-ink font-normal">
-            Diagnostic Matrix
-          </h2>
+        <ReportSection number="03" title="What each finding means">
+          {open.map((f) => (
+            <section key={f.id} aria-labelledby={`finding-${f.id}`} className="border-t border-rule pt-5">
+              <h3 id={`finding-${f.id}`} className="text-lg font-semibold leading-snug text-ink">
+                <span className="font-mono text-sm font-normal text-ink-muted">{f.id}</span>{" "}
+                <span className={f.status === "P0" ? "text-p0" : "text-p1"}>{f.status}</span> · {f.title}
+              </h3>
 
-          <div className="flex flex-wrap gap-1 p-1 bg-rule/40 rounded-[5px] text-xs font-mono">
-            {DOMAINS.map((domain) => (
-              <button
-                key={domain}
-                onClick={() => setSelectedDomain(domain)}
-                className={`px-3 py-1.5 rounded-[4px] transition-colors ${
-                  selectedDomain === domain
-                    ? "bg-ink text-paper font-semibold shadow-sm"
-                    : "text-ink-muted hover:text-ink"
-                }`}
-              >
-                {domain}
-              </button>
-            ))}
-          </div>
-        </div>
+              <div className="mt-4 flex flex-col gap-4">
+                <div>
+                  <Label>Diagnosis</Label>
+                  <p className="mt-1">{f.summary}</p>
+                </div>
+                <div>
+                  <Label>Business impact</Label>
+                  <p className="mt-1">{f.impact}</p>
+                </div>
 
-        {/* FINDINGS ACCORDION / LIST */}
-        <div className="border border-rule rounded-[6px] divide-y divide-rule mb-12 bg-paper">
-          {filteredFindings.map((f) => {
-            const isExpanded = expandedId === f.id;
-            return (
-              <div key={f.id} className="transition-colors">
-                <button
-                  onClick={() => setExpandedId(isExpanded ? null : f.id)}
-                  className="w-full text-left p-4 sm:p-5 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 hover:bg-rule/20"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span
-                      className={`font-mono text-xs px-2 py-0.5 rounded font-bold ${
-                        f.status === "P0"
-                          ? "bg-p0 text-paper"
-                          : f.status === "P1"
-                          ? "bg-p1 text-paper"
-                          : "bg-ok text-paper"
-                      }`}
-                    >
-                      {f.status}
-                    </span>
-                    <span className="font-mono text-xs text-ink-muted hidden md:inline">
-                      [{f.id}]
-                    </span>
-                    <span className="font-medium text-ink truncate text-sm sm:text-base">
-                      {f.title}
-                    </span>
+                {f.attackProof ? (
+                  <div>
+                    <Label>Verification (two-session access check)</Label>
+                    <pre className={`mt-2 border-rule ${codeClass}`}>
+                      <code>{f.attackProof}</code>
+                    </pre>
                   </div>
+                ) : null}
 
-                  <div className="flex items-center gap-4 text-xs font-mono text-ink-muted shrink-0">
-                    <span className="hidden sm:inline">{f.gate}</span>
-                    <span>Fix: {f.fixTime}</span>
-                    <span className="text-ink font-bold">{isExpanded ? "▲" : "▼"}</span>
-                  </div>
-                </button>
-
-                {isExpanded && (
-                  <div className="p-5 sm:p-6 bg-rule/10 border-t border-rule text-sm space-y-4">
-                    <div>
-                      <h4 className="font-mono text-xs font-bold text-ink-muted uppercase mb-1">
-                        Diagnosis & Failure Mode
-                      </h4>
-                      <p className="text-ink leading-relaxed">{f.summary}</p>
+                {f.vulnerableCode && f.fixedCode ? (
+                  <div className="grid min-w-0 gap-4 lg:grid-cols-2">
+                    {/* The two verdict colours this report can honestly claim:
+                        the code as found is the P0, the patch is the pass. */}
+                    <div className="min-w-0">
+                      <Label>Before</Label>
+                      <pre className={`mt-2 border-p0 ${codeClass}`}>
+                        <code>{f.vulnerableCode}</code>
+                      </pre>
                     </div>
-
-                    <div>
-                      <h4 className="font-mono text-xs font-bold text-p0 uppercase mb-1">
-                        Business Impact
-                      </h4>
-                      <p className="text-ink leading-relaxed">{f.impact}</p>
+                    <div className="min-w-0">
+                      <Label>After</Label>
+                      <pre className={`mt-2 border-ok ${codeClass}`}>
+                        <code>{f.fixedCode}</code>
+                      </pre>
                     </div>
-
-                    {f.attackProof && (
-                      <div>
-                        <h4 className="font-mono text-xs font-bold text-ink-muted uppercase mb-1">
-                          Verification Test Proof (Two-Session Access Check)
-                        </h4>
-                        <pre className="p-3 bg-paper border border-rule text-ink font-mono text-xs rounded overflow-x-auto">
-                          <code>{f.attackProof}</code>
-                        </pre>
-                      </div>
-                    )}
-
-                    {f.vulnerableCode && f.fixedCode && (
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
-                        <div>
-                          <h4 className="font-mono text-xs font-bold text-p0 uppercase mb-1">
-                            Before (Vulnerable / Defective)
-                          </h4>
-                          <pre className="p-3 bg-paper border border-p0/40 text-ink font-mono text-xs rounded overflow-x-auto">
-                            <code>{f.vulnerableCode}</code>
-                          </pre>
-                        </div>
-                        <div>
-                          <h4 className="font-mono text-xs font-bold text-ok uppercase mb-1">
-                            After (Secured Patch — Ready to Apply)
-                          </h4>
-                          <pre className="p-3 bg-paper border border-ok/40 text-ink font-mono text-xs rounded overflow-x-auto">
-                            <code>{f.fixedCode}</code>
-                          </pre>
-                        </div>
-                      </div>
-                    )}
                   </div>
-                )}
+                ) : null}
               </div>
-            );
-          })}
-        </div>
+            </section>
+          ))}
+        </ReportSection>
 
-        {/* 48-HOUR RECOVERY PATH & WHAT CAN WAIT */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {/* Box 1: 48-Hour Fix Plan */}
-          <div className="border border-rule rounded-[6px] p-6 bg-paper">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="font-mono text-xs text-ok font-bold uppercase tracking-wider">
-                PHASE 1 REMEDY
-              </span>
-            </div>
-            <h3 className="font-display text-xl text-ink font-normal mb-3">
-              48-Hour P0 Remediation Plan
-            </h3>
-            <p className="text-xs text-ink-muted mb-4 leading-relaxed">
-              Applying these 3 targeted patches flips the verdict from <strong>NO-GO</strong> to <strong>GO</strong> for Closed Beta.
+        <ReportSection number="04" title="What passed">
+          <ReportList items={passed.map((f) => `${f.id} · ${f.title} — ${f.summary}`)} />
+        </ReportSection>
+
+        <ReportSection number="05" title="48-hour P0 plan">
+          <p>These three patches move the verdict from No-Go to Go for a closed beta.</p>
+          <ReportList
+            ordered
+            items={[
+              "Apply tenant isolation RLS policies — replace open policies with an app_metadata tenant check (1.5h).",
+              "Create a processed_events webhook table — make Stripe fulfilment idempotent against retries (2.0h).",
+              "Run a staging PITR recovery drill — verify the branch-restore runbook and record the RTO (2.5h).",
+            ]}
+          />
+        </ReportSection>
+
+        <ReportSection number="06" title="Founder summary">
+          <div>
+            <Label>What your code says</Label>
+            <p className="mt-1">
+              The frontend UX and database schema show disciplined product thinking. The defects are the boundary
+              oversights typical of fast AI-assisted prototyping, not fundamental design flaws.
             </p>
-
-            <ol className="space-y-3 font-mono text-xs text-ink">
-              <li className="p-3 border border-rule rounded flex items-start gap-3">
-                <span className="text-p0 font-bold">1</span>
-                <div>
-                  <strong className="text-ink block">Apply Tenant Isolation RLS Policies</strong>
-                  <span className="text-ink-muted">Replace open policies with app_metadata tenant check (1.5h).</span>
-                </div>
-              </li>
-              <li className="p-3 border border-rule rounded flex items-start gap-3">
-                <span className="text-p0 font-bold">2</span>
-                <div>
-                  <strong className="text-ink block">Create processed_events Webhook Table</strong>
-                  <span className="text-ink-muted">Make Stripe fulfillment idempotent against retries (2.0h).</span>
-                </div>
-              </li>
-              <li className="p-3 border border-rule rounded flex items-start gap-3">
-                <span className="text-p0 font-bold">3</span>
-                <div>
-                  <strong className="text-ink block">Execute Staging PITR Recovery Drill</strong>
-                  <span className="text-ink-muted">Verify branch restore runbook and record 4-min RTO benchmark (2.5h).</span>
-                </div>
-              </li>
-            </ol>
           </div>
-
-          {/* Box 2: Founder Decision Summary */}
-          <div className="border border-rule rounded-[6px] p-6 bg-paper">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="font-mono text-xs text-ink-muted font-bold uppercase tracking-wider">
-                FOUNDER SUMMARY
-              </span>
-            </div>
-            <h3 className="font-display text-xl text-ink font-normal mb-3">
-              About Your Current Codebase
-            </h3>
-            <div className="space-y-4 text-xs text-ink leading-relaxed">
-              <div>
-                <strong className="text-ink block mb-0.5">What your code says:</strong>
-                <p className="text-ink-muted">
-                  The frontend UX and database schema show disciplined product thinking. The defects found are standard boundary oversights typical of fast AI-assisted prototyping, not fundamental design flaws.
-                </p>
-              </div>
-              <div>
-                <strong className="text-ink block mb-0.5">What can wait (Deferred):</strong>
-                <p className="text-ink-muted">
-                  Full GraphQL migration, microservice decomposition, and secondary audit logging can wait until &gt;$10k MRR. Do not spend budget on them today.
-                </p>
-              </div>
-              <div className="pt-2 border-t border-rule">
-                <strong className="text-ink block mb-0.5">The Recommendation:</strong>
-                <p className="text-ink">
-                  Proceed with the 2-day patch sprint. Launch Closed Beta immediately upon RLS verification.
-                </p>
-              </div>
-            </div>
+          <div>
+            <Label>What can wait</Label>
+            <p className="mt-1">
+              A full GraphQL migration, microservice decomposition and secondary audit logging can wait until past
+              $10k MRR. Do not spend budget on them today.
+            </p>
           </div>
-        </div>
+          <div>
+            <Label>Recommendation</Label>
+            <p className="mt-1 font-semibold">
+              Run the two-day patch sprint, then open the closed beta as soon as RLS is verified.
+            </p>
+          </div>
+        </ReportSection>
 
-        {/* CTA FOOTER */}
-        <div className="border-t border-rule pt-10 text-center flex flex-col items-center">
-          <h3 className="font-display text-2xl sm:text-3xl text-ink font-normal mb-3">
-            Want this exact review before your launch?
-          </h3>
-          <p className="text-base text-ink-muted max-w-xl mb-6">
-            Launch Gate Audit is <strong className="text-ink">$1,200 fixed (1 week)</strong>. I verify every gate myself and you receive a prioritized risk table and a two-week action plan.
+        <footer className="mt-16 border-t border-rule pt-10">
+          <h2 className="font-display text-2xl font-normal leading-tight tracking-[-0.03em] text-ink sm:text-3xl">
+            Want this review before your launch?
+          </h2>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink">
+            The Launch Gate Audit is $1,200 fixed and takes a week. I verify every gate myself, and you receive a
+            prioritized risk table and a two-week action plan.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <PrimaryButton href="/contact">
-              Start a Launch Gate Audit
-            </PrimaryButton>
-            <Link
-              href="/"
-              className="text-sm font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink px-4 py-3"
-            >
-              Back to Overview
+          <div className="mt-6 flex flex-wrap items-center gap-6">
+            <PrimaryButton href="/contact">Start a Launch Gate Audit</PrimaryButton>
+            <Link className="text-sm text-ink underline decoration-rule underline-offset-4 hover:decoration-ink" href="/">
+              Back to overview
             </Link>
           </div>
-        </div>
-      </Container>
-    </div>
+        </footer>
+      </article>
+    </Container>
   );
 }
