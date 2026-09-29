@@ -10,19 +10,19 @@
 # [설명]
 # 사용자의 로컬 환경(Claude Code, Cursor, Codex, Pi 에이전트 등)을 자동 감지하여:
 # 1. vibeguard Agent Skill (/vibeguard)을 로컬 스킬 디렉토리에 설치합니다.
-# 2. 원격 MCP Server (https://wakeymoment.vercel.app/api/mcp) 설정을 구성합니다.
+# 2. 원격 MCP Server (https://vibeguard.run/api/mcp) 설정을 구성합니다.
 #
 # [사용법]
-# curl -fsSL https://wakeymoment.vercel.app/install.sh | TOKEN=<발급받은 토큰> bash
+# curl -fsSL https://vibeguard.run/install.sh | TOKEN=<발급받은 토큰> bash
 # ==============================================================================
 
 set -euo pipefail
 
 VIBEGUARD_HOME="${HOME}/.vibeguard"
-MCP_ENDPOINT="${MCP_ENDPOINT:-https://wakeymoment.vercel.app/api/mcp}"
+MCP_ENDPOINT="${MCP_ENDPOINT:-https://vibeguard.run/api/mcp}"
 TOKEN="${TOKEN:-}"
 if [ -z "${TOKEN}" ]; then
-  echo "TOKEN이 필요하다. 발급 문의: https://wakeymoment.vercel.app/contact" >&2
+  echo "TOKEN이 필요하다. 발급 문의: https://vibeguard.run/contact" >&2
   exit 1
 fi
 
